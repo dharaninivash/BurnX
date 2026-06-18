@@ -1,0 +1,475 @@
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Alert, Dimensions, SafeAreaView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useStore } from '../../store/useStore';
+import { useTheme } from '../../theme/theme';
+
+const { width } = Dimensions.get('window');
+
+export default function Home({ navigation }) {
+  const { colors, typography, ui } = useTheme();
+  const styles = typeof getStyles !== 'undefined' ? getStyles(colors, typography, ui) : {};
+  const user = useStore((state) => state.user) || { name: 'Athlete', gender: 'Male', streak: 5 };
+  const calorieTarget = useStore((state) => state.calorieTarget) || 2000;
+  const macroTarget = useStore((state) => state.macroTarget) || { protein: 120, carbs: 200, fats: 60 };
+  
+  const caloriesConsumed = useStore((state) => state.caloriesConsumed) || 0;
+  const loggedFoods = useStore((state) => state.loggedFoods) || [];
+  
+  const waterIntake = useStore((state) => state.waterIntake) || 0;
+  const waterIntakeGoal = useStore((state) => state.waterIntakeGoal) || 3000;
+  const addWater = useStore((state) => state.addWater);
+  const resetWater = useStore((state) => state.resetWater);
+
+  const activeStreak = useStore((state) => state.activeStreak) || 1;
+  const readinessScore = useStore((state) => state.readinessScore) || 75;
+  const sleepHours = useStore((state) => state.sleepHours) || 7.5;
+  const currentMood = useStore((state) => state.currentMood) || 'Calm';
+  const achievements = useStore((state) => state.achievements) || [];
+  
+  const notifications = useStore((state) => state.notifications) || [];
+  const markNotificationsAsRead = useStore((state) => state.markNotificationsAsRead);
+  const clearNotifications = useStore((state) => state.clearNotifications);
+
+  const lastPeriodDate = useStore((state) => state.lastPeriodDate);
+  const cycleLength = useStore((state) => state.cycleLength) || 28;
+
+  const [notifModalVisible, setNotifModalVisible] = useState(false);
+
+  // Sum logged macros
+  const proteinConsumed = loggedFoods.reduce((acc, curr) => acc + (curr.protein || 0), 0);
+  const carbsConsumed = loggedFoods.reduce((acc, curr) => acc + (curr.carbs || 0), 0);
+  const fatsConsumed = loggedFoods.reduce((acc, curr) => acc + (curr.fats || 0), 0);
+
+  const exerciseBurned = 350; // Standard baseline exercise burn estimation
+  const netCalories = caloriesConsumed - exerciseBurned;
+  const remainingCalories = calorieTarget - caloriesConsumed;
+
+  // Unread notification count
+  const unreadNotifs = notifications.filter(n => !n.read).length;
+
+  // Dynamic Menstrual Cycle Calculation
+  let cyclePhase = 'N/A';
+  let daysUntilNext = 28;
+  let phaseAdvice = 'Maintain your regular training split and push hard.';
+  
+  if (user?.gender === 'Female' && lastPeriodDate) {
+    const lastDate = new Date(lastPeriodDate);
+    const today = new Date();
+    const diffDays = Math.ceil(Math.abs(today - lastDate) / (1000 * 60 * 60 * 24));
+    const cycleDay = diffDays % cycleLength;
+    
+    if (cycleDay >= 0 && cycleDay <= 5) {
+      cyclePhase = 'Menstruation (Day 1-5)';
+      daysUntilNext = cycleLength - cycleDay;
+      phaseAdvice = '🔴 Energy levels are low. Focus on gentle recovery, yoga, or light dumbbell sessions.';
+    } else if (cycleDay > 5 && cycleDay <= 13) {
+      cyclePhase = 'Follicular Phase (Day 6-13)';
+      daysUntilNext = cycleLength - cycleDay;
+      phaseAdvice = '⚡ Estrogen is rising! Perfect time to increase hypertrophy weights and push sets.';
+    } else if (cycleDay >= 14 && cycleDay <= 15) {
+      cyclePhase = 'Ovulation (Day 14-15)';
+      daysUntilNext = cycleLength - cycleDay;
+      phaseAdvice = '🔥 Peak strength and energy! Ideal day to attempt a personal record (PR) on squats or presses.';
+    } else {
+      cyclePhase = 'Luteal Phase (Day 16-28)';
+      daysUntilNext = cycleLength - cycleDay;
+      phaseAdvice = '🧘 Energy is tapering down. Switch to moderate weights, higher reps, or aerobic conditioning.';
+    }
+  }
+
+  const openNotifModal = () => {
+    setNotifModalVisible(true);
+    markNotificationsAsRead();
+  };
+
+  const logQuickWater = (ml) => {
+    addWater(ml);
+  };
+
+  // Readiness dynamic description
+  let readinessDescription = 'Good recovery';
+  let readinessSub = 'Focus on consistency today.';
+  if (readinessScore >= 85) {
+    readinessDescription = 'Optimal Conditioning';
+    readinessSub = 'Your body is primed for maximum physical output! Go heavy.';
+  } else if (readinessScore < 60) {
+    readinessDescription = 'Fatigue Warning';
+    readinessSub = 'Central nervous system recovery is low. Consider a recovery walk or extra sleep.';
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        
+        {/* TOP STATUS BAR */}
+        <View style={styles.topHeader}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            {navigation.canGoBack() && (
+              <TouchableOpacity onPress={() => navigation.goBack()} style={{marginRight: 10}}>
+                <Ionicons name="arrow-back" size={24} color={colors.primary} />
+              </TouchableOpacity>
+            )}
+            <View>
+              <Text style={styles.greetingText}>HELLO,</Text>
+              <Text style={styles.nameText}>{user?.name?.toUpperCase()}</Text>
+            </View>
+          </View>
+          
+          <View style={styles.topRightControls}>
+            {/* Streak Counter */}
+            <View style={styles.streakIndicator}>
+              <Ionicons name="flame" size={20} color={colors.primary} />
+              <Text style={styles.streakText}>{activeStreak}d</Text>
+            </View>
+
+            {/* Notification Bell */}
+            <TouchableOpacity style={styles.iconBtn} onPress={openNotifModal}>
+              <Ionicons name="notifications-outline" size={24} color="#FFF" />
+              {unreadNotifs > 0 && <View style={styles.notifDot} />}
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* 1. READINESS SCORE */}
+        <View style={styles.readinessCard}>
+          <View style={styles.readinessRow}>
+            {/* Massive Circular Dial */}
+            <View style={styles.readinessDial}>
+              <Text style={styles.readinessScoreNum}>{readinessScore}</Text>
+              <Text style={styles.readinessScoreLabel}>READINESS</Text>
+            </View>
+            
+            <View style={styles.readinessDetails}>
+              <Text style={styles.readinessTitle}>{readinessDescription}</Text>
+              <Text style={styles.readinessDesc}>{readinessSub}</Text>
+              <View style={styles.readinessFactorsRow}>
+                <View style={styles.factorTag}>
+                  <Ionicons name="moon-outline" size={13} color="#8B5CF6" />
+                  <Text style={styles.factorTagText}>{sleepHours}h sleep</Text>
+                </View>
+                <View style={styles.factorTag}>
+                  <Ionicons name="happy-outline" size={13} color={colors.primary} />
+                  <Text style={styles.factorTagText}>{currentMood}</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {/* 2. CALORIES MAIN CARD (MyFitnessPal Style but premium) */}
+        <View style={styles.caloriesCard}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardTitle}>Calories Remaining</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Nutrition')}>
+              <Ionicons name="add-circle" size={22} color={colors.primary} />
+            </TouchableOpacity>
+          </View>
+
+          {/* Math Layout */}
+          <View style={styles.equationRow}>
+            <View style={styles.eqBox}>
+              <Text style={styles.eqVal}>{calorieTarget}</Text>
+              <Text style={styles.eqLabel}>Base Goal</Text>
+            </View>
+            <Text style={styles.operator}>-</Text>
+            <View style={styles.eqBox}>
+              <Text style={styles.eqVal}>{caloriesConsumed}</Text>
+              <Text style={styles.eqLabel}>Food Logged</Text>
+            </View>
+            <Text style={styles.operator}>+</Text>
+            <View style={styles.eqBox}>
+              <Text style={styles.eqVal}>{exerciseBurned}</Text>
+              <Text style={styles.eqLabel}>Est. Exercise</Text>
+            </View>
+            <Text style={styles.operator}>=</Text>
+            <View style={styles.eqBox}>
+              <Text style={[styles.eqVal, { color: remainingCalories >= 0 ? colors.success : colors.error }]}>
+                {remainingCalories}
+              </Text>
+              <Text style={styles.eqLabel}>Net Left</Text>
+            </View>
+          </View>
+
+          {/* Progress Bar */}
+          <View style={styles.progressBg}>
+            <View 
+              style={[
+                styles.progressFill, 
+                { width: `${Math.min(100, (caloriesConsumed / calorieTarget) * 100)}%`,
+                  backgroundColor: caloriesConsumed > calorieTarget ? colors.error : colors.primary
+                }
+              ]} 
+            />
+          </View>
+        </View>
+
+        {/* 3. MACROS RATIOS */}
+        <View style={styles.macrosCard}>
+          <Text style={styles.macroTitleText}>Macronutrient Axis</Text>
+          
+          <View style={styles.macroProgressBarRow}>
+            {/* Protein */}
+            <View style={styles.macroProgressItem}>
+              <View style={styles.macroItemHeader}>
+                <Text style={styles.macroItemLabel}>Protein</Text>
+                <Text style={styles.macroItemVals}>{proteinConsumed}g / {macroTarget.protein}g</Text>
+              </View>
+              <View style={styles.macroBarBg}>
+                <View style={[styles.macroBarFill, { width: `${Math.min(100, (proteinConsumed / macroTarget.protein) * 100)}%`, backgroundColor: colors.primary }]} />
+              </View>
+            </View>
+
+            {/* Carbs */}
+            <View style={styles.macroProgressItem}>
+              <View style={styles.macroItemHeader}>
+                <Text style={styles.macroItemLabel}>Carbs</Text>
+                <Text style={styles.macroItemVals}>{carbsConsumed}g / {macroTarget.carbs}g</Text>
+              </View>
+              <View style={styles.macroBarBg}>
+                <View style={[styles.macroBarFill, { width: `${Math.min(100, (carbsConsumed / macroTarget.carbs) * 100)}%`, backgroundColor: '#FFC107' }]} />
+              </View>
+            </View>
+
+            {/* Fats */}
+            <View style={styles.macroProgressItem}>
+              <View style={styles.macroItemHeader}>
+                <Text style={styles.macroItemLabel}>Fats</Text>
+                <Text style={styles.macroItemVals}>{fatsConsumed}g / {macroTarget.fats}g</Text>
+              </View>
+              <View style={styles.macroBarBg}>
+                <View style={[styles.macroBarFill, { width: `${Math.min(100, (fatsConsumed / macroTarget.fats) * 100)}%`, backgroundColor: '#E91E63' }]} />
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {/* 4. QUICK ACTION BAR */}
+        <View style={styles.quickBar}>
+          <Text style={styles.sectionTitle}>FitAxis Launchers</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.quickScroll}>
+            <TouchableOpacity style={styles.actionCard} onPress={() => navigation.navigate('Chatbot')}>
+              <Ionicons name="hardware-chip-outline" size={24} color={colors.primary} />
+              <Text style={styles.actionLabel}>AI Coach</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.actionCard} onPress={() => navigation.navigate('Workout')}>
+              <Ionicons name="barbell-outline" size={24} color={colors.primary} />
+              <Text style={styles.actionLabel}>Generators</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.actionCard} onPress={() => navigation.navigate('Trainers')}>
+              <Ionicons name="calendar-outline" size={24} color={colors.primary} />
+              <Text style={styles.actionLabel}>Book Trainer</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.actionCard} onPress={() => navigation.navigate('CalendarScreen')}>
+              <Ionicons name="flower-outline" size={24} color={colors.primary} />
+              <Text style={styles.actionLabel}>Wellness Hub</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
+
+        {/* 5. WOMEN CYCLE SYNC INSIGHTS (Shown conditionally for female users) */}
+        {user?.gender === 'Female' && (
+          <TouchableOpacity style={styles.cycleSyncCard} onPress={() => navigation.navigate('CalendarScreen')}>
+            <View style={styles.cycleRow}>
+              <Ionicons name="flower" size={28} color="#E91E63" />
+              <View style={styles.cycleTextCol}>
+                <View style={styles.cycleHeaderRow}>
+                  <Text style={styles.cyclePhaseTitle}>{cyclePhase}</Text>
+                  <Text style={styles.daysBadge}>{daysUntilNext} days left</Text>
+                </View>
+                <Text style={styles.cycleAdviceText}>{phaseAdvice}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
+
+        {/* 6. HYDRATION TRACKER (Sleek Sky Blue themed card) */}
+        <View style={styles.waterCard}>
+          <View style={styles.waterHeaderRow}>
+            <View>
+              <Text style={styles.waterTitle}>Water Hydration</Text>
+              <Text style={styles.waterSub}>{waterIntake}ml logged / {waterIntakeGoal}ml Goal</Text>
+            </View>
+            <TouchableOpacity onPress={resetWater} style={styles.resetBtn}>
+              <Ionicons name="refresh-outline" size={16} color="#0EA5E9" />
+            </TouchableOpacity>
+          </View>
+          
+          <View style={styles.waterProgressRow}>
+            <View style={styles.waterGaugeBg}>
+              <View style={[styles.waterGaugeFill, { width: `${Math.min(100, (waterIntake / waterIntakeGoal) * 100)}%` }]} />
+            </View>
+          </View>
+
+          <View style={styles.waterQuickBtnsRow}>
+            <TouchableOpacity style={styles.waterQuickBtn} onPress={() => logQuickWater(250)}>
+              <Ionicons name="water-outline" size={16} color="#FFF" />
+              <Text style={styles.waterQuickBtnText}>+250ml Glass</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.waterQuickBtn} onPress={() => logQuickWater(500)}>
+              <Ionicons name="water" size={16} color="#FFF" />
+              <Text style={styles.waterQuickBtnText}>+500ml Shaker</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.waterQuickBtn, { backgroundColor: '#0ea5e920', borderWidth: 1, borderColor: '#0EA5E9' }]} onPress={() => logQuickWater(1000)}>
+              <Ionicons name="cube-outline" size={16} color="#0EA5E9" />
+              <Text style={[styles.waterQuickBtnText, { color: '#0EA5E9' }]}>+1.0L Bottle</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* 7. RECENT ACHIEVEMENTS */}
+        <View style={styles.achievementsCard}>
+          <Text style={styles.sectionTitle}>Your Achievements</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.achScroll}>
+            {achievements.map((ach) => (
+              <View key={ach.id} style={[styles.achBadge, ach.unlocked && styles.achBadgeUnlocked]}>
+                <Ionicons name={ach.icon} size={28} color={ach.unlocked ? colors.textPrimary : '#444'} />
+                <Text style={[styles.achBadgeTitle, ach.unlocked && { color: colors.textPrimary }]}>{ach.title}</Text>
+                <Text style={styles.achBadgeStatus}>{ach.unlocked ? 'UNLOCKED' : 'LOCKED'}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+
+      </ScrollView>
+
+      {/* NOTIFICATIONS MODAL OVERLAY */}
+      <Modal visible={notifModalVisible} animationType="slide" transparent={true}>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>FitAxis Alerts</Text>
+              <TouchableOpacity onPress={() => setNotifModalVisible(false)}>
+                <Ionicons name="close" size={28} color="#FFF" />
+              </TouchableOpacity>
+            </View>
+
+            {notifications.length === 0 ? (
+              <View style={styles.emptyNotifs}>
+                <Ionicons name="notifications-off-outline" size={48} color={colors.textSecondary} />
+                <Text style={styles.emptyNotifsText}>Your notification inbox is currently clear.</Text>
+              </View>
+            ) : (
+              <ScrollView style={{ flex: 1 }}>
+                {notifications.map((notif) => (
+                  <View key={notif.id} style={styles.notifItem}>
+                    <View style={styles.notifDotActive} />
+                    <View style={styles.notifTextCol}>
+                      <Text style={styles.notifItemTitle}>{notif.title}</Text>
+                      <Text style={styles.notifItemBody}>{notif.body}</Text>
+                      <Text style={styles.notifItemDate}>{notif.date}</Text>
+                    </View>
+                  </View>
+                ))}
+              </ScrollView>
+            )}
+
+            <TouchableOpacity style={styles.clearBtn} onPress={() => { clearNotifications(); setNotifModalVisible(false); }}>
+              <Text style={styles.clearBtnText}>Clear All</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+    </SafeAreaView>
+  );
+}
+
+const getStyles = (colors, typography, ui) => StyleSheet.create({
+  container: { flex: 1, backgroundColor: colors.background },
+  content: { padding: 15, paddingBottom: 40 },
+  
+  topHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, paddingTop: 10 },
+  greetingText: { ...typography.caption, color: colors.textSecondary, letterSpacing: 1 },
+  nameText: { ...typography.header, color: colors.textPrimary, fontSize: 22, fontWeight: '900', marginTop: -2 },
+  
+  topRightControls: { flexDirection: 'row', alignItems: 'center' },
+  streakIndicator: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 12, borderHeight: 1, borderColor: colors.border, borderWidth: 1, marginRight: 10 },
+  streakText: { color: colors.primary, fontWeight: 'bold', marginLeft: 4, fontSize: 13 },
+  iconBtn: { backgroundColor: colors.surface, width: 38, height: 38, borderRadius: 19, justifyContent: 'center', alignItems: 'center', borderHeight: 1, borderColor: colors.border },
+  notifDot: { position: 'absolute', top: 8, right: 8, width: 8, height: 8, borderRadius: 4, backgroundColor: colors.primary },
+
+  readinessCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadius, padding: 16, marginBottom: 20, borderLeftWidth: 4, borderLeftColor: colors.primary, ...ui.shadow },
+  readinessRow: { flexDirection: 'row', alignItems: 'center' },
+  readinessDial: { width: 90, height: 90, borderRadius: 45, borderWidth: 6, borderColor: colors.primary, justifyContent: 'center', alignItems: 'center', marginRight: 18, shadowColor: colors.primary, shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.3, shadowRadius: 10 },
+  readinessScoreNum: { fontSize: 28, fontWeight: '900', color: colors.textPrimary },
+  readinessScoreLabel: { fontSize: 8, fontWeight: '700', color: colors.textSecondary, letterSpacing: 0.5 },
+  readinessDetails: { flex: 1 },
+  readinessTitle: { ...typography.title, fontSize: 16, color: colors.textPrimary, fontWeight: 'bold' },
+  readinessDesc: { ...typography.caption, color: colors.textSecondary, marginTop: 4, lineHeight: 15 },
+  readinessFactorsRow: { flexDirection: 'row', marginTop: 8 },
+  factorTag: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.background, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6, marginRight: 8 },
+  factorTagText: { fontSize: 10, color: colors.textSecondary, fontWeight: '600', marginLeft: 4 },
+
+  caloriesCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadius, padding: 18, marginBottom: 20, ...ui.shadow },
+  cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 },
+  cardTitle: { ...typography.title, fontSize: 16 },
+  equationRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 },
+  eqBox: { alignItems: 'center', width: '22%' },
+  eqVal: { ...typography.title, fontSize: 18, fontWeight: 'bold' },
+  eqLabel: { ...typography.caption, fontSize: 9, marginTop: 2, color: colors.textSecondary },
+  operator: { fontSize: 18, color: colors.textSecondary, fontWeight: 'bold' },
+  progressBg: { width: '100%', height: 6, backgroundColor: colors.background, borderRadius: 3, overflow: 'hidden' },
+  progressFill: { height: '100%', borderRadius: 3 },
+
+  macrosCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadius, padding: 18, marginBottom: 20, ...ui.shadow },
+  macroTitleText: { ...typography.title, fontSize: 16, marginBottom: 15 },
+  macroProgressBarRow: { gap: 12 },
+  macroProgressItem: {},
+  macroItemHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
+  macroItemLabel: { fontSize: 13, color: colors.textPrimary, fontWeight: '700' },
+  macroItemVals: { fontSize: 11, color: colors.textSecondary },
+  macroBarBg: { width: '100%', height: 4, backgroundColor: colors.background, borderRadius: 2 },
+  macroBarFill: { height: '100%', borderRadius: 2 },
+
+  quickBar: { marginBottom: 20 },
+  sectionTitle: { ...typography.title, fontSize: 16, marginBottom: 12 },
+  quickScroll: { flexDirection: 'row' },
+  actionCard: { backgroundColor: colors.surface, width: 85, height: 85, borderRadius: 18, justifyContent: 'center', alignItems: 'center', marginRight: 12, borderHeight: 1, borderColor: colors.border, borderWidth: 1, ...ui.shadow },
+  actionLabel: { ...typography.caption, color: colors.textPrimary, fontSize: 10, fontWeight: '700', marginTop: 8 },
+
+  cycleSyncCard: { backgroundColor: colors.surface, borderLeftWidth: 4, borderLeftColor: '#E91E63', padding: 18, borderRadius: ui.borderRadius, marginBottom: 20, ...ui.shadow },
+  cycleRow: { flexDirection: 'row', alignItems: 'center' },
+  cycleTextCol: { flex: 1, marginLeft: 15 },
+  cycleHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 },
+  cyclePhaseTitle: { ...typography.body, fontWeight: 'bold', color: '#E91E63' },
+  daysBadge: { fontSize: 9, fontWeight: 'bold', color: '#FFF', backgroundColor: '#E91E63', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6 },
+  cycleAdviceText: { ...typography.caption, color: colors.textSecondary, lineHeight: 16 },
+
+  waterCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadius, padding: 18, marginBottom: 20, ...ui.shadow },
+  waterHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
+  waterTitle: { ...typography.body, fontWeight: 'bold', color: '#0EA5E9' },
+  waterSub: { ...typography.caption, color: colors.textSecondary, marginTop: 2 },
+  resetBtn: { padding: 4 },
+  waterProgressRow: { marginBottom: 15 },
+  waterGaugeBg: { width: '100%', height: 6, backgroundColor: colors.background, borderRadius: 3, overflow: 'hidden' },
+  waterGaugeFill: { height: '100%', backgroundColor: '#0EA5E9', borderRadius: 3 },
+  waterQuickBtnsRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 6 },
+  waterQuickBtn: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0EA5E9', paddingVertical: 8, borderRadius: 10 },
+  waterQuickBtnText: { color: '#FFF', fontSize: 10, fontWeight: 'bold', marginLeft: 4 },
+
+  achievementsCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadius, padding: 18, marginBottom: 20, ...ui.shadow },
+  achScroll: { flexDirection: 'row', marginTop: 10 },
+  achBadge: { width: 90, height: 95, backgroundColor: colors.background, borderRadius: 16, padding: 10, alignItems: 'center', justifyContent: 'center', marginRight: 12, borderHeight: 1, borderColor: colors.border, borderWidth: 1 },
+  achBadgeUnlocked: { backgroundColor: colors.primary, borderColor: colors.primary },
+  achBadgeTitle: { fontSize: 9, fontWeight: '900', color: colors.textSecondary, textAlign: 'center', marginTop: 6, height: 20 },
+  achBadgeStatus: { fontSize: 7, fontWeight: 'bold', color: colors.textPrimary, opacity: 0.6, marginTop: 2 },
+
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' },
+  modalContent: { backgroundColor: colors.surface, borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 25, height: '70%', justifyContent: 'space-between' },
+  modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
+  modalTitle: { ...typography.header, color: colors.primary },
+  emptyNotifs: { flex: 1, justifyContent: 'center', alignItems: 'center', gap: 15 },
+  emptyNotifsText: { color: colors.textSecondary, textAlign: 'center', fontSize: 15 },
+  notifItem: { flexDirection: 'row', paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: colors.border, gap: 12 },
+  notifDotActive: { width: 8, height: 8, borderRadius: 4, backgroundColor: colors.primary, marginTop: 6 },
+  notifTextCol: { flex: 1 },
+  notifItemTitle: { fontSize: 14, fontWeight: 'bold', color: colors.textPrimary },
+  notifItemBody: { fontSize: 12, color: colors.textSecondary, marginTop: 2, lineHeight: 16 },
+  notifItemDate: { fontSize: 9, color: colors.primary, marginTop: 4, fontWeight: '600' },
+  clearBtn: { backgroundColor: colors.primary, padding: 14, borderRadius: 12, alignItems: 'center', marginTop: 15 },
+  clearBtnText: { color: '#FFF', fontWeight: 'bold', fontSize: 15 },
+});
