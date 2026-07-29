@@ -5,12 +5,16 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../theme/theme';
 import { useStore } from '../../store/useStore';
 
-// Safe dynamic require to prevent Expo Go native module crash
+import { Platform } from 'react-native';
+
+// Safe dynamic require to prevent Expo Go / Web native module crash
 let LiveKitModule = null;
-try {
-  LiveKitModule = require('@livekit/react-native');
-} catch (e) {
-  console.log('LiveKit native WebRTC module not present in Expo Go. Using Interactive Consultation Fallback.');
+if (Platform.OS !== 'web') {
+  try {
+    LiveKitModule = require('@livekit/react-native');
+  } catch (e) {
+    console.log('LiveKit native WebRTC module not present. Using Interactive Consultation Fallback.');
+  }
 }
 
 const LIVEKIT_URL = process.env.EXPO_PUBLIC_LIVEKIT_URL || 'wss://burnx-n6caqv1m.livekit.cloud';
