@@ -591,10 +591,14 @@ export const useStore = create(
       },
 
       logExerciseSet: (exerciseName, muscle, weight, reps) => {
-        const todayStr = new Date().toISOString().split('T')[0];
+        const now = new Date();
+        const todayStr = now.toLocaleDateString();
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
         const newLog = {
           id: 'logset_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
           date: todayStr,
+          time: timeStr,
           exerciseName,
           muscle,
           weight: parseFloat(weight) || 0,
@@ -603,6 +607,12 @@ export const useStore = create(
 
         set((state) => ({
           workoutLogs: [newLog, ...state.workoutLogs]
+        }));
+      },
+
+      deleteWorkoutLog: (logId) => {
+        set((state) => ({
+          workoutLogs: state.workoutLogs.filter(log => log.id !== logId)
         }));
       },
 

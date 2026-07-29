@@ -16,6 +16,8 @@ export default function Workout({ navigation }) {
   const currentMood = useStore((state) => state.currentMood) || 'Calm';
   const readinessScore = useStore((state) => state.readinessScore) || 80;
   const completeWorkout = useStore((state) => state.completeWorkout);
+  const workoutLogs = useStore((state) => state.workoutLogs) || [];
+  const deleteWorkoutLog = useStore((state) => state.deleteWorkoutLog);
 
   const [selectedSplit, setSelectedSplit] = useState('Full Body');
   const [selectedDay, setSelectedDay] = useState('Monday');
@@ -331,6 +333,42 @@ export default function Workout({ navigation }) {
           </TouchableOpacity>
         )}
 
+        {/* SAVED WORKOUT HISTORY & DETAILED LOGS */}
+        <View style={styles.historyContainer}>
+          <View style={styles.historyHeaderRow}>
+            <Ionicons name="journal-outline" size={20} color={colors.primary} />
+            <Text style={styles.historyTitle}>Saved Workout History & Logs</Text>
+          </View>
+
+          {workoutLogs.length === 0 ? (
+            <View style={styles.emptyHistoryBox}>
+              <Ionicons name="barbell-outline" size={32} color={colors.textSecondary} />
+              <Text style={styles.emptyHistoryText}>No sets logged yet. Tap an exercise above to log your weight, reps, date & time!</Text>
+            </View>
+          ) : (
+            <View style={styles.historyList}>
+              {workoutLogs.map((log) => (
+                <View key={log.id} style={styles.historyCard}>
+                  <View style={styles.historyMainCol}>
+                    <Text style={styles.historyExerciseName}>{log.exerciseName}</Text>
+                    <View style={styles.historyMetaRow}>
+                      <Text style={styles.historyTag}>{log.muscle}</Text>
+                      <Text style={styles.historyDateTime}>• {log.date} at {log.time || '10:00 AM'}</Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.historyRightCol}>
+                    <Text style={styles.historyWeightText}>{log.weight} kg × {log.reps} reps</Text>
+                    <TouchableOpacity onPress={() => deleteWorkoutLog(log.id)} style={{ padding: 4, marginLeft: 8 }}>
+                      <Ionicons name="trash-outline" size={16} color={colors.error} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ))}
+            </View>
+          )}
+        </View>
+
         {/* Quick User preference indicators */}
         <View style={styles.prefIndicators}>
           <Text style={styles.prefTitle}>Your Profile Baseline</Text>
@@ -480,10 +518,25 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   completeWorkoutBtnText: { ...typography.headline, color: '#FFF', marginLeft: 8 },
 
   prefIndicators: { backgroundColor: colors.surface, padding: ui.spacing.l, borderRadius: ui.borderRadiusLg, borderWidth: 1, borderColor: colors.border },
-  prefTitle: { ...typography.subhead, fontWeight: '700', color: colors.textSecondary, marginBottom: ui.spacing.m },
-  prefGrid: { flexDirection: 'row', justifyContent: 'space-between', gap: ui.spacing.s },
-  prefTag: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: colors.surfaceSecondary, paddingVertical: ui.spacing.s, borderRadius: ui.borderRadiusSm, borderWidth: 1, borderColor: colors.border },
-  prefTagText: { ...typography.caption, color: colors.textPrimary, fontWeight: '600', marginLeft: 6 },
+  prefTitle: { ...typography.caption, color: colors.textSecondary, marginBottom: ui.spacing.m, textTransform: 'uppercase', letterSpacing: 1 },
+  prefGrid: { flexDirection: 'row', gap: ui.spacing.m },
+  prefTag: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.background, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8, gap: 6 },
+  prefTagText: { ...typography.caption, color: colors.textPrimary, fontWeight: '600' },
+
+  historyContainer: { backgroundColor: colors.surface, padding: ui.spacing.l, borderRadius: ui.borderRadiusLg, borderWidth: 1, borderColor: colors.border, marginBottom: ui.spacing.xl },
+  historyHeaderRow: { flexDirection: 'row', alignItems: 'center', marginBottom: ui.spacing.m },
+  historyTitle: { ...typography.headline, color: colors.textPrimary, marginLeft: 8 },
+  emptyHistoryBox: { alignItems: 'center', paddingVertical: 20 },
+  emptyHistoryText: { ...typography.caption, color: colors.textSecondary, textAlign: 'center', marginTop: 10, lineHeight: 18 },
+  historyList: { gap: 10 },
+  historyCard: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: colors.background, padding: 12, borderRadius: 12, borderWidth: 1, borderColor: colors.border },
+  historyMainCol: { flex: 1 },
+  historyExerciseName: { color: colors.textPrimary, fontSize: 14, fontWeight: '700' },
+  historyMetaRow: { flexDirection: 'row', alignItems: 'center', marginTop: 4 },
+  historyTag: { color: colors.primary, fontSize: 11, fontWeight: '600' },
+  historyDateTime: { color: colors.textSecondary, fontSize: 11, marginLeft: 4 },
+  historyRightCol: { flexDirection: 'row', alignItems: 'center' },
+  historyWeightText: { color: colors.textPrimary, fontSize: 13, fontWeight: '800' },
 
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'flex-end' },
   modalContent: { backgroundColor: colors.surface, padding: ui.spacing.l, borderTopLeftRadius: ui.borderRadiusLg, borderTopRightRadius: ui.borderRadiusLg, height: '85%' },

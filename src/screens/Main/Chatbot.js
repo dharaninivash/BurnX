@@ -4,8 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../theme/theme';
 import { useStore } from '../../store/useStore';
-import RazorpayCheckoutModal from '../../components/RazorpayCheckoutModal';
-import { createRazorpayOrder } from '../../services/razorpayService';
+import SubscriptionModal from '../../components/SubscriptionModal';
 
 export default function Chatbot({ navigation }) {
   const { colors, typography, ui } = useTheme();
@@ -13,9 +12,7 @@ export default function Chatbot({ navigation }) {
   
   const [message, setMessage] = useState('');
   const [loadingAi, setLoadingAi] = useState(false);
-  const [paymentLoading, setPaymentLoading] = useState(false);
-  const [checkoutVisible, setCheckoutVisible] = useState(false);
-  const [currentOrderId, setCurrentOrderId] = useState(null);
+  const [subModalVisible, setSubModalVisible] = useState(false);
 
   const [chat, setChat] = useState([
     { id: 1, sender: 'ai', text: 'Welcome Athlete! I am your BurnX Coach AI. Ask me anything about workout routines, nutrition plans, supplements, or recovery.' },
@@ -167,15 +164,9 @@ export default function Chatbot({ navigation }) {
               </View>
             </View>
             
-            <TouchableOpacity style={styles.upgradeBtn} onPress={initiatePremiumPurchase} disabled={paymentLoading}>
-              {paymentLoading ? (
-                <ActivityIndicator color="#FFF" />
-              ) : (
-                <>
-                  <Ionicons name="flash" size={20} color="#FFF" style={{ marginRight: 8 }} />
-                  <Text style={styles.upgradeBtnText}>Unlock BurnX Premium (₹1,999 / yr)</Text>
-                </>
-              )}
+            <TouchableOpacity style={styles.upgradeBtn} onPress={() => setSubModalVisible(true)}>
+              <Ionicons name="flash" size={20} color="#FFF" style={{ marginRight: 8 }} />
+              <Text style={styles.upgradeBtnText}>Take Subscription (Weekly / Monthly / Yearly)</Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -214,16 +205,11 @@ export default function Chatbot({ navigation }) {
 
       </KeyboardAvoidingView>
 
-      {/* Razorpay Web Checkout Modal */}
-      {currentOrderId && (
-        <RazorpayCheckoutModal
-          visible={checkoutVisible}
-          orderId={currentOrderId}
-          amount={199900}
-          onSuccess={handlePaymentSuccess}
-          onDismiss={handlePaymentDismiss}
-        />
-      )}
+      {/* Subscription Plan Modal */}
+      <SubscriptionModal
+        visible={subModalVisible}
+        onClose={() => setSubModalVisible(false)}
+      />
     </SafeAreaView>
   );
 }
