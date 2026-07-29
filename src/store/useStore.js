@@ -161,15 +161,76 @@ export const calculateReadinessScore = (sleepHours = 7.5, mood = 'Calm', cyclePh
   return Math.min(100, Math.max(10, score));
 };
 
+export const getMoodAdaptation = (mood) => {
+  switch (mood) {
+    case 'Energetic':
+      return {
+        intensity: 'HIGH (+10% Load)',
+        volume: '4 Sets per Exercise',
+        advice: 'You have peak energy today! Push for personal records on your primary compound lifts.',
+        quote: '"Intensity builds density. Make today count!"',
+        recovery: 'Post-workout protein within 45 mins & cold shower.'
+      };
+    case 'Happy':
+      return {
+        intensity: 'MODERATE-HIGH',
+        volume: '3-4 Sets per Exercise',
+        advice: 'Great mood! Maintain strong mind-muscle connection and clean tempo control.',
+        quote: '"Positivity fuels performance. Enjoy the burn!"',
+        recovery: 'Standard hydration (3.0L) & 8 hours sleep.'
+      };
+    case 'Tired':
+      return {
+        intensity: 'LIGHT (-15% Load)',
+        volume: '2-3 Sets per Exercise',
+        advice: 'Body energy is low today. Focus on light weight, high reps, or active stretching.',
+        quote: '"Consistency over intensity. Showing up is winning."',
+        recovery: 'Increase hydration by +500ml and aim for 8+ hours sleep.'
+      };
+    case 'Stressed':
+      return {
+        intensity: 'MODERATE MOBILITY',
+        volume: '3 Sets Controlled',
+        advice: 'De-stress with controlled breathing tempo and joint mobility drills.',
+        quote: '"Exercise clears the mind. Move to relieve pressure."',
+        recovery: '10-minute post-workout mindfulness & mag-rich dinner.'
+      };
+    case 'Sore':
+      return {
+        intensity: 'RECOVERY SPLIT',
+        volume: '2 Sets Active Recovery',
+        advice: 'Muscle soreness detected. Focus on light mobility, hamstrings stretch, and walk.',
+        quote: '"Rest is where muscle grows. Protect your recovery."',
+        recovery: 'Foam rolling 15 mins, warm bath & 3.5L water.'
+      };
+    case 'Low Motivation':
+      return {
+        intensity: 'QUICK 15-MIN EXPRESS',
+        volume: '2 Fast Sets',
+        advice: 'Keep it super short today: 3 compound exercises max to maintain momentum.',
+        quote: '"Action creates motivation, not the other way around."',
+        recovery: 'Celebrate completion & log your daily workout!'
+      };
+    default:
+      return {
+        intensity: 'BALANCED',
+        volume: '3 Sets per Exercise',
+        advice: 'Standard progressive training session tuned for maximum hypertrophy.',
+        quote: '"Daily discipline yields long-term transformation."',
+        recovery: 'Hydrate well & log daily macronutrients.'
+      };
+  }
+};
+
 export const useStore = create(
   persist(
     (set, get) => ({
-      // User Profile & Onboarding
-      user: null, // null if onboarding not complete
+      // User Profile & Authentication State
+      user: null,
       hasCompletedOnboarding: false,
-      calorieTarget: 2000,
-      macroTarget: { protein: 120, carbs: 200, fats: 60 },
-
+      lastResetDate: null,
+      lastActiveDate: new Date().toISOString().split('T')[0],
+      
       // Daily Stats (Reset manually or dynamically simulated)
       caloriesConsumed: 0,
       loggedFoods: [],
@@ -619,6 +680,32 @@ export const useStore = create(
 
       clearNotifications: () => {
         set({ notifications: [] });
+      },
+
+      checkDailyReset: () => {
+        const todayStr = new Date().toISOString().split('T')[0];
+        const lastReset = get().lastResetDate;
+
+        if (lastReset && lastReset !== todayStr) {
+          const yesterday = new Date();
+          yesterday.setDate(yesterday.getDate() - 1);
+          const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+          let newStreak = get().activeStreak;
+          if (get().lastActiveDate !== yesterdayStr && get().lastActiveDate !== todayStr) {
+            newStreak = 0;
+          }
+
+          set({
+            waterIntake: 0,
+            caloriesConsumed: 0,
+            loggedFoods: [],
+            lastResetDate: todayStr,
+            activeStreak: newStreak
+          });
+        } else if (!lastReset) {
+          set({ lastResetDate: todayStr });
+        }
       },
 
       setThemeMode: (mode) => {
