@@ -39,19 +39,18 @@ export default function Home({ navigation }) {
 
   const [notifModalVisible, setNotifModalVisible] = useState(false);
   const [checkoutVisible, setCheckoutVisible] = useState(false);
+  const [subModalVisible, setSubModalVisible] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState(null);
   const [trainerModalVisible, setTrainerModalVisible] = useState(false);
   
   const isPremium = useStore((state) => state.isPremium);
   const unlockPremium = useStore((state) => state.unlockPremium);
 
-  const handlePremiumFeatureClick = async (route) => {
+  const handlePremiumFeatureClick = (route) => {
     if (isPremium) {
-      navigation.navigate(route);
+      if (route) navigation.navigate(route);
     } else {
-      const orderId = await createRazorpayOrder(199900);
-      setCurrentOrderId(orderId);
-      setCheckoutVisible(true);
+      setSubModalVisible(true);
     }
   };
 
@@ -453,6 +452,12 @@ export default function Home({ navigation }) {
           onSuccess={handlePaymentSuccess}
         />
       )}
+
+      {/* SUBSCRIPTION SELECTION MODAL */}
+      <SubscriptionModal
+        visible={subModalVisible}
+        onClose={() => setSubModalVisible(false)}
+      />
     </SafeAreaView>
   );
 }

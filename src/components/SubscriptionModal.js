@@ -47,9 +47,10 @@ export default function SubscriptionModal({ visible, onClose }) {
 
   const activePlanObj = plans.find(p => p.id === selectedPlan) || plans[2];
 
-  const handleProceedToPayment = async () => {
-    const orderId = await createRazorpayOrder(activePlanObj.amountPaise);
-    setCurrentOrderId(orderId);
+  const handleProceedToPayment = () => {
+    Linking.openURL(RAZORPAY_ME_LINK).catch((err) => {
+      if (__DEV__) console.log('Error opening Razorpay payment link:', err);
+    });
     setCheckoutVisible(true);
   };
 
