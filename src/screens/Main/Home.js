@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useStore } from '../../store/useStore';
 import RazorpayCheckoutModal from '../../components/RazorpayCheckoutModal';
+import SubscriptionModal from '../../components/SubscriptionModal';
 import { createRazorpayOrder } from '../../services/razorpayService';
 import { useTheme } from '../../theme/theme';
 

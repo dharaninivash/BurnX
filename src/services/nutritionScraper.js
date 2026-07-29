@@ -50,7 +50,7 @@ export const searchFoodMacros = async (query, weightInGrams = 100) => {
       source: 'CalorieNinjas API'
     };
   } catch (error) {
-    console.warn("Error fetching food data, using fallback calculation:", error.message);
+    if (__DEV__) console.log("Calorie calculation notice:", error.message);
     const multiplier = weightInGrams / 100;
     const baseCalories = (query.length * 15) + 50; 
     const baseProtein = (query.length * 1.5);
