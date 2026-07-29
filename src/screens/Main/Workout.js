@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, ActivityIndicator, Alert, Animated, SafeAreaView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, ActivityIndicator, Alert, Animated, Image, TextInput } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useStore } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
@@ -201,7 +202,7 @@ export default function Workout({ navigation }) {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         
         {/* HEADER */}
@@ -213,7 +214,7 @@ export default function Workout({ navigation }) {
               </TouchableOpacity>
             )}
             <View>
-              <Text style={styles.headerTitle}>FITAXIS</Text>
+              <Text style={styles.headerTitle}>BURNX</Text>
               <Text style={styles.headerSub}>Dynamic Workout Plan Engine</Text>
             </View>
           </View>
@@ -326,7 +327,7 @@ export default function Workout({ navigation }) {
         {!isGenerating && generatedExercises.length > 0 && (
           <TouchableOpacity style={styles.completeWorkoutBtn} onPress={handleLoggedWorkout}>
             <Ionicons name="checkmark-done" size={24} color="#FFF" />
-            <Text style={styles.completeWorkoutBtnText}>Finish & Log Workout</Text>
+            <Text style={styles.completeWorkoutBtnText}>Complete Session</Text>
           </TouchableOpacity>
         )}
 
@@ -427,7 +428,7 @@ export default function Workout({ navigation }) {
                   }}
                 >
                   <Ionicons name="timer" size={22} color="#FFF" style={{ marginRight: 8 }} />
-                  <Text style={styles.startBtnText}>Launch Activity Timer</Text>
+                  <Text style={styles.startBtnText}>Start Workout</Text>
                 </TouchableOpacity>
               </>
             )}
@@ -440,73 +441,74 @@ export default function Workout({ navigation }) {
 }
 
 const getStyles = (colors, typography, ui) => StyleSheet.create({
+  safeArea: { flex: 1, backgroundColor: colors.background },
   container: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 15, paddingBottom: 40 },
+  content: { padding: ui.spacing.m, paddingBottom: ui.spacing.xxl },
   
-  headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, paddingTop: 10 },
-  headerTitle: { ...typography.header, color: colors.primary, fontSize: 22, fontWeight: '900' },
-  headerSub: { ...typography.caption, color: colors.textSecondary, marginTop: -2 },
-  timerIconBtn: { padding: 8, backgroundColor: colors.surface, borderRadius: 20, borderHeight: 1, borderColor: colors.border, borderWidth: 1 },
+  headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ui.spacing.l, paddingTop: ui.spacing.s },
+  headerTitle: { ...typography.largeTitle, color: colors.primary, letterSpacing: 1 },
+  headerSub: { ...typography.subhead, color: colors.textSecondary, marginTop: 2 },
+  timerIconBtn: { padding: ui.spacing.s, backgroundColor: colors.surfaceSecondary, borderRadius: 24, borderWidth: 1, borderColor: colors.border },
 
-  periodAlertCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#E91E63', borderRadius: ui.borderRadius, padding: 16, marginBottom: 20, ...ui.shadow },
-  periodAlertTextCol: { flex: 1, marginLeft: 15 },
-  periodAlertTitle: { fontSize: 15, fontWeight: 'bold', color: colors.textPrimary },
-  periodAlertDesc: { fontSize: 11, color: colors.textPrimary, opacity: 0.9, marginTop: 4, lineHeight: 16 },
+  periodAlertCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#E91E63', borderRadius: ui.borderRadiusLg, padding: ui.spacing.l, marginBottom: ui.spacing.l, ...ui.shadowLg },
+  periodAlertTextCol: { flex: 1, marginLeft: ui.spacing.m },
+  periodAlertTitle: { ...typography.headline, color: colors.textPrimary },
+  periodAlertDesc: { ...typography.footnote, color: colors.textPrimary, opacity: 0.9, marginTop: 6, lineHeight: 18 },
 
-  splitsContainer: { marginBottom: 20 },
-  sectionTitle: { ...typography.title, fontSize: 16, marginBottom: 12 },
+  splitsContainer: { marginBottom: ui.spacing.l },
+  sectionTitle: { ...typography.headline, marginBottom: ui.spacing.s },
   splitScroll: { flexDirection: 'row' },
-  splitCard: { backgroundColor: colors.surface, paddingHorizontal: 20, paddingVertical: 12, borderRadius: 16, marginRight: 10, borderWidth: 1, borderColor: colors.border },
+  splitCard: { backgroundColor: colors.surface, paddingHorizontal: ui.spacing.l, paddingVertical: ui.spacing.m, borderRadius: ui.borderRadiusLg, marginRight: ui.spacing.m, borderWidth: 1, borderColor: colors.border },
   splitCardActive: { backgroundColor: colors.primary, borderColor: colors.primary },
-  splitName: { fontSize: 14, fontWeight: 'bold', color: colors.textPrimary },
+  splitName: { ...typography.subhead, fontWeight: '700', color: colors.textPrimary },
 
-  exerciseSection: { marginBottom: 25 },
-  sectionHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
-  exercisesCountTag: { fontSize: 11, color: colors.primary, fontWeight: '700', backgroundColor: 'rgba(255, 122, 0, 0.15)', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 },
-  exerciseList: { gap: 12 },
+  exerciseSection: { marginBottom: ui.spacing.xl },
+  sectionHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ui.spacing.m },
+  exercisesCountTag: { ...typography.caption, color: colors.primary, fontWeight: '700', backgroundColor: 'rgba(255, 122, 0, 0.15)', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8 },
+  exerciseList: { gap: ui.spacing.m },
   
-  exerciseCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, padding: 15, borderRadius: ui.borderRadius, borderWidth: 1, borderColor: colors.border, ...ui.shadow },
+  exerciseCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, padding: ui.spacing.l, borderRadius: ui.borderRadiusLg, borderWidth: 1, borderColor: colors.border, ...ui.shadowSm },
   exerciseCardCompleted: { opacity: 0.7, borderColor: colors.success },
-  checkIcon: { marginRight: 15 },
+  checkIcon: { marginRight: ui.spacing.m },
   exerciseCardContent: { flex: 1, flexDirection: 'row', alignItems: 'center' },
-  exerciseIcon: { backgroundColor: colors.primary, width: 42, height: 42, borderRadius: 12, justifyContent: 'center', alignItems: 'center', marginRight: 15 },
+  exerciseIcon: { backgroundColor: colors.primary, width: 48, height: 48, borderRadius: 14, justifyContent: 'center', alignItems: 'center', marginRight: ui.spacing.m },
   exerciseDetails: { flex: 1 },
-  exerciseName: { fontSize: 15, fontWeight: 'bold', color: colors.textPrimary },
+  exerciseName: { ...typography.headline, color: colors.textPrimary },
   exerciseInfo: { ...typography.caption, marginTop: 4 },
 
-  completeWorkoutBtn: { flexDirection: 'row', backgroundColor: colors.primary, paddingVertical: 16, borderRadius: ui.borderRadius, justifyContent: 'center', alignItems: 'center', ...ui.shadow, marginBottom: 25 },
-  completeWorkoutBtnText: { color: '#FFF', fontSize: 16, fontWeight: 'bold', marginLeft: 8 },
+  completeWorkoutBtn: { flexDirection: 'row', backgroundColor: colors.primary, height: ui.buttonHeight, borderRadius: ui.borderRadius, justifyContent: 'center', alignItems: 'center', ...ui.shadow, marginBottom: ui.spacing.xl },
+  completeWorkoutBtnText: { ...typography.headline, color: '#FFF', marginLeft: 8 },
 
-  prefIndicators: { backgroundColor: colors.surface, padding: 18, borderRadius: ui.borderRadius, borderWidth: 1, borderColor: colors.border },
-  prefTitle: { fontSize: 13, fontWeight: 'bold', color: colors.textSecondary, marginBottom: 12 },
-  prefGrid: { flexDirection: 'row', justifyContent: 'space-between' },
-  prefTag: { flex: 0.32, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: colors.background, paddingVertical: 8, borderRadius: 10 },
-  prefTagText: { fontSize: 11, color: '#FFF', fontWeight: 'bold', marginLeft: 6 },
+  prefIndicators: { backgroundColor: colors.surface, padding: ui.spacing.l, borderRadius: ui.borderRadiusLg, borderWidth: 1, borderColor: colors.border },
+  prefTitle: { ...typography.subhead, fontWeight: '700', color: colors.textSecondary, marginBottom: ui.spacing.m },
+  prefGrid: { flexDirection: 'row', justifyContent: 'space-between', gap: ui.spacing.s },
+  prefTag: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: colors.surfaceSecondary, paddingVertical: ui.spacing.s, borderRadius: ui.borderRadiusSm, borderWidth: 1, borderColor: colors.border },
+  prefTagText: { ...typography.caption, color: colors.textPrimary, fontWeight: '600', marginLeft: 6 },
 
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' },
-  modalContent: { backgroundColor: colors.surface, padding: 25, borderTopLeftRadius: 30, borderTopRightRadius: 30, height: '85%' },
-  modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
-  modalTitle: { ...typography.header, fontSize: 20, color: colors.primary, width: '85%' },
-  modalSub: { ...typography.caption, color: colors.textSecondary, marginTop: 4 },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'flex-end' },
+  modalContent: { backgroundColor: colors.surface, padding: ui.spacing.l, borderTopLeftRadius: ui.borderRadiusLg, borderTopRightRadius: ui.borderRadiusLg, height: '85%' },
+  modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ui.spacing.l },
+  modalTitle: { ...typography.title, color: colors.primary, width: '85%' },
+  modalSub: { ...typography.subhead, color: colors.textSecondary, marginTop: 4 },
   
-  gifContainer: { width: '100%', height: 260, backgroundColor: colors.background, borderRadius: ui.borderRadius, marginBottom: 20, overflow: 'hidden', borderWidth: 1, borderColor: colors.border },
+  gifContainer: { width: '100%', height: 280, backgroundColor: colors.surfaceSecondary, borderRadius: ui.borderRadiusLg, marginBottom: ui.spacing.l, overflow: 'hidden', borderWidth: 1, borderColor: colors.border },
   exerciseGif: { width: '100%', height: '100%' },
 
-  modalStats: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20, gap: 10 },
-  statBox: { flex: 1, alignItems: 'center', padding: 12, backgroundColor: colors.background, borderRadius: 12 },
-  statLabel: { fontSize: 10, color: colors.textSecondary, fontWeight: '700', marginBottom: 4 },
-  statValue: { fontSize: 14, fontWeight: 'bold', color: colors.primary },
+  modalStats: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: ui.spacing.l, gap: ui.spacing.m },
+  statBox: { flex: 1, alignItems: 'center', padding: ui.spacing.m, backgroundColor: colors.surfaceSecondary, borderRadius: ui.borderRadiusSm, borderWidth: 1, borderColor: colors.border },
+  statLabel: { ...typography.caption, color: colors.textSecondary, fontWeight: '700', marginBottom: 4 },
+  statValue: { ...typography.headline, color: colors.primary },
   
-  infoTitle: { fontSize: 14, fontWeight: 'bold', color: colors.primary, marginBottom: 8, marginTop: 10 },
-  infoText: { fontSize: 13, color: colors.textSecondary, marginBottom: 15, lineHeight: 20 },
+  infoTitle: { ...typography.headline, color: colors.primary, marginBottom: ui.spacing.s, marginTop: ui.spacing.m },
+  infoText: { ...typography.body, color: colors.textSecondary, marginBottom: ui.spacing.l, lineHeight: 24 },
   
-  startBtn: { flexDirection: 'row', backgroundColor: colors.primary, padding: 16, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-  startBtnText: { color: '#FFF', fontWeight: 'bold', fontSize: 16 },
+  startBtn: { flexDirection: 'row', backgroundColor: colors.primary, height: ui.buttonHeight, borderRadius: ui.borderRadius, alignItems: 'center', justifyContent: 'center', marginTop: ui.spacing.m },
+  startBtnText: { ...typography.headline, color: '#FFF' },
 
-  loggerCard: { backgroundColor: colors.background, padding: 15, borderRadius: 12, marginTop: 10, borderWidth: 1, borderColor: colors.border },
-  loggerRow: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 10 },
+  loggerCard: { backgroundColor: colors.surfaceSecondary, padding: ui.spacing.l, borderRadius: ui.borderRadiusLg, marginTop: ui.spacing.m, borderWidth: 1, borderColor: colors.border },
+  loggerRow: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: ui.spacing.s },
   loggerInputBox: { flex: 0.4 },
-  loggerLabel: { fontSize: 11, color: colors.textSecondary, marginBottom: 4, fontWeight: 'bold' },
-  loggerInput: { backgroundColor: colors.surface, padding: 10, borderRadius: 8, color: colors.textPrimary, borderWidth: 1, borderColor: colors.border, textAlign: 'center', fontWeight: 'bold' },
-  logSetBtn: { backgroundColor: colors.primary, width: 44, height: 44, borderRadius: 8, justifyContent: 'center', alignItems: 'center' }
+  loggerLabel: { ...typography.caption, color: colors.textSecondary, marginBottom: 6, fontWeight: '700' },
+  loggerInput: { backgroundColor: colors.surface, paddingHorizontal: ui.spacing.m, height: 48, borderRadius: ui.borderRadiusSm, color: colors.textPrimary, borderWidth: 1, borderColor: colors.border, textAlign: 'center', ...typography.headline },
+  logSetBtn: { backgroundColor: colors.primary, width: 48, height: 48, borderRadius: ui.borderRadiusSm, justifyContent: 'center', alignItems: 'center' }
 });

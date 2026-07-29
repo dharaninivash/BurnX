@@ -212,11 +212,18 @@ export const useStore = create(
       // Gamification
       achievements: DEFAULT_ACHIEVEMENTS,
       notifications: [
-        { id: 'n_init', title: 'Welcome to FitAxis!', body: 'Your universal personalized fitness hub is fully ready offline.', date: new Date().toLocaleTimeString(), read: false }
+        { id: 'n_init', title: 'Welcome to BurnX!', body: 'Your universal personalized fitness hub is fully ready offline.', date: new Date().toLocaleTimeString(), read: false }
       ],
 
       // Theme
       themeMode: 'dark',
+
+      // Payment & Premium
+      isPremium: false,
+      
+      // AI Coach Limits
+      aiChatCount: 0,
+      aiChatMonth: new Date().getMonth(),
 
       // ----------------------------------------------------
       // ACTIONS / WRITERS
@@ -239,9 +246,9 @@ export const useStore = create(
         const calculatedReadiness = calculateReadinessScore(7.5, 'Calm', profileData.gender === 'Female' ? 'Follicular Phase (Day 10)' : 'N/A');
 
         const updatedUser = {
-          id: 'fitaxis-user-id',
+          id: 'burnx-user-id',
           name: profileData.name || 'Athlete',
-          email: profileData.email || 'athlete@fitaxis.com',
+          email: profileData.email || 'athlete@burnx.com',
           age: parseInt(profileData.age) || 25,
           weight: parseFloat(profileData.weight) || 70,
           height: parseFloat(profileData.height) || 170,
@@ -255,7 +262,7 @@ export const useStore = create(
           injuries: profileData.injuries || '',
           lastPeriodDate: lastPeriod,
           cycleLength: parseInt(profileData.cycleLength) || 28,
-          role: 'member' // static role bypass
+          role: profileData.role || 'client'
         };
 
         set({
@@ -306,15 +313,15 @@ export const useStore = create(
       },
 
       // Bypass Auth directly (Quick Dev mode)
-      bypassAuth: (role = 'member') => {
+      bypassAuth: (role = 'client') => {
         const dummyProfile = {
-          name: 'FitAxis Enthusiast',
-          email: 'guest@fitaxis.com',
-          age: 26,
-          weight: 68,
-          height: 168,
+          name: role === 'admin' ? 'System Administrator' : role === 'trainer' ? 'Coach Kabir Malhotra' : 'BurnX Client',
+          email: `${role}@burnx.com`,
+          age: 28,
+          weight: 72,
+          height: 175,
           gender: 'Female',
-          goal: 'Weight Loss',
+          goal: 'Muscle Gain',
           activityLevel: 'Moderately Active',
           experience: 'Intermediate',
           equipment: 'Full Gym',
@@ -322,11 +329,10 @@ export const useStore = create(
           dietaryPreference: 'Vegetarian',
           injuries: '',
           cycleLength: 28,
+          role: role,
         };
         get().completeOnboarding(dummyProfile);
-        if (role === 'trainer') {
-          set((state) => ({ user: { ...state.user, role: 'trainer' } }));
-        }
+        set((state) => ({ user: { ...state.user, role: role } }));
       },
 
       logout: () => {
@@ -617,10 +623,27 @@ export const useStore = create(
 
       setThemeMode: (mode) => {
         set({ themeMode: mode });
+      },
+
+      unlockPremium: () => {
+        set({ isPremium: true });
+        get().addNotification(
+          'Premium Unlocked!',
+          'Thank you for upgrading. All premium features are now unlocked!'
+        );
+      },
+
+      incrementAiChatCount: () => {
+        const currentMonth = new Date().getMonth();
+        let currentCount = get().aiChatCount;
+        if (get().aiChatMonth !== currentMonth) {
+          currentCount = 0;
+        }
+        set({ aiChatCount: currentCount + 1, aiChatMonth: currentMonth });
       }
     }),
     {
-      name: 'fitaxis-offline-storage',
+      name: 'burnx-offline-storage',
       storage: createJSONStorage(() => AsyncStorage),
     }
   )

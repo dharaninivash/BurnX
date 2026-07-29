@@ -149,7 +149,7 @@ export default function CalendarScreen({ navigation }) {
                 </View>
                 
                 {/* Physical activity adjustments coaching */}
-                <Text style={styles.coachingLabel}>Axis Physiological Advice</Text>
+                <Text style={styles.coachingLabel}>BurnX Physiological Advice</Text>
                 <Text style={styles.coachingText}>
                   {phase.includes('Menstruation') ? '🔴 Gentle mobility and light recovery. Protect lower-abdomen cramps. Auto-applied workout deload.' :
                    phase.includes('Follicular') ? '⚡ Hypertrophy and strength growth! Oestrogen rises, muscle recovery is excellent. Increase gym sets.' :

@@ -2,19 +2,26 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../theme/theme';
-
+import { useStore } from '../../store/useStore';
 export default function Chatbot() {
   const { colors, typography, ui } = useTheme();
   const styles = typeof getStyles !== 'undefined' ? getStyles(colors, typography, ui) : {};
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState([
-    { id: 1, sender: 'ai', text: 'Hi Athlete! I am your AI Coach. How can I help you today?' },
+    { id: 1, sender: 'ai', text: 'Hi Athlete! I am your BurnX Coach. How can I help you today?' },
   ]);
+  const aiChatCount = useStore((state) => state.aiChatCount);
+  const aiChatMonth = useStore((state) => state.aiChatMonth);
+  const isPremium = useStore((state) => state.isPremium);
+  const incrementAiChatCount = useStore((state) => state.incrementAiChatCount);
 
-
+  const isLimitReached = !isPremium && aiChatMonth === new Date().getMonth() && aiChatCount >= 5;
 
   const handleSend = async (text = message) => {
     if (!text.trim()) return;
+    if (isLimitReached) return;
+
+    incrementAiChatCount();
 
     // Add user message
     const newChat = [...chat, { id: Date.now(), sender: 'user', text }];
@@ -22,7 +29,7 @@ export default function Chatbot() {
     setMessage('');
 
     try {
-      const apiKey = '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';
+      const apiKey = process.env.EXPO_PUBLIC_GROQ_API_KEY || '';
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -32,7 +39,7 @@ export default function Chatbot() {
         body: JSON.stringify({
           model: 'llama-3.1-8b-instant',
           messages: [
-            { role: 'system', content: 'You are a strict fitness AI coach. You must ONLY answer questions related to gym, workouts, fitness, nutrition, supplements, and health. If the user asks about anything else, politely decline to answer and remind them of your purpose.' },
+            { role: 'system', content: 'You are a strict fitness coach for BurnX. You must ONLY answer questions related to gym, workouts, fitness, nutrition, supplements, and health. If the user asks about anything else, politely decline to answer and remind them of your purpose.' },
             { role: 'user', content: text }
           ]
         })
@@ -52,14 +59,14 @@ export default function Chatbot() {
       }
     } catch (error) {
       console.error('Groq API Error:', error);
-      setChat(prev => [...prev, { id: Date.now(), sender: 'ai', text: "Network error connecting to AI Coach." }]);
+      setChat(prev => [...prev, { id: Date.now(), sender: 'ai', text: "Network error connecting to BurnX Coach." }]);
     }
   };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <View style={styles.header}>
-        <Text style={styles.title}>FitAxis AI Coach</Text>
+        <Text style={styles.title}>BurnX AI Coach</Text>
       </View>
 
       <ScrollView style={styles.chatArea} contentContainerStyle={{ padding: 20 }}>
@@ -73,18 +80,24 @@ export default function Chatbot() {
 
 
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Ask me anything..."
-          placeholderTextColor={colors.textSecondary}
-          value={message}
-          onChangeText={setMessage}
-        />
-        <TouchableOpacity style={styles.sendBtn} onPress={() => handleSend(message)}>
-          <Ionicons name="send" size={20} color="#FFF" />
-        </TouchableOpacity>
-      </View>
+      {isLimitReached ? (
+        <View style={styles.limitContainer}>
+          <Text style={styles.limitText}>You've reached your monthly free AI Coach limit. Upgrade to BurnX Premium for unlimited coaching.</Text>
+        </View>
+      ) : (
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Ask me anything..."
+            placeholderTextColor={colors.textSecondary}
+            value={message}
+            onChangeText={setMessage}
+          />
+          <TouchableOpacity style={styles.sendBtn} onPress={() => handleSend(message)}>
+            <Ionicons name="send" size={20} color="#FFF" />
+          </TouchableOpacity>
+        </View>
+      )}
     </KeyboardAvoidingView>
   );
 }
@@ -104,5 +117,7 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   promptText: { ...typography.caption, color: colors.primary },
   inputContainer: { flexDirection: 'row', padding: 15, backgroundColor: colors.surface, alignItems: 'center' },
   input: { flex: 1, backgroundColor: colors.background, color: colors.textPrimary, padding: 12, borderRadius: 25, paddingHorizontal: 20, fontSize: 16 },
-  sendBtn: { backgroundColor: colors.primary, width: 45, height: 45, borderRadius: 25, justifyContent: 'center', alignItems: 'center', marginLeft: 10 }
+  sendBtn: { backgroundColor: colors.primary, width: 45, height: 45, borderRadius: 25, justifyContent: 'center', alignItems: 'center', marginLeft: 10 },
+  limitContainer: { padding: 20, backgroundColor: colors.surface, borderTopWidth: 1, borderTopColor: colors.border },
+  limitText: { color: colors.error, textAlign: 'center', fontSize: 14, fontWeight: 'bold' }
 });

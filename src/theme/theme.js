@@ -1,45 +1,76 @@
 import { useStore } from '../store/useStore';
 
 const baseColors = {
-  primary: '#FF7A00', // Original FitAxis Orange
-  error: '#FF4C4C',
-  success: '#4CAF50',
-  warning: '#FFC107',
+  primary: '#FF5722', // Deep vibrant orange
+  primaryLight: '#FF8A50',
+  primaryDark: '#E64A19',
+  error: '#FF3B30',
+  success: '#34C759',
+  warning: '#FFCC00',
+  info: '#007AFF', // iOS blue
 };
 
 const darkColors = {
   ...baseColors,
-  background: '#121212',
-  surface: '#1E1E1E',
+  background: '#000000',
+  surface: '#1C1C1E', // iOS Dark Modal
+  surfaceSecondary: '#2C2C2E',
   textPrimary: '#FFFFFF',
-  textSecondary: '#A0A0A0',
-  border: '#2C2C2C',
+  textSecondary: '#EBEBF599', // iOS secondary label
+  textTertiary: '#EBEBF54D',
+  border: '#38383A',
+  divider: '#38383A',
 };
 
 const lightColors = {
   ...baseColors,
-  background: '#F5F5F5',
+  background: '#F2F2F7', // iOS grouped background
   surface: '#FFFFFF',
-  textPrimary: '#121212',
-  textSecondary: '#555555',
-  border: '#E0E0E0',
+  surfaceSecondary: '#F2F2F7',
+  textPrimary: '#000000',
+  textSecondary: '#3C3C4399',
+  textTertiary: '#3C3C434D',
+  border: '#C6C6C8',
+  divider: '#C6C6C8',
 };
 
 const getTypography = (colors) => ({
-  header: { fontSize: 24, fontWeight: 'bold', color: colors.textPrimary },
-  title: { fontSize: 20, fontWeight: '600', color: colors.textPrimary },
-  body: { fontSize: 16, color: colors.textPrimary },
-  caption: { fontSize: 14, color: colors.textSecondary },
+  largeTitle: { fontSize: 34, fontWeight: '800', color: colors.textPrimary, letterSpacing: 0.41, lineHeight: 41 },
+  header: { fontSize: 28, fontWeight: '700', color: colors.textPrimary, letterSpacing: 0.36, lineHeight: 34 },
+  title: { fontSize: 22, fontWeight: '600', color: colors.textPrimary, letterSpacing: 0.35, lineHeight: 28 },
+  headline: { fontSize: 17, fontWeight: '600', color: colors.textPrimary, letterSpacing: -0.41, lineHeight: 22 },
+  body: { fontSize: 17, fontWeight: '400', color: colors.textPrimary, letterSpacing: -0.41, lineHeight: 22 },
+  callout: { fontSize: 16, fontWeight: '400', color: colors.textPrimary, letterSpacing: -0.32, lineHeight: 21 },
+  subhead: { fontSize: 15, fontWeight: '400', color: colors.textSecondary, letterSpacing: -0.24, lineHeight: 20 },
+  footnote: { fontSize: 13, fontWeight: '400', color: colors.textSecondary, letterSpacing: -0.08, lineHeight: 18 },
+  caption: { fontSize: 12, fontWeight: '500', color: colors.textSecondary, letterSpacing: 0, lineHeight: 16 },
 });
 
 const ui = {
   borderRadius: 16,
+  borderRadiusLg: 24,
+  borderRadiusSm: 12,
   shadow: {
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 5,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  shadowLg: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 16 },
+    shadowOpacity: 0.12,
+    shadowRadius: 24,
+    elevation: 16,
+  },
+  spacing: {
+    xs: 4,
+    s: 8,
+    m: 16,
+    l: 24,
+    xl: 32,
+    xxl: 40,
   }
 };
 
@@ -48,5 +79,5 @@ export const useTheme = () => {
   const colors = themeMode === 'light' ? lightColors : darkColors;
   const typography = getTypography(colors);
   
-  return { colors, typography, ui };
+  return { colors, typography, ui, isDark: themeMode === 'dark' };
 };

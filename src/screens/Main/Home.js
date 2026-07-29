@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Alert, Dimensions, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Alert, Dimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useStore } from '../../store/useStore';
+import axios from 'axios';
+import RazorpayCheckoutModal from '../../components/RazorpayCheckoutModal';
 import { useTheme } from '../../theme/theme';
 
 const { width } = Dimensions.get('window');
@@ -35,6 +38,50 @@ export default function Home({ navigation }) {
   const cycleLength = useStore((state) => state.cycleLength) || 28;
 
   const [notifModalVisible, setNotifModalVisible] = useState(false);
+  const [checkoutVisible, setCheckoutVisible] = useState(false);
+  const [currentOrderId, setCurrentOrderId] = useState(null);
+  
+  const isPremium = useStore((state) => state.isPremium);
+  const unlockPremium = useStore((state) => state.unlockPremium);
+
+  const handlePremiumFeatureClick = async (route) => {
+    if (isPremium) {
+      navigation.navigate(route);
+    } else {
+      try {
+        const res = await axios.post(`${process.env.EXPO_PUBLIC_API_URL || 'http://172.20.10.2:3000'}/api/create-order`, {
+          amount: 199900, // 1999 INR
+        });
+        if (res.data && res.data.order_id) {
+          setCurrentOrderId(res.data.order_id);
+          setCheckoutVisible(true);
+        }
+      } catch (err) {
+        console.error(err);
+        Alert.alert('Error', 'Failed to initiate secure checkout.');
+      }
+    }
+  };
+
+  const handlePaymentSuccess = async (paymentData) => {
+    setCheckoutVisible(false);
+    try {
+      const res = await axios.post(`${process.env.EXPO_PUBLIC_API_URL || 'http://172.20.10.2:3000'}/api/verify-payment`, {
+        razorpay_order_id: paymentData.razorpay_order_id,
+        razorpay_payment_id: paymentData.razorpay_payment_id,
+        razorpay_signature: paymentData.razorpay_signature
+      });
+      if (res.data && res.data.success) {
+        unlockPremium();
+        Alert.alert('Premium Unlocked!', 'Welcome to BurnX Premium! Your membership is active.');
+      } else {
+        Alert.alert('Payment Failed', 'Invalid payment signature.');
+      }
+    } catch (err) {
+      console.error(err);
+      Alert.alert('Payment Error', 'Failed to verify payment with server.');
+    }
+  };
 
   // Sum logged macros
   const proteinConsumed = loggedFoods.reduce((acc, curr) => acc + (curr.protein || 0), 0);
@@ -99,7 +146,7 @@ export default function Home({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         
         {/* TOP STATUS BAR */}
@@ -160,7 +207,7 @@ export default function Home({ navigation }) {
         {/* 2. CALORIES MAIN CARD (MyFitnessPal Style but premium) */}
         <View style={styles.caloriesCard}>
           <View style={styles.cardHeader}>
-            <Text style={styles.cardTitle}>Calories Remaining</Text>
+            <Text style={styles.cardTitle}>Estimated Energy Expenditure</Text>
             <TouchableOpacity onPress={() => navigation.navigate('Nutrition')}>
               <Ionicons name="add-circle" size={22} color={colors.primary} />
             </TouchableOpacity>
@@ -206,7 +253,7 @@ export default function Home({ navigation }) {
 
         {/* 3. MACROS RATIOS */}
         <View style={styles.macrosCard}>
-          <Text style={styles.macroTitleText}>Macronutrient Axis</Text>
+          <Text style={styles.macroTitleText}>Macronutrient Breakdown</Text>
           
           <View style={styles.macroProgressBarRow}>
             {/* Protein */}
@@ -246,11 +293,11 @@ export default function Home({ navigation }) {
 
         {/* 4. QUICK ACTION BAR */}
         <View style={styles.quickBar}>
-          <Text style={styles.sectionTitle}>FitAxis Launchers</Text>
+          <Text style={styles.sectionTitle}>BurnX Launchers</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.quickScroll}>
-            <TouchableOpacity style={styles.actionCard} onPress={() => navigation.navigate('Chatbot')}>
+            <TouchableOpacity style={styles.actionCard} onPress={() => handlePremiumFeatureClick('Chatbot')}>
               <Ionicons name="hardware-chip-outline" size={24} color={colors.primary} />
-              <Text style={styles.actionLabel}>AI Coach</Text>
+              <Text style={styles.actionLabel}>BurnX Coach {!isPremium && <Ionicons name="lock-closed" size={10} color={colors.textSecondary} />}</Text>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.actionCard} onPress={() => navigation.navigate('Workout')}>
@@ -341,7 +388,7 @@ export default function Home({ navigation }) {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>FitAxis Alerts</Text>
+              <Text style={styles.modalTitle}>BurnX Alerts</Text>
               <TouchableOpacity onPress={() => setNotifModalVisible(false)}>
                 <Ionicons name="close" size={28} color="#FFF" />
               </TouchableOpacity>
@@ -374,102 +421,113 @@ export default function Home({ navigation }) {
         </View>
       </Modal>
 
+      {/* RAZORPAY CHECKOUT */}
+      {currentOrderId && (
+        <RazorpayCheckoutModal
+          visible={checkoutVisible}
+          orderId={currentOrderId}
+          amount={199900}
+          onClose={() => setCheckoutVisible(false)}
+          onSuccess={handlePaymentSuccess}
+        />
+      )}
     </SafeAreaView>
   );
 }
 
 const getStyles = (colors, typography, ui) => StyleSheet.create({
+  safeArea: { flex: 1, backgroundColor: colors.background },
   container: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 15, paddingBottom: 40 },
+  content: { padding: ui.spacing.m, paddingBottom: ui.spacing.xxl },
   
-  topHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, paddingTop: 10 },
-  greetingText: { ...typography.caption, color: colors.textSecondary, letterSpacing: 1 },
-  nameText: { ...typography.header, color: colors.textPrimary, fontSize: 22, fontWeight: '900', marginTop: -2 },
+  topHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ui.spacing.l, paddingTop: ui.spacing.s },
+  greetingText: { ...typography.footnote, color: colors.textSecondary, letterSpacing: 1.5, textTransform: 'uppercase' },
+  nameText: { ...typography.largeTitle, color: colors.textPrimary, marginTop: -2 },
   
   topRightControls: { flexDirection: 'row', alignItems: 'center' },
-  streakIndicator: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 12, borderHeight: 1, borderColor: colors.border, borderWidth: 1, marginRight: 10 },
-  streakText: { color: colors.primary, fontWeight: 'bold', marginLeft: 4, fontSize: 13 },
-  iconBtn: { backgroundColor: colors.surface, width: 38, height: 38, borderRadius: 19, justifyContent: 'center', alignItems: 'center', borderHeight: 1, borderColor: colors.border },
+  streakIndicator: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surfaceSecondary, paddingHorizontal: ui.spacing.s, paddingVertical: 6, borderRadius: ui.borderRadiusSm, borderWidth: 1, borderColor: colors.border, marginRight: ui.spacing.s },
+  streakText: { ...typography.footnote, color: colors.primary, fontWeight: '700', marginLeft: 4 },
+  iconBtn: { backgroundColor: colors.surfaceSecondary, width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colors.border },
   notifDot: { position: 'absolute', top: 8, right: 8, width: 8, height: 8, borderRadius: 4, backgroundColor: colors.primary },
 
-  readinessCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadius, padding: 16, marginBottom: 20, borderLeftWidth: 4, borderLeftColor: colors.primary, ...ui.shadow },
+  readinessCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadiusLg, padding: ui.spacing.l, marginBottom: ui.spacing.l, borderLeftWidth: 4, borderLeftColor: colors.primary, ...ui.shadowLg },
   readinessRow: { flexDirection: 'row', alignItems: 'center' },
-  readinessDial: { width: 90, height: 90, borderRadius: 45, borderWidth: 6, borderColor: colors.primary, justifyContent: 'center', alignItems: 'center', marginRight: 18, shadowColor: colors.primary, shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.3, shadowRadius: 10 },
-  readinessScoreNum: { fontSize: 28, fontWeight: '900', color: colors.textPrimary },
-  readinessScoreLabel: { fontSize: 8, fontWeight: '700', color: colors.textSecondary, letterSpacing: 0.5 },
+  readinessDial: { width: 90, height: 90, borderRadius: 45, borderWidth: 8, borderColor: colors.primary, justifyContent: 'center', alignItems: 'center', marginRight: ui.spacing.m, ...ui.shadowSm },
+  readinessScoreNum: { ...typography.largeTitle, color: colors.textPrimary },
+  readinessScoreLabel: { ...typography.caption, fontSize: 9, color: colors.textSecondary, letterSpacing: 0.5 },
   readinessDetails: { flex: 1 },
-  readinessTitle: { ...typography.title, fontSize: 16, color: colors.textPrimary, fontWeight: 'bold' },
-  readinessDesc: { ...typography.caption, color: colors.textSecondary, marginTop: 4, lineHeight: 15 },
-  readinessFactorsRow: { flexDirection: 'row', marginTop: 8 },
-  factorTag: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.background, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6, marginRight: 8 },
-  factorTagText: { fontSize: 10, color: colors.textSecondary, fontWeight: '600', marginLeft: 4 },
+  readinessTitle: { ...typography.title, color: colors.textPrimary },
+  readinessDesc: { ...typography.caption, color: colors.textSecondary, marginTop: 4, lineHeight: 18 },
+  readinessFactorsRow: { flexDirection: 'row', marginTop: ui.spacing.s },
+  factorTag: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surfaceSecondary, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6, marginRight: 8 },
+  factorTagText: { ...typography.caption, fontSize: 10, color: colors.textSecondary, marginLeft: 4 },
 
-  caloriesCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadius, padding: 18, marginBottom: 20, ...ui.shadow },
-  cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 },
-  cardTitle: { ...typography.title, fontSize: 16 },
-  equationRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 },
+  caloriesCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadiusLg, padding: ui.spacing.l, marginBottom: ui.spacing.l, ...ui.shadowLg },
+  cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ui.spacing.m },
+  cardTitle: { ...typography.headline },
+  equationRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ui.spacing.m },
   eqBox: { alignItems: 'center', width: '22%' },
-  eqVal: { ...typography.title, fontSize: 18, fontWeight: 'bold' },
-  eqLabel: { ...typography.caption, fontSize: 9, marginTop: 2, color: colors.textSecondary },
-  operator: { fontSize: 18, color: colors.textSecondary, fontWeight: 'bold' },
-  progressBg: { width: '100%', height: 6, backgroundColor: colors.background, borderRadius: 3, overflow: 'hidden' },
-  progressFill: { height: '100%', borderRadius: 3 },
+  eqVal: { ...typography.title },
+  eqLabel: { ...typography.caption, fontSize: 10, marginTop: 2, color: colors.textSecondary },
+  operator: { ...typography.title, color: colors.textSecondary },
+  progressBg: { width: '100%', height: 8, backgroundColor: colors.surfaceSecondary, borderRadius: 4, overflow: 'hidden' },
+  progressFill: { height: '100%', borderRadius: 4 },
 
-  macrosCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadius, padding: 18, marginBottom: 20, ...ui.shadow },
-  macroTitleText: { ...typography.title, fontSize: 16, marginBottom: 15 },
-  macroProgressBarRow: { gap: 12 },
+  macrosCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadiusLg, padding: ui.spacing.l, marginBottom: ui.spacing.l, ...ui.shadowLg },
+  macroTitleText: { ...typography.headline, marginBottom: ui.spacing.m },
+  macroProgressBarRow: { gap: ui.spacing.m },
   macroProgressItem: {},
-  macroItemHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
-  macroItemLabel: { fontSize: 13, color: colors.textPrimary, fontWeight: '700' },
-  macroItemVals: { fontSize: 11, color: colors.textSecondary },
-  macroBarBg: { width: '100%', height: 4, backgroundColor: colors.background, borderRadius: 2 },
-  macroBarFill: { height: '100%', borderRadius: 2 },
+  macroItemHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 },
+  macroItemLabel: { ...typography.subhead, color: colors.textPrimary, fontWeight: '700' },
+  macroItemVals: { ...typography.caption, color: colors.textSecondary },
+  macroBarBg: { width: '100%', height: 6, backgroundColor: colors.surfaceSecondary, borderRadius: 3 },
+  macroBarFill: { height: '100%', borderRadius: 3 },
 
-  quickBar: { marginBottom: 20 },
-  sectionTitle: { ...typography.title, fontSize: 16, marginBottom: 12 },
+  quickBar: { marginBottom: ui.spacing.l },
+  sectionTitle: { ...typography.headline, marginBottom: ui.spacing.s },
   quickScroll: { flexDirection: 'row' },
-  actionCard: { backgroundColor: colors.surface, width: 85, height: 85, borderRadius: 18, justifyContent: 'center', alignItems: 'center', marginRight: 12, borderHeight: 1, borderColor: colors.border, borderWidth: 1, ...ui.shadow },
-  actionLabel: { ...typography.caption, color: colors.textPrimary, fontSize: 10, fontWeight: '700', marginTop: 8 },
+  actionCard: { backgroundColor: colors.surface, width: 90, height: 90, borderRadius: ui.borderRadius, justifyContent: 'center', alignItems: 'center', marginRight: ui.spacing.m, borderWidth: 1, borderColor: colors.border, ...ui.shadow },
+  actionLabel: { ...typography.caption, color: colors.textPrimary, fontWeight: '700', marginTop: 8 },
 
-  cycleSyncCard: { backgroundColor: colors.surface, borderLeftWidth: 4, borderLeftColor: '#E91E63', padding: 18, borderRadius: ui.borderRadius, marginBottom: 20, ...ui.shadow },
+  cycleSyncCard: { backgroundColor: colors.surface, borderLeftWidth: 4, borderLeftColor: '#E91E63', padding: ui.spacing.l, borderRadius: ui.borderRadiusLg, marginBottom: ui.spacing.l, ...ui.shadowLg },
   cycleRow: { flexDirection: 'row', alignItems: 'center' },
-  cycleTextCol: { flex: 1, marginLeft: 15 },
+  cycleTextCol: { flex: 1, marginLeft: ui.spacing.m },
   cycleHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 },
-  cyclePhaseTitle: { ...typography.body, fontWeight: 'bold', color: '#E91E63' },
-  daysBadge: { fontSize: 9, fontWeight: 'bold', color: '#FFF', backgroundColor: '#E91E63', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6 },
-  cycleAdviceText: { ...typography.caption, color: colors.textSecondary, lineHeight: 16 },
+  cyclePhaseTitle: { ...typography.subhead, fontWeight: '700', color: '#E91E63' },
+  daysBadge: { ...typography.caption, fontSize: 10, color: '#FFF', backgroundColor: '#E91E63', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6 },
+  cycleAdviceText: { ...typography.caption, color: colors.textSecondary, lineHeight: 18 },
 
-  waterCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadius, padding: 18, marginBottom: 20, ...ui.shadow },
-  waterHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
-  waterTitle: { ...typography.body, fontWeight: 'bold', color: '#0EA5E9' },
+  waterCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadiusLg, padding: ui.spacing.l, marginBottom: ui.spacing.l, ...ui.shadowLg },
+  waterHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ui.spacing.m },
+  waterTitle: { ...typography.subhead, fontWeight: '700', color: '#0EA5E9' },
   waterSub: { ...typography.caption, color: colors.textSecondary, marginTop: 2 },
-  resetBtn: { padding: 4 },
-  waterProgressRow: { marginBottom: 15 },
-  waterGaugeBg: { width: '100%', height: 6, backgroundColor: colors.background, borderRadius: 3, overflow: 'hidden' },
-  waterGaugeFill: { height: '100%', backgroundColor: '#0EA5E9', borderRadius: 3 },
-  waterQuickBtnsRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 6 },
-  waterQuickBtn: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0EA5E9', paddingVertical: 8, borderRadius: 10 },
-  waterQuickBtnText: { color: '#FFF', fontSize: 10, fontWeight: 'bold', marginLeft: 4 },
+  resetBtn: { padding: ui.spacing.xs },
+  waterProgressRow: { marginBottom: ui.spacing.m },
+  waterGaugeBg: { width: '100%', height: 8, backgroundColor: colors.surfaceSecondary, borderRadius: 4, overflow: 'hidden' },
+  waterGaugeFill: { height: '100%', backgroundColor: '#0EA5E9', borderRadius: 4 },
+  waterQuickBtnsRow: { flexDirection: 'row', justifyContent: 'space-between', gap: ui.spacing.s },
+  waterQuickBtn: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0EA5E9', paddingVertical: ui.spacing.s, borderRadius: ui.borderRadiusSm },
+  waterQuickBtnText: { color: '#FFF', fontSize: 11, fontWeight: 'bold', marginLeft: 4 },
 
-  achievementsCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadius, padding: 18, marginBottom: 20, ...ui.shadow },
-  achScroll: { flexDirection: 'row', marginTop: 10 },
-  achBadge: { width: 90, height: 95, backgroundColor: colors.background, borderRadius: 16, padding: 10, alignItems: 'center', justifyContent: 'center', marginRight: 12, borderHeight: 1, borderColor: colors.border, borderWidth: 1 },
+  achievementsCard: { backgroundColor: colors.surface, borderRadius: ui.borderRadiusLg, padding: ui.spacing.l, marginBottom: ui.spacing.l, ...ui.shadowLg },
+  achScroll: { flexDirection: 'row', marginTop: ui.spacing.s },
+  achBadge: { width: 100, height: 110, backgroundColor: colors.surfaceSecondary, borderRadius: ui.borderRadius, padding: ui.spacing.m, alignItems: 'center', justifyContent: 'center', marginRight: ui.spacing.m, borderWidth: 1, borderColor: colors.border },
   achBadgeUnlocked: { backgroundColor: colors.primary, borderColor: colors.primary },
-  achBadgeTitle: { fontSize: 9, fontWeight: '900', color: colors.textSecondary, textAlign: 'center', marginTop: 6, height: 20 },
-  achBadgeStatus: { fontSize: 7, fontWeight: 'bold', color: colors.textPrimary, opacity: 0.6, marginTop: 2 },
+  achBadgeTitle: { ...typography.caption, fontSize: 10, color: colors.textSecondary, textAlign: 'center', marginTop: 8, height: 28 },
+  achBadgeStatus: { ...typography.caption, fontSize: 8, color: colors.textPrimary, opacity: 0.6, marginTop: 2 },
 
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' },
-  modalContent: { backgroundColor: colors.surface, borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 25, height: '70%', justifyContent: 'space-between' },
-  modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
-  modalTitle: { ...typography.header, color: colors.primary },
-  emptyNotifs: { flex: 1, justifyContent: 'center', alignItems: 'center', gap: 15 },
-  emptyNotifsText: { color: colors.textSecondary, textAlign: 'center', fontSize: 15 },
-  notifItem: { flexDirection: 'row', paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: colors.border, gap: 12 },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'flex-end' },
+  modalContent: { backgroundColor: colors.surface, borderTopLeftRadius: ui.borderRadiusLg, borderTopRightRadius: ui.borderRadiusLg, padding: ui.spacing.l, height: '75%', justifyContent: 'space-between' },
+  modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ui.spacing.l },
+  modalTitle: { ...typography.title, color: colors.primary },
+  emptyNotifs: { flex: 1, justifyContent: 'center', alignItems: 'center', gap: ui.spacing.m },
+  emptyNotifsText: { ...typography.subhead, color: colors.textSecondary, textAlign: 'center' },
+  notifItem: { flexDirection: 'row', paddingVertical: ui.spacing.m, borderBottomWidth: 1, borderBottomColor: colors.border, gap: ui.spacing.m },
   notifDotActive: { width: 8, height: 8, borderRadius: 4, backgroundColor: colors.primary, marginTop: 6 },
   notifTextCol: { flex: 1 },
-  notifItemTitle: { fontSize: 14, fontWeight: 'bold', color: colors.textPrimary },
-  notifItemBody: { fontSize: 12, color: colors.textSecondary, marginTop: 2, lineHeight: 16 },
-  notifItemDate: { fontSize: 9, color: colors.primary, marginTop: 4, fontWeight: '600' },
-  clearBtn: { backgroundColor: colors.primary, padding: 14, borderRadius: 12, alignItems: 'center', marginTop: 15 },
-  clearBtnText: { color: '#FFF', fontWeight: 'bold', fontSize: 15 },
+  notifItemTitle: { ...typography.headline },
+  notifItemBody: { ...typography.subhead, color: colors.textSecondary, marginTop: 4, lineHeight: 20 },
+  notifItemDate: { ...typography.caption, color: colors.primary, marginTop: 6 },
+  clearBtn: { backgroundColor: colors.primary, height: ui.buttonHeight, borderRadius: ui.borderRadius, justifyContent: 'center', alignItems: 'center', marginTop: ui.spacing.m },
+  clearBtnText: { ...typography.headline, color: '#FFF' },
 });

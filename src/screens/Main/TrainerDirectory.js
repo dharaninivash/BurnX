@@ -49,7 +49,7 @@ export default function TrainerDirectory({ navigation }) {
       `Successfully scheduled a consultation with ${selectedTrainer.name} for ${selectedDay} at ${selectedTimeSlot}!`,
       [
         { text: 'OK' },
-        { text: 'Mock Join Call', onPress: () => navigation.navigate('VideoCall') }
+        { text: 'Join Call', onPress: () => navigation.navigate('VideoCall', { roomName: `room_${Math.floor(Math.random()*1000)}` }) }
       ]
     );
   };
@@ -104,7 +104,7 @@ export default function TrainerDirectory({ navigation }) {
 
                 <TouchableOpacity 
                   style={styles.joinCallBtn}
-                  onPress={() => navigation.navigate('VideoCall')}
+                  onPress={() => navigation.navigate('VideoCall', { roomName: `room_${appt.id}` })}
                 >
                   <Ionicons name="videocam-outline" size={16} color="#FFF" style={{ marginRight: 6 }} />
                   <Text style={styles.joinCallText}>Join Active Call Channel</Text>

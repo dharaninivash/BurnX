@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Platform, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStore } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
 import { supabase } from '../../services/supabase';
 
-const { height } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
 export default function Login({ navigation }) {
   const { colors, typography, ui } = useTheme();
   const styles = typeof getStyles !== 'undefined' ? getStyles(colors, typography, ui) : {};
-  const bypassAuth = useStore((state) => state.bypassAuth);
   const completeOnboarding = useStore((state) => state.completeOnboarding);
 
   const [email, setEmail] = useState('');
@@ -32,7 +32,6 @@ export default function Login({ navigation }) {
 
       if (error) throw error;
       
-      // Load user profile from Supabase metadata
       const profileData = data.user.user_metadata || {};
       completeOnboarding({ ...profileData, email: data.user.email });
       
@@ -44,94 +43,103 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }} showsVerticalScrollIndicator={false}>
-        {/* Decorative gradient / layout background */}
-        <View style={styles.backgroundAccent} />
-        
-        <View style={styles.topSection}>
-          <Text style={styles.appName}>FIT<Text style={{ color: colors.primary }}>AXIS</Text></Text>
-          <Text style={styles.tagline}>The Ultimate Personalized Fitness & Wellness Axis</Text>
-        </View>
-
-        <View style={styles.cardSection}>
-          <Text style={styles.welcomeText}>Welcome Back</Text>
-          <Text style={styles.subtitle}>Sign in to access your personalized axis.</Text>
-
-          <View style={styles.inputContainer}>
-            <Ionicons name="mail-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
-            <TextInput
-              style={styles.textInput}
-              placeholder="Email"
-              placeholderTextColor={colors.textSecondary}
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
+      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+          
+          <View style={styles.backgroundAccent} />
+          
+          <View style={styles.topSection}>
+            <Text style={styles.appName}>BURN<Text style={{ color: colors.primary }}>X</Text></Text>
+            <Text style={styles.tagline}>The Ultimate Personalized Wellness Platform</Text>
           </View>
 
-          <View style={[styles.inputContainer, { marginTop: 15, marginBottom: 25 }]}>
-            <Ionicons name="lock-closed-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
-            <TextInput
-              style={styles.textInput}
-              placeholder="Password"
-              placeholderTextColor={colors.textSecondary}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-          </View>
+          <View style={styles.cardSection}>
+            <Text style={styles.welcomeText}>Welcome Back</Text>
+            <Text style={styles.subtitle}>Sign in to access your personalized training plan.</Text>
 
-          <TouchableOpacity 
-            style={[styles.primaryBtn, loading && { opacity: 0.7 }]} 
-            onPress={handleLogin}
-            disabled={loading}
-          >
-            <Text style={styles.primaryBtnText}>{loading ? 'Signing in...' : 'Sign In'}</Text>
-            {!loading && <Ionicons name="arrow-forward" size={20} color="#FFF" style={{ marginLeft: 10 }} />}
-          </TouchableOpacity>
+            <View style={styles.inputWrapper}>
+              <View style={styles.inputContainer}>
+                <Ionicons name="mail-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Email"
+                  placeholderTextColor={colors.textTertiary}
+                  value={email}
+                  onChangeText={setEmail}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                />
+              </View>
 
-          <TouchableOpacity style={{ marginTop: 15, alignItems: 'center' }} onPress={() => navigation.navigate('Signup')}>
-             <Text style={{ color: colors.textSecondary, ...typography.body }}>Don't have an account? <Text style={{ color: colors.primary, fontWeight: 'bold' }}>Sign Up</Text></Text>
-          </TouchableOpacity>
-
-          <View style={styles.divider}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>OR EXPLORE DEMO</Text>
-            <View style={styles.dividerLine} />
-          </View>
-
-          <View style={styles.demoButtonsRow}>
-            <TouchableOpacity 
-              style={styles.demoBtn} 
-              onPress={() => bypassAuth('member')}
-            >
-              <Ionicons name="person" size={20} color={colors.primary} />
-              <Text style={styles.demoBtnText}>Member Guest</Text>
-            </TouchableOpacity>
+              <View style={[styles.inputContainer, { marginTop: ui.spacing.m }]}>
+                <Ionicons name="lock-closed-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Password"
+                  placeholderTextColor={colors.textTertiary}
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry
+                />
+              </View>
+            </View>
 
             <TouchableOpacity 
-              style={[styles.demoBtn, { borderColor: '#E91E63' }]} 
-              onPress={() => bypassAuth('trainer')}
+              style={[styles.primaryBtn, loading && { opacity: 0.6 }]} 
+              onPress={handleLogin}
+              disabled={loading}
+              activeOpacity={0.8}
             >
-              <Ionicons name="ribbon" size={20} color="#E91E63" />
-              <Text style={[styles.demoBtnText, { color: '#E91E63' }]}>Trainer Guest</Text>
+              <Text style={styles.primaryBtnText}>{loading ? 'Signing in...' : 'Sign In'}</Text>
+              {!loading && <Ionicons name="arrow-forward" size={20} color="#FFF" style={{ marginLeft: 8 }} />}
+            </TouchableOpacity>
+
+            {/* Quick Role Portal Selection */}
+            <View style={{ marginTop: 20, paddingTop: 15, borderTopWidth: 1, borderTopColor: colors.border }}>
+              <Text style={{ fontSize: 12, fontWeight: '700', color: colors.textSecondary, textAlign: 'center', marginBottom: 10 }}>QUICK ROLE PORTAL ACCESS</Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 8 }}>
+                <TouchableOpacity 
+                  style={{ flex: 1, backgroundColor: colors.surfaceSecondary, paddingVertical: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.border, alignItems: 'center' }}
+                  onPress={() => useStore.getState().bypassAuth('client')}
+                >
+                  <Text style={{ fontSize: 12, fontWeight: 'bold', color: colors.primary }}>Client</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                  style={{ flex: 1, backgroundColor: colors.surfaceSecondary, paddingVertical: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.border, alignItems: 'center' }}
+                  onPress={() => useStore.getState().bypassAuth('trainer')}
+                >
+                  <Text style={{ fontSize: 12, fontWeight: 'bold', color: colors.primary }}>Trainer</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                  style={{ flex: 1, backgroundColor: colors.surfaceSecondary, paddingVertical: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.border, alignItems: 'center' }}
+                  onPress={() => useStore.getState().bypassAuth('admin')}
+                >
+                  <Text style={{ fontSize: 12, fontWeight: 'bold', color: colors.primary }}>Admin</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <TouchableOpacity style={styles.signupLink} onPress={() => navigation.navigate('Signup')} activeOpacity={0.7}>
+               <Text style={styles.signupText}>Don't have an account? <Text style={styles.signupTextHighlight}>Sign Up</Text></Text>
             </TouchableOpacity>
           </View>
-        </View>
 
-        <View style={styles.footer}>
-          <Ionicons name="shield-checkmark" size={16} color={colors.textSecondary} />
-          <Text style={styles.footerText}>Secure Cloud Sync Enabled</Text>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+          <View style={styles.footer}>
+            <Ionicons name="shield-checkmark" size={16} color={colors.textSecondary} />
+            <Text style={styles.footerText}>Secure Cloud Sync Enabled</Text>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const getStyles = (colors, typography, ui) => StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.background, padding: 25 },
+  safeArea: { flex: 1, backgroundColor: colors.background },
+  container: { flex: 1 },
+  scrollContent: { flexGrow: 1, justifyContent: 'space-between', paddingHorizontal: ui.spacing.l, paddingVertical: ui.spacing.m },
   backgroundAccent: {
     position: 'absolute',
     top: -200,
@@ -139,59 +147,55 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
     width: 400,
     height: 400,
     borderRadius: 200,
-    backgroundColor: 'rgba(255, 122, 0, 0.08)',
-    // filter: 'blur(80px)', // filter might not work perfectly across all RN, keep simple
+    backgroundColor: colors.primary,
+    opacity: 0.05,
   },
-  topSection: { marginTop: height * 0.08, alignItems: 'center' },
-  appName: { fontSize: 44, fontWeight: '900', color: colors.textPrimary, letterSpacing: 2 },
-  tagline: { ...typography.body, color: colors.textSecondary, textAlign: 'center', marginTop: 10, paddingHorizontal: 20 },
+  topSection: { marginTop: height * 0.05, alignItems: 'center' },
+  appName: { ...typography.largeTitle, letterSpacing: 2 },
+  tagline: { ...typography.callout, color: colors.textSecondary, textAlign: 'center', marginTop: ui.spacing.s, paddingHorizontal: ui.spacing.m },
   
   cardSection: { 
     backgroundColor: colors.surface, 
-    borderRadius: 24, 
-    padding: 25, 
+    borderRadius: ui.borderRadiusLg, 
+    padding: ui.spacing.l, 
     borderWidth: 1, 
     borderColor: colors.border, 
-    ...ui.shadow,
-    marginBottom: 20,
-    marginTop: 30,
+    ...ui.shadowLg,
+    marginBottom: ui.spacing.l,
+    marginTop: ui.spacing.xl,
   },
-  welcomeText: { ...typography.header, fontSize: 24, textAlign: 'center', marginBottom: 8 },
-  subtitle: { ...typography.body, color: colors.textSecondary, textAlign: 'center', fontSize: 14, lineHeight: 20, marginBottom: 25 },
+  welcomeText: { ...typography.title, textAlign: 'center', marginBottom: ui.spacing.xs },
+  subtitle: { ...typography.subhead, textAlign: 'center', marginBottom: ui.spacing.xl },
   
-  inputContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.background, borderRadius: 12, paddingHorizontal: 15, borderWidth: 1, borderColor: colors.border },
-  inputIcon: { marginRight: 12 },
-  textInput: { flex: 1, color: colors.textPrimary, paddingVertical: 14, fontSize: 16 },
+  inputWrapper: { marginBottom: ui.spacing.xl },
+  inputContainer: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    backgroundColor: colors.surfaceSecondary, 
+    borderRadius: ui.borderRadiusSm, 
+    paddingHorizontal: ui.spacing.m, 
+    height: ui.inputHeight,
+    borderWidth: 1, 
+    borderColor: 'transparent' // could conditionally set border if focused
+  },
+  inputIcon: { marginRight: ui.spacing.s },
+  textInput: { flex: 1, color: colors.textPrimary, fontSize: typography.body.fontSize, height: '100%' },
 
   primaryBtn: { 
     backgroundColor: colors.primary, 
-    paddingVertical: 16, 
-    borderRadius: 14, 
+    height: ui.buttonHeight,
+    borderRadius: ui.borderRadius, 
     flexDirection: 'row', 
     justifyContent: 'center', 
     alignItems: 'center',
     ...ui.shadow,
   },
-  primaryBtnText: { color: '#FFF', fontSize: 18, fontWeight: 'bold' },
+  primaryBtnText: { ...typography.headline, color: '#FFFFFF' },
   
-  divider: { flexDirection: 'row', alignItems: 'center', marginVertical: 20 },
-  dividerLine: { flex: 1, height: 1, backgroundColor: colors.border },
-  dividerText: { color: colors.textSecondary, marginHorizontal: 15, fontSize: 11, fontWeight: '700', letterSpacing: 1 },
+  signupLink: { marginTop: ui.spacing.l, alignItems: 'center', padding: ui.spacing.s },
+  signupText: { ...typography.subhead },
+  signupTextHighlight: { color: colors.primary, fontWeight: '600' },
   
-  demoButtonsRow: { flexDirection: 'row', justifyContent: 'space-between' },
-  demoBtn: { 
-    flex: 0.48, 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    backgroundColor: colors.background, 
-    borderWidth: 1, 
-    borderColor: colors.primary, 
-    paddingVertical: 14, 
-    borderRadius: 12,
-  },
-  demoBtnText: { color: colors.primary, fontWeight: 'bold', marginLeft: 8, fontSize: 14 },
-  
-  footer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: Platform.OS === 'ios' ? 20 : 10, marginTop: 20 },
-  footerText: { ...typography.caption, marginLeft: 6, fontSize: 12 }
+  footer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: ui.spacing.m, marginTop: ui.spacing.l },
+  footerText: { ...typography.caption, marginLeft: ui.spacing.xs }
 });

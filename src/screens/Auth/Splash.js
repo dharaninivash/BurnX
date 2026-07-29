@@ -6,34 +6,35 @@ export default function Splash({ navigation }) {
   const { colors, typography, ui } = useTheme();
   const styles = typeof getStyles !== 'undefined' ? getStyles(colors, typography, ui) : {};
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const scaleAnim = useRef(new Animated.Value(0.5)).current;
+  const scaleAnim = useRef(new Animated.Value(0.9)).current;
 
   useEffect(() => {
     Animated.parallel([
       Animated.timing(fadeAnim, {
         toValue: 1,
-        duration: 1000,
+        duration: 800,
         useNativeDriver: true,
       }),
       Animated.spring(scaleAnim, {
         toValue: 1,
-        friction: 4,
+        friction: 6,
+        tension: 40,
         useNativeDriver: true,
       }),
     ]).start();
 
     const timer = setTimeout(() => {
       navigation.replace('Login');
-    }, 2500);
+    }, 2000);
     return () => clearTimeout(timer);
   }, [fadeAnim, scaleAnim, navigation]);
 
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.logoContainer, { opacity: fadeAnim, transform: [{ scale: scaleAnim }] }]}>
-        <Text style={styles.logo}>FIT<Text style={styles.logoHighlight}>AXIS</Text></Text>
+        <Text style={styles.logo}>BURN<Text style={styles.logoHighlight}>X</Text></Text>
       </Animated.View>
-      <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY: fadeAnim.interpolate({ inputRange: [0, 1], outputRange: [20, 0] }) }] }}>
+      <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY: fadeAnim.interpolate({ inputRange: [0, 1], outputRange: [15, 0] }) }] }}>
         <Text style={styles.tagline}>Train Smart. Live Strong.</Text>
       </Animated.View>
     </View>
@@ -48,19 +49,21 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
     alignItems: 'center',
   },
   logoContainer: {
-    marginBottom: 10,
+    marginBottom: ui.spacing.m,
   },
   logo: {
+    ...typography.largeTitle,
     fontSize: 48,
-    fontWeight: '900',
     color: colors.textPrimary,
+    letterSpacing: 2,
   },
   logoHighlight: {
     color: colors.primary,
   },
   tagline: {
-    fontSize: 18,
+    ...typography.subhead,
     color: colors.textSecondary,
-    fontWeight: '500',
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
   }
 });

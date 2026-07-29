@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useStore } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
@@ -39,14 +40,14 @@ export default function Progress({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         
         <View style={styles.headerContainer}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 10 }}>
             <Ionicons name="arrow-back" size={24} color={colors.primary} />
           </TouchableOpacity>
-          <Text style={styles.header}>PROGRESS AXIS</Text>
+          <Text style={styles.header}>PROGRESS</Text>
           <Text style={styles.headerSub}>Dynamic Analytics & Performance Logs</Text>
         </View>
 
@@ -148,7 +149,7 @@ export default function Progress({ navigation }) {
 
         {/* 5. LEADERBOARD */}
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>FitAxis Leaderboard</Text>
+          <Text style={styles.cardTitle}>BurnX Leaderboard</Text>
           <View style={styles.leaderboardRow}>
             <Text style={styles.rankText}>1</Text>
             <Ionicons name="person-circle" size={32} color={colors.primary} style={{ marginHorizontal: 10 }} />
@@ -175,54 +176,56 @@ export default function Progress({ navigation }) {
 }
 
 const getStyles = (colors, typography, ui) => StyleSheet.create({
+  safeArea: { flex: 1, backgroundColor: colors.background },
   container: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 15, paddingBottom: 40 },
+  content: { padding: ui.spacing.m, paddingBottom: ui.spacing.xxl },
   
-  header: { ...typography.header, color: colors.primary, fontSize: 22, fontWeight: '900', paddingTop: 10 },
-  headerSub: { ...typography.caption, color: colors.textSecondary, marginTop: -2, marginBottom: 20 },
+  headerContainer: { marginBottom: ui.spacing.l, paddingTop: ui.spacing.s },
+  header: { ...typography.largeTitle, color: colors.primary, letterSpacing: 1 },
+  headerSub: { ...typography.subhead, color: colors.textSecondary, marginTop: 4 },
 
-  card: { backgroundColor: colors.surface, borderRadius: ui.borderRadius, padding: 18, marginBottom: 20, borderWidth: 1, borderColor: colors.border, ...ui.shadow },
-  cardTitle: { ...typography.title, fontSize: 16, marginBottom: 15 },
+  card: { backgroundColor: colors.surface, borderRadius: ui.borderRadiusLg, padding: ui.spacing.l, marginBottom: ui.spacing.l, borderWidth: 1, borderColor: colors.border, ...ui.shadowLg },
+  cardTitle: { ...typography.headline, marginBottom: ui.spacing.m },
 
-  statsRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 8 },
-  statBox: { flex: 1, backgroundColor: colors.background, padding: 12, borderRadius: 12, alignItems: 'center' },
-  statVal: { fontSize: 18, fontWeight: '900', color: colors.primary },
-  statLabel: { fontSize: 8, fontWeight: 'bold', color: colors.textSecondary, marginTop: 4, textAlign: 'center' },
+  statsRow: { flexDirection: 'row', justifyContent: 'space-between', gap: ui.spacing.s },
+  statBox: { flex: 1, backgroundColor: colors.surfaceSecondary, padding: ui.spacing.m, borderRadius: ui.borderRadiusSm, alignItems: 'center', borderWidth: 1, borderColor: colors.border },
+  statVal: { ...typography.title, color: colors.primary },
+  statLabel: { ...typography.caption, fontSize: 9, color: colors.textSecondary, marginTop: 4, textAlign: 'center' },
 
-  weightTrendRow: { flexDirection: 'row', alignItems: 'center', gap: 15 },
-  weightDisplay: { backgroundColor: colors.background, padding: 15, borderRadius: 12, alignItems: 'center', width: 120 },
-  weightNum: { fontSize: 20, fontWeight: '900', color: colors.textPrimary },
-  weightSub: { fontSize: 7, fontWeight: 'bold', color: colors.textSecondary, marginTop: 4 },
+  weightTrendRow: { flexDirection: 'row', alignItems: 'center', gap: ui.spacing.m },
+  weightDisplay: { backgroundColor: colors.surfaceSecondary, padding: ui.spacing.m, borderRadius: ui.borderRadiusSm, alignItems: 'center', width: 120, borderWidth: 1, borderColor: colors.border },
+  weightNum: { ...typography.title, color: colors.textPrimary },
+  weightSub: { ...typography.caption, fontSize: 8, color: colors.textSecondary, marginTop: 4 },
   trendInfoCol: { flex: 1 },
   trendStat: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  trendText: { fontSize: 13, fontWeight: 'bold', color: colors.success },
-  trendAdvice: { fontSize: 11, color: colors.textSecondary, marginTop: 4, lineHeight: 16 },
+  trendText: { ...typography.subhead, fontWeight: '700', color: colors.success },
+  trendAdvice: { ...typography.caption, color: colors.textSecondary, marginTop: 4, lineHeight: 18 },
 
-  readinessProgressRow: { flexDirection: 'row', alignItems: 'center', gap: 12, marginVertical: 8 },
-  readinessBarBg: { flex: 1, height: 6, backgroundColor: colors.background, borderRadius: 3, overflow: 'hidden' },
-  readinessBarFill: { height: '100%', backgroundColor: colors.primary, borderRadius: 3 },
-  readinessScoreText: { fontSize: 13, fontWeight: 'bold', color: colors.primary },
-  readinessPara: { fontSize: 11, color: colors.textSecondary, lineHeight: 16, marginTop: 6 },
+  readinessProgressRow: { flexDirection: 'row', alignItems: 'center', gap: ui.spacing.m, marginVertical: ui.spacing.s },
+  readinessBarBg: { flex: 1, height: 8, backgroundColor: colors.surfaceSecondary, borderRadius: 4, overflow: 'hidden' },
+  readinessBarFill: { height: '100%', backgroundColor: colors.primary, borderRadius: 4 },
+  readinessScoreText: { ...typography.subhead, fontWeight: '700', color: colors.primary },
+  readinessPara: { ...typography.caption, color: colors.textSecondary, lineHeight: 18, marginTop: 6 },
 
-  emptyWorkouts: { alignItems: 'center', paddingVertical: 20, gap: 8 },
-  emptyWorkoutsText: { fontSize: 12, color: colors.textSecondary },
-  workoutList: { gap: 10 },
-  workoutItem: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: colors.background, padding: 12, borderRadius: 12, borderWidth: 1, borderColor: colors.border },
+  emptyWorkouts: { alignItems: 'center', paddingVertical: ui.spacing.xl, gap: ui.spacing.s },
+  emptyWorkoutsText: { ...typography.subhead, color: colors.textSecondary },
+  workoutList: { gap: ui.spacing.m },
+  workoutItem: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: colors.surfaceSecondary, padding: ui.spacing.m, borderRadius: ui.borderRadiusSm, borderWidth: 1, borderColor: colors.border },
   workoutItemLeft: { flexDirection: 'row', alignItems: 'center', flex: 1 },
-  workoutItemName: { fontSize: 13, fontWeight: 'bold', color: colors.textPrimary },
-  workoutItemMeta: { fontSize: 10, color: colors.textSecondary, marginTop: 2 },
-  workoutDuration: { fontSize: 12, fontWeight: 'bold', color: colors.primary },
+  workoutItemName: { ...typography.subhead, fontWeight: '700', color: colors.textPrimary },
+  workoutItemMeta: { ...typography.caption, color: colors.textSecondary, marginTop: 4 },
+  workoutDuration: { ...typography.subhead, fontWeight: '700', color: colors.primary },
 
-  leaderboardRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: colors.border },
-  leaderboardSelf: { backgroundColor: 'rgba(255,122,0,0.15)', borderRadius: 10, paddingHorizontal: 8, borderBottomWidth: 0 },
-  rankText: { fontSize: 12, fontWeight: 'bold', color: colors.textSecondary, width: 15, textAlign: 'center' },
-  leaderboardName: { fontSize: 12, color: colors.textSecondary, flex: 1 },
-  leaderboardPoints: { fontSize: 12, fontWeight: 'bold', color: colors.primary },
+  leaderboardRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: ui.spacing.s, borderBottomWidth: 1, borderBottomColor: colors.border },
+  leaderboardSelf: { backgroundColor: 'rgba(255,122,0,0.15)', borderRadius: ui.borderRadiusSm, paddingHorizontal: ui.spacing.s, borderBottomWidth: 0 },
+  rankText: { ...typography.subhead, fontWeight: '700', color: colors.textSecondary, width: 20, textAlign: 'center' },
+  leaderboardName: { ...typography.subhead, color: colors.textSecondary, flex: 1 },
+  leaderboardPoints: { ...typography.subhead, fontWeight: '700', color: colors.primary },
 
-  chartContainer: { flexDirection: 'row', justifyContent: 'space-around', alignItems: 'flex-end', height: 180, paddingTop: 20, paddingBottom: 10 },
+  chartContainer: { flexDirection: 'row', justifyContent: 'space-around', alignItems: 'flex-end', height: 180, paddingTop: ui.spacing.m, paddingBottom: ui.spacing.s },
   barWrapper: { alignItems: 'center', flex: 1 },
-  barTrack: { height: 120, width: 24, backgroundColor: colors.background, borderRadius: 12, justifyContent: 'flex-end', overflow: 'hidden', marginVertical: 8 },
+  barTrack: { height: 120, width: 24, backgroundColor: colors.surfaceSecondary, borderRadius: 12, justifyContent: 'flex-end', overflow: 'hidden', marginVertical: 8, borderWidth: 1, borderColor: colors.border },
   barFill: { width: '100%', backgroundColor: colors.primary, borderRadius: 12 },
-  barLabelTop: { fontSize: 10, fontWeight: 'bold', color: colors.textPrimary },
-  barLabelBottom: { fontSize: 9, color: colors.textSecondary }
+  barLabelTop: { ...typography.caption, fontSize: 10, fontWeight: '700', color: colors.textPrimary },
+  barLabelBottom: { ...typography.caption, fontSize: 9, color: colors.textSecondary }
 });

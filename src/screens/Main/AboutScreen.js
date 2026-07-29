@@ -13,13 +13,13 @@ export default function AboutScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name="arrow-back" size={24} color={colors.textPrimary} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>About FitAxis</Text>
+        <Text style={styles.headerTitle}>About BurnX</Text>
         <View style={{ width: 24 }} />
       </View>
 
       <View style={styles.content}>
         <View style={styles.logoBox}>
-          <Text style={styles.appName}>FIT<Text style={{ color: colors.primary }}>AXIS</Text></Text>
+          <Text style={styles.appName}>BURN<Text style={{ color: colors.primary }}>X</Text></Text>
           <Text style={styles.versionText}>v1.0.0 Premium</Text>
         </View>
 
@@ -29,7 +29,7 @@ export default function AboutScreen({ navigation }) {
             <Text style={styles.cardTitle}>100% Offline Privacy</Text>
           </View>
           <Text style={styles.cardText}>
-            FitAxis operates entirely on your device. We believe your biological data, menstrual cycles, and dietary habits belong to you. No servers. No telemetry. Total privacy.
+            BurnX operates entirely on your device. We believe your biological data, menstrual cycles, and dietary habits belong to you. No servers. No telemetry. Total privacy.
           </Text>
         </View>
 
@@ -39,7 +39,7 @@ export default function AboutScreen({ navigation }) {
             <Text style={styles.cardTitle}>The Universal Engine</Text>
           </View>
           <Text style={styles.cardText}>
-            From predictive cycle-syncing to dynamic hypertrophy algorithms, the FitAxis engine recalculates your BMR and athletic readiness in real-time without needing a connection.
+            From predictive cycle-syncing to dynamic hypertrophy algorithms, the BurnX engine recalculates your BMR and athletic readiness in real-time without needing a connection.
           </Text>
         </View>
 

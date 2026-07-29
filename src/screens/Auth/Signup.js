@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStore } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
 import { supabase } from '../../services/supabase';
@@ -11,11 +12,11 @@ export default function Signup({ navigation }) {
   const { colors, typography, ui } = useTheme();
   const styles = typeof getStyles !== 'undefined' ? getStyles(colors, typography, ui) : {};
   const completeOnboarding = useStore((state) => state.completeOnboarding);
-  const bypassAuth = useStore((state) => state.bypassAuth);
   
   const [step, setStep] = useState(1);
   
   // Onboarding Profile State
+  const [role, setRole] = useState('client'); // 'client' | 'trainer' | 'admin'
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -59,8 +60,15 @@ export default function Signup({ navigation }) {
   const handleNext = () => {
     if (step === 1) {
       if (!name.trim()) {
-        setName('FitAxis Athlete');
+        setName('BurnX Athlete');
       }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.trim())) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
       if (!password.trim() || password.length < 6) {
         alert('Please enter a password with at least 6 characters.');
         return;
@@ -91,6 +99,7 @@ export default function Signup({ navigation }) {
 
     const profileData = {
       name: name.trim() || 'Athlete',
+      role: role || 'client',
       age: parseInt(age) || 25,
       weight: parseFloat(weight) || 70,
       height: parseFloat(height) || 170,
@@ -121,40 +130,54 @@ export default function Signup({ navigation }) {
     }
   };
 
-  const triggerQuickDemo = () => {
-    bypassAuth('member');
-  };
-
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-        
-        {/* Progress Bar Header */}
-        <View style={styles.progressHeader}>
-          {step > 1 ? (
-            <TouchableOpacity onPress={handleBack} style={styles.backBtn}>
-              <Ionicons name="arrow-back" size={24} color={colors.textPrimary} />
-            </TouchableOpacity>
-          ) : (
-            <View style={{ width: 24 }} />
-          )}
-          <Text style={styles.headerTitle}>Onboarding</Text>
-          <Text style={styles.stepIndicator}>{step}/4</Text>
-        </View>
-        <View style={styles.progressBarBg}>
-          <View style={[styles.progressBarFill, { width: `${(step / 4) * 100}%` }]} />
-        </View>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
+      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+          
+          {/* Progress Bar Header */}
+          <View style={styles.progressHeader}>
+            {step > 1 ? (
+              <TouchableOpacity onPress={handleBack} style={styles.backBtn}>
+                <Ionicons name="arrow-back" size={24} color={colors.textPrimary} />
+              </TouchableOpacity>
+            ) : (
+              <View style={{ width: 24 }} />
+            )}
+            <Text style={styles.headerTitle}>Onboarding</Text>
+            <Text style={styles.stepIndicator}>{step}/4</Text>
+          </View>
+          <View style={styles.progressBarBg}>
+            <View style={[styles.progressBarFill, { width: `${(step / 4) * 100}%` }]} />
+          </View>
 
         {/* STEP 1: WELCOME & DETAILS */}
         {step === 1 && (
           <View style={styles.stepWrapper}>
             <View style={styles.titleArea}>
-              <Text style={styles.titleText}>Welcome to <Text style={{ color: colors.primary }}>FITAXIS</Text></Text>
-              <Text style={styles.subtitleText}>Let's set up your personalized fitness & nutrition axis.</Text>
+              <Text style={styles.titleText}>Welcome to <Text style={{ color: colors.primary }}>BURNX</Text></Text>
+              <Text style={styles.subtitleText}>Let's set up your personalized training plan.</Text>
             </View>
 
             <View style={styles.card}>
-              <Text style={styles.cardLabel}>What should we call you?</Text>
+              <Text style={styles.cardLabel}>Select Account Role</Text>
+              <View style={styles.chipRow}>
+                {[
+                  { id: 'client', label: 'Client' },
+                  { id: 'trainer', label: 'Trainer' },
+                  { id: 'admin', label: 'Admin' },
+                ].map((r) => (
+                  <TouchableOpacity
+                    key={r.id}
+                    style={[styles.genderChip, role === r.id && styles.activeChip]}
+                    onPress={() => setRole(r.id)}
+                  >
+                    <Text style={[styles.chipText, role === r.id && styles.activeChipText]}>{r.label}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              <Text style={[styles.cardLabel, { marginTop: 10 }]}>What should we call you?</Text>
               <View style={styles.inputContainer}>
                 <Ionicons name="person-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
                 <TextInput
@@ -193,16 +216,6 @@ export default function Signup({ navigation }) {
                 />
               </View>
             </View>
-
-            {/* Quick Demo Bypass */}
-            <TouchableOpacity style={styles.demoCard} onPress={triggerQuickDemo}>
-              <Ionicons name="sparkles" size={24} color={colors.primary} />
-              <View style={styles.demoCardTextCol}>
-                <Text style={styles.demoCardTitle}>Fast Track (Demo Mode)</Text>
-                <Text style={styles.demoCardDesc}>Instantly bypass onboarding and populate with rich test data.</Text>
-              </View>
-              <Ionicons name="chevron-forward" size={20} color={colors.primary} />
-            </TouchableOpacity>
           </View>
         )}
 
@@ -289,7 +302,7 @@ export default function Signup({ navigation }) {
         {step === 3 && (
           <View style={styles.stepWrapper}>
             <View style={styles.titleArea}>
-              <Text style={styles.titleText}>Choose your <Text style={{ color: colors.primary }}>Axis Goal</Text></Text>
+              <Text style={styles.titleText}>Choose your <Text style={{ color: colors.primary }}>Training Goal</Text></Text>
               <Text style={styles.subtitleText}>We tailor your training volume and macronutrient targets.</Text>
             </View>
 
@@ -331,7 +344,7 @@ export default function Signup({ navigation }) {
         {step === 4 && (
           <View style={styles.stepWrapper}>
             <View style={styles.titleArea}>
-              <Text style={styles.titleText}>Tailor your <Text style={{ color: colors.primary }}>Axis Preferences</Text></Text>
+              <Text style={styles.titleText}>Tailor your <Text style={{ color: colors.primary }}>Training Preferences</Text></Text>
               <Text style={styles.subtitleText}>Refining your environment, equipment availability, and hormonal biological clocks.</Text>
             </View>
 
@@ -409,75 +422,72 @@ export default function Signup({ navigation }) {
 
         {/* Action Button Navigation Footer */}
         <View style={styles.footerRow}>
-          <TouchableOpacity style={styles.primaryBtn} onPress={handleNext}>
-            <Text style={styles.primaryBtnText}>{step === 4 ? 'Launch FitAxis' : 'Continue'}</Text>
+          <TouchableOpacity style={styles.primaryBtn} onPress={handleNext} activeOpacity={0.8}>
+            <Text style={styles.primaryBtnText}>{step === 4 ? 'Launch BurnX' : 'Continue'}</Text>
             <Ionicons name={step === 4 ? "rocket-outline" : "arrow-forward"} size={20} color="#FFF" style={{ marginLeft: 10 }} />
           </TouchableOpacity>
         </View>
 
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const getStyles = (colors, typography, ui) => StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.background },
-  scrollContent: { padding: 20, paddingBottom: 60, flexGrow: 1 },
-  progressHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: Platform.OS === 'ios' ? 40 : 15, marginBottom: 10 },
-  backBtn: { padding: 5 },
-  headerTitle: { ...typography.title, fontWeight: 'bold' },
-  stepIndicator: { ...typography.caption, color: colors.primary, fontWeight: 'bold' },
-  progressBarBg: { width: '100%', height: 4, backgroundColor: colors.border, borderRadius: 2, marginBottom: 25 },
-  progressBarFill: { height: '100%', backgroundColor: colors.primary, borderRadius: 2 },
+  safeArea: { flex: 1, backgroundColor: colors.background },
+  container: { flex: 1 },
+  scrollContent: { paddingHorizontal: ui.spacing.l, paddingBottom: ui.spacing.xxl, flexGrow: 1 },
+  progressHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: ui.spacing.m, marginBottom: ui.spacing.s },
+  backBtn: { padding: ui.spacing.xs },
+  headerTitle: { ...typography.headline },
+  stepIndicator: { ...typography.headline, color: colors.primary },
+  progressBarBg: { width: '100%', height: 6, backgroundColor: colors.border, borderRadius: 3, marginBottom: ui.spacing.l },
+  progressBarFill: { height: '100%', backgroundColor: colors.primary, borderRadius: 3 },
   
   stepWrapper: { flex: 1 },
-  titleArea: { marginBottom: 25 },
-  titleText: { ...typography.header, fontSize: 26, fontWeight: 'bold', marginBottom: 6 },
-  subtitleText: { ...typography.body, color: colors.textSecondary, lineHeight: 22 },
+  titleArea: { marginBottom: ui.spacing.l },
+  titleText: { ...typography.largeTitle, marginBottom: ui.spacing.xs },
+  subtitleText: { ...typography.callout, color: colors.textSecondary },
   
-  card: { backgroundColor: colors.surface, padding: 20, borderRadius: ui.borderRadius, ...ui.shadow, borderWidth: 1, borderColor: colors.border },
-  cardLabel: { ...typography.caption, fontWeight: 'bold', color: colors.primary, marginBottom: 8 },
-  inputContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.background, borderRadius: 12, paddingHorizontal: 15, borderWidth: 1, borderColor: colors.border },
-  inputIcon: { marginRight: 12 },
-  textInput: { flex: 1, color: colors.textPrimary, paddingVertical: 14, fontSize: 16 },
+  card: { backgroundColor: colors.surface, padding: ui.spacing.l, borderRadius: ui.borderRadiusLg, ...ui.shadow, borderWidth: 1, borderColor: colors.border },
+  cardLabel: { ...typography.subhead, fontWeight: '600', color: colors.primary, marginBottom: ui.spacing.s },
+  inputContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surfaceSecondary, borderRadius: ui.borderRadiusSm, paddingHorizontal: ui.spacing.m, height: ui.inputHeight, borderWidth: 1, borderColor: 'transparent' },
+  inputIcon: { marginRight: ui.spacing.s },
+  textInput: { flex: 1, color: colors.textPrimary, fontSize: typography.body.fontSize, height: '100%' },
   
-  demoCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, padding: 20, borderRadius: ui.borderRadius, marginTop: 25, borderWidth: 1, borderColor: colors.primary, ...ui.shadow },
-  demoCardTextCol: { flex: 1, paddingHorizontal: 15 },
-  demoCardTitle: { ...typography.body, fontWeight: 'bold', color: colors.primary },
-  demoCardDesc: { ...typography.caption, color: colors.textSecondary, marginTop: 2 },
-
-  chipRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 },
-  genderChip: { flex: 1, backgroundColor: colors.background, paddingVertical: 12, borderRadius: 12, borderHeight: 1, borderColor: colors.border, borderWidth: 1, alignItems: 'center', marginHorizontal: 4 },
+  chipRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: ui.spacing.l },
+  genderChip: { flex: 1, backgroundColor: colors.surfaceSecondary, paddingVertical: ui.spacing.m, borderRadius: ui.borderRadiusSm, borderWidth: 1, borderColor: colors.border, alignItems: 'center', marginHorizontal: ui.spacing.xs },
   activeChip: { backgroundColor: colors.primary, borderColor: colors.primary },
-  chipText: { color: colors.textSecondary, fontWeight: '600' },
-  activeChipText: { color: colors.textPrimary, fontWeight: 'bold' },
+  chipText: { ...typography.subhead, color: colors.textSecondary },
+  activeChipText: { color: '#FFF', fontWeight: 'bold' },
 
-  inputsGrid: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginBottom: 15 },
+  inputsGrid: { flexDirection: 'row', justifyContent: 'space-between', marginTop: ui.spacing.s, marginBottom: ui.spacing.m },
   gridInputBox: { width: '48%' },
-  numInputBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.background, borderRadius: 12, borderWidth: 1, borderColor: colors.border, padding: 4 },
-  numBtn: { backgroundColor: colors.surface, width: 36, height: 36, borderRadius: 8, justifyContent: 'center', alignItems: 'center' },
-  numInput: { flex: 1, color: colors.textPrimary, textAlign: 'center', fontSize: 18, fontWeight: 'bold' },
+  numInputBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surfaceSecondary, borderRadius: ui.borderRadiusSm, borderWidth: 1, borderColor: colors.border, padding: ui.spacing.xs, height: ui.inputHeight },
+  numBtn: { backgroundColor: colors.surface, width: 40, height: 40, borderRadius: ui.borderRadiusSm, justifyContent: 'center', alignItems: 'center', ...ui.shadowSm },
+  numInput: { flex: 1, color: colors.textPrimary, textAlign: 'center', fontSize: typography.title.fontSize, fontWeight: 'bold' },
 
-  sectionLabel: { ...typography.title, fontSize: 18, marginBottom: 12 },
-  goalSelectionCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, padding: 15, borderRadius: 15, marginBottom: 12, borderWidth: 1, borderColor: colors.border },
+  sectionLabel: { ...typography.title, marginBottom: ui.spacing.m },
+  goalSelectionCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, padding: ui.spacing.m, borderRadius: ui.borderRadiusLg, marginBottom: ui.spacing.s, borderWidth: 1, borderColor: colors.border, ...ui.shadowSm },
   activeGoalCard: { backgroundColor: colors.primary, borderColor: colors.primary },
-  iconFrame: { width: 44, height: 44, borderRadius: 22, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', marginRight: 15 },
+  iconFrame: { width: 48, height: 48, borderRadius: 24, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', marginRight: ui.spacing.m },
   goalTextFrame: { flex: 1 },
-  goalCardTitle: { ...typography.body, fontWeight: 'bold' },
-  goalCardDesc: { ...typography.caption, color: colors.textSecondary, marginTop: 2 },
+  goalCardTitle: { ...typography.headline },
+  goalCardDesc: { ...typography.subhead, color: colors.textSecondary, marginTop: 4 },
 
-  activitySelectionCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, padding: 15, borderRadius: 15, marginBottom: 12, borderWidth: 1, borderColor: colors.border },
+  activitySelectionCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, padding: ui.spacing.m, borderRadius: ui.borderRadiusLg, marginBottom: ui.spacing.s, borderWidth: 1, borderColor: colors.border, ...ui.shadowSm },
 
-  femaleSyncCard: { backgroundColor: colors.surface, borderLeftWidth: 4, borderLeftColor: '#E91E63', padding: 20, borderRadius: ui.borderRadius, marginTop: 20, ...ui.shadow },
+  femaleSyncCard: { backgroundColor: colors.surface, borderLeftWidth: 4, borderLeftColor: '#E91E63', padding: ui.spacing.l, borderRadius: ui.borderRadiusLg, marginTop: ui.spacing.l, ...ui.shadow },
   femaleCardHeader: { flexDirection: 'row', alignItems: 'center' },
-  femaleCardTitle: { ...typography.body, fontWeight: 'bold', color: '#E91E63', flex: 1, marginLeft: 10 },
-  toggleBtn: { padding: 4 },
-  femaleDetails: { marginTop: 15 },
-  cycleLabelText: { ...typography.caption, color: colors.textSecondary, marginBottom: 5 },
-  femaleInput: { backgroundColor: colors.background, color: colors.textPrimary, padding: 12, borderRadius: 10, borderWidth: 1, borderColor: colors.border, fontSize: 16, fontWeight: 'bold', width: 80, textAlign: 'center', marginBottom: 10 },
-  cycleNotice: { ...typography.caption, color: '#E91E63', fontStyle: 'italic', marginTop: 10, lineHeight: 16 },
+  femaleCardTitle: { ...typography.headline, color: '#E91E63', flex: 1, marginLeft: ui.spacing.s },
+  toggleBtn: { padding: ui.spacing.xs },
+  femaleDetails: { marginTop: ui.spacing.m },
+  cycleLabelText: { ...typography.subhead, color: colors.textSecondary, marginBottom: ui.spacing.xs },
+  femaleInput: { backgroundColor: colors.surfaceSecondary, color: colors.textPrimary, padding: ui.spacing.m, borderRadius: ui.borderRadiusSm, borderWidth: 1, borderColor: colors.border, fontSize: typography.body.fontSize, fontWeight: 'bold', width: 80, textAlign: 'center', marginBottom: ui.spacing.s },
+  cycleNotice: { ...typography.footnote, color: '#E91E63', fontStyle: 'italic', marginTop: ui.spacing.s, lineHeight: 18 },
 
-  footerRow: { marginTop: 30, alignItems: 'center' },
-  primaryBtn: { backgroundColor: colors.primary, width: '100%', paddingVertical: 16, borderRadius: ui.borderRadius, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', ...ui.shadow },
-  primaryBtnText: { color: '#FFF', fontSize: 18, fontWeight: 'bold' }
+  footerRow: { marginTop: ui.spacing.xl, alignItems: 'center' },
+  primaryBtn: { backgroundColor: colors.primary, width: '100%', height: ui.buttonHeight, borderRadius: ui.borderRadius, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', ...ui.shadow },
+  primaryBtnText: { ...typography.headline, color: '#FFFFFF' }
 });

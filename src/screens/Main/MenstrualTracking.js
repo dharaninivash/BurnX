@@ -8,7 +8,7 @@ const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export default function MenstrualTracking({ navigation }) {
   const { colors, typography, ui } = useTheme();
-  const styles = typeof getStyles !== 'undefined' ? getStyles(colors, typography, ui) : {};
+  const styles = getStyles(colors, typography, ui);
   
   const lastPeriodDate = useStore((state) => state.lastPeriodDate);
   const periodEndDate = useStore((state) => state.periodEndDate);
@@ -20,14 +20,53 @@ export default function MenstrualTracking({ navigation }) {
   const [selectedEnd, setSelectedEnd] = useState(periodEndDate || null);
   const [phase, setPhase] = useState('N/A');
   const [phaseAdvice, setPhaseAdvice] = useState('');
+  const [workoutRec, setWorkoutRec] = useState('');
 
-  // Calendar logic
+  // Cycle History Logs State
+  const [cycleLogs, setCycleLogs] = useState([
+    { id: '1', start: lastPeriodDate || '2026-07-15', end: periodEndDate || '2026-07-20', length: cycleLength }
+  ]);
+
+  // Calendar setup
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDayOfMonth = new Date(year, month, 1).getDay();
-
   const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+  // Predictions Calculation
+  let predictions = null;
+  if (selectedStart) {
+    const start = new Date(selectedStart);
+    
+    // Next Cycle
+    const nextCycleStart = new Date(start);
+    nextCycleStart.setDate(start.getDate() + cycleLength);
+
+    // Ovulation (typically Day 14 before next cycle)
+    const ovulation = new Date(nextCycleStart);
+    ovulation.setDate(nextCycleStart.getDate() - 14);
+
+    // Fertile Window (5 days before ovulation + ovulation day)
+    const fertileStart = new Date(ovulation);
+    fertileStart.setDate(ovulation.getDate() - 5);
+    const fertileEnd = new Date(ovulation);
+
+    // PMS Period (7 days before next cycle start)
+    const pmsStart = new Date(nextCycleStart);
+    pmsStart.setDate(nextCycleStart.getDate() - 7);
+
+    // Recovery Phase (Days 1 to 5 after period ends)
+    const recoveryStart = selectedEnd ? new Date(selectedEnd) : new Date(start);
+
+    predictions = {
+      nextCycle: nextCycleStart.toISOString().split('T')[0],
+      ovulation: ovulation.toISOString().split('T')[0],
+      fertileWindow: `${fertileStart.toISOString().split('T')[0]} to ${fertileEnd.toISOString().split('T')[0]}`,
+      pms: `${pmsStart.toISOString().split('T')[0]} to ${nextCycleStart.toISOString().split('T')[0]}`,
+      recovery: selectedEnd ? `Post Period Recovery starting ${recoveryStart.toISOString().split('T')[0]}` : 'Active Period Recovery'
+    };
+  }
 
   useEffect(() => {
     if (selectedStart) {
@@ -37,46 +76,40 @@ export default function MenstrualTracking({ navigation }) {
       const cycleDay = diffDays % cycleLength;
       
       if (cycleDay >= 0 && cycleDay <= 5) {
-        setPhase('Menstruation');
-        setPhaseAdvice('🔴 Energy levels are low. Focus on gentle recovery, yoga, or light dumbbell sessions.');
+        setPhase('Menstruation (Day 1-5)');
+        setPhaseAdvice('🔴 Energy levels are low due to low estrogen/progesterone. High inflammation risk.');
+        setWorkoutRec('🧘 Restorative Child\'s Pose, Gentle Yoga, Cat-Cow Stretches, Light 20-min Walk.');
       } else if (cycleDay > 5 && cycleDay <= 13) {
-        setPhase('Follicular Phase');
-        setPhaseAdvice('⚡ Estrogen is rising! Perfect time to increase hypertrophy weights and push sets.');
+        setPhase('Follicular Phase (Day 6-13)');
+        setPhaseAdvice('⚡ Estrogen is surging! Insulin sensitivity and energy levels are high.');
+        setWorkoutRec('🏋️ High Intensity Hypertrophy Training, Upper/Lower Heavy Splits, Progressive Overload.');
       } else if (cycleDay >= 14 && cycleDay <= 15) {
-        setPhase('Ovulation');
-        setPhaseAdvice('🔥 Peak strength and energy! Ideal day to attempt a personal record (PR) on squats or presses.');
+        setPhase('Ovulation (Day 14-15)');
+        setPhaseAdvice('🔥 Peak strength, mood, and testosterone! Maximum power output potential.');
+        setWorkoutRec('🏆 Attempt Personal Records (PRs) on Squats/Deadlifts, Heavy Compound Multi-Joint Exercises.');
       } else {
-        setPhase('Luteal Phase');
-        setPhaseAdvice('🧘 Energy is tapering down. Switch to moderate weights, higher reps, or aerobic conditioning.');
+        setPhase('Luteal Phase (Day 16-28)');
+        setPhaseAdvice('🧘 Progesterone rises. Metabolic rate increases but endurance slightly drops.');
+        setWorkoutRec('🚴 Moderate Steady-State Cardio, Circuit Training, Pilates, High-Rep Accessory Work.');
       }
     }
   }, [selectedStart, cycleLength]);
 
-  const handlePrevMonth = () => {
-    setCurrentDate(new Date(year, month - 1, 1));
-  };
-
-  const handleNextMonth = () => {
-    setCurrentDate(new Date(year, month + 1, 1));
-  };
+  const handlePrevMonth = () => setCurrentDate(new Date(year, month - 1, 1));
+  const handleNextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
 
   const handleDayPress = (day) => {
-    const selectedDateStr = new Date(Date.UTC(year, month, day)).toISOString().split('T')[0];
-    
+    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     if (!selectedStart || (selectedStart && selectedEnd)) {
-      // Start fresh
-      setSelectedStart(selectedDateStr);
+      setSelectedStart(dateStr);
       setSelectedEnd(null);
     } else {
-      // We have a start but no end
       const startDate = new Date(selectedStart);
-      const clickedDate = new Date(selectedDateStr);
-      
+      const clickedDate = new Date(dateStr);
       if (clickedDate < startDate) {
-        // If clicked before start, make it the new start
-        setSelectedStart(selectedDateStr);
+        setSelectedStart(dateStr);
       } else {
-        setSelectedEnd(selectedDateStr);
+        setSelectedEnd(dateStr);
       }
     }
   };
@@ -84,18 +117,24 @@ export default function MenstrualTracking({ navigation }) {
   const saveDates = () => {
     if (selectedStart) {
       logMoodAndCycle('Calm', [], selectedStart, selectedEnd);
-      Alert.alert('Saved', 'Your menstrual cycle dates have been updated successfully.');
+      setCycleLogs([{ id: Date.now().toString(), start: selectedStart, end: selectedEnd || selectedStart, length: cycleLength }, ...cycleLogs]);
+      Alert.alert('Success', 'Cycle parameters updated and saved to profile.');
     }
   };
 
+  const handleDeleteLog = (id) => {
+    setCycleLogs(cycleLogs.filter(log => log.id !== id));
+    Alert.alert('Log Deleted', 'Period entry removed.');
+  };
+
   const isSelected = (day) => {
-    const dateStr = new Date(Date.UTC(year, month, day)).toISOString().split('T')[0];
+    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     return dateStr === selectedStart || dateStr === selectedEnd;
   };
 
   const isInRange = (day) => {
     if (!selectedStart || !selectedEnd) return false;
-    const date = new Date(Date.UTC(year, month, day));
+    const date = new Date(year, month, day);
     const start = new Date(selectedStart);
     const end = new Date(selectedEnd);
     return date > start && date < end;
@@ -105,17 +144,18 @@ export default function MenstrualTracking({ navigation }) {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Ionicons name="arrow-back" size={24} color="#FFF" />
+          <Ionicons name="arrow-back" size={22} color={colors.primary} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Cycle Tracker</Text>
-        <View style={{ width: 24 }} />
+        <Text style={styles.headerTitle}>MENSTRUAL WELLNESS & CYCLE SYNCING</Text>
+        <View style={{ width: 30 }} />
       </View>
 
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         
+        {/* Info Header */}
         <View style={styles.infoCard}>
-          <Ionicons name="information-circle" size={24} color={colors.primary} />
-          <Text style={styles.infoText}>Tap a date to set the start of your period. Tap a second date to set the end of your period.</Text>
+          <Ionicons name="flower" size={24} color="#E91E63" />
+          <Text style={styles.infoText}>Tap calendar dates to set period start & end. BurnX dynamically adapts workout intensities and predicts cycle milestones.</Text>
         </View>
 
         {/* Calendar UI */}
@@ -164,17 +204,71 @@ export default function MenstrualTracking({ navigation }) {
           </View>
 
           <TouchableOpacity style={styles.saveBtn} onPress={saveDates}>
-            <Text style={styles.saveBtnText}>Save Cycle Dates</Text>
+            <Ionicons name="checkmark-circle-outline" size={20} color="#FFF" style={{ marginRight: 6 }} />
+            <Text style={styles.saveBtnText}>Save Period Dates</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Phase Diagnostics */}
+        {/* Phase Diagnostics & Workout Recommendations */}
         {selectedStart && (
-          <View style={styles.phaseCard}>
-            <Text style={styles.phaseTitle}>Current Phase: <Text style={{ color: '#E91E63' }}>{phase}</Text></Text>
-            <Text style={styles.phaseAdvice}>{phaseAdvice}</Text>
-          </View>
+          <>
+            <View style={styles.phaseCard}>
+              <Text style={styles.phaseTitle}>Current Phase: <Text style={{ color: '#E91E63' }}>{phase}</Text></Text>
+              <Text style={styles.phaseAdvice}>{phaseAdvice}</Text>
+              
+              <View style={styles.workoutRecBox}>
+                <Ionicons name="barbell-outline" size={20} color={colors.primary} />
+                <View style={{ flex: 1, marginLeft: 8 }}>
+                  <Text style={styles.recTitle}>Recommended Training Focus</Text>
+                  <Text style={styles.recText}>{workoutRec}</Text>
+                </View>
+              </View>
+            </View>
+
+            {/* Cycle Predictions Card */}
+            {predictions && (
+              <View style={styles.predictionsCard}>
+                <Text style={styles.sectionTitle}>Calculated Cycle Predictions</Text>
+                <View style={styles.predGrid}>
+                  <View style={styles.predItem}>
+                    <Text style={styles.predLabel}>Next Cycle Start</Text>
+                    <Text style={styles.predValue}>{predictions.nextCycle}</Text>
+                  </View>
+                  <View style={styles.predItem}>
+                    <Text style={styles.predLabel}>Estimated Ovulation</Text>
+                    <Text style={styles.predValue}>{predictions.ovulation}</Text>
+                  </View>
+                </View>
+                <View style={styles.predGrid}>
+                  <View style={styles.predItem}>
+                    <Text style={styles.predLabel}>Fertile Window</Text>
+                    <Text style={styles.predSubValue}>{predictions.fertileWindow}</Text>
+                  </View>
+                  <View style={styles.predItem}>
+                    <Text style={styles.predLabel}>Expected PMS Phase</Text>
+                    <Text style={styles.predSubValue}>{predictions.pms}</Text>
+                  </View>
+                </View>
+              </View>
+            )}
+          </>
         )}
+
+        {/* Period Logs History */}
+        <View style={styles.historyCard}>
+          <Text style={styles.sectionTitle}>Period Log History</Text>
+          {cycleLogs.map((log) => (
+            <View key={log.id} style={styles.logRow}>
+              <View>
+                <Text style={styles.logDateText}>📅 Start: {log.start} → End: {log.end}</Text>
+                <Text style={styles.logSubText}>Cycle Duration Baseline: {log.length} Days</Text>
+              </View>
+              <TouchableOpacity onPress={() => handleDeleteLog(log.id)}>
+                <Ionicons name="trash-outline" size={18} color={colors.error} />
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
 
       </ScrollView>
     </View>
@@ -182,31 +276,47 @@ export default function MenstrualTracking({ navigation }) {
 }
 
 const getStyles = (colors, typography, ui) => StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.background, paddingTop: Platform.OS === 'ios' ? 40 : 15 },
-  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, marginBottom: 20 },
-  backBtn: { padding: 5, backgroundColor: colors.surface, borderRadius: 20 },
-  headerTitle: { ...typography.header, color: colors.primary, fontSize: 20, fontWeight: '900', marginBottom: 0 },
+  container: { flex: 1, backgroundColor: colors.background, paddingTop: Platform.OS === 'ios' ? 45 : 15 },
+  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 15, marginBottom: 15 },
+  backBtn: { padding: 8, backgroundColor: colors.surface, borderRadius: 10, borderWidth: 1, borderColor: colors.border },
+  headerTitle: { ...typography.largeTitle, fontSize: 14, color: colors.primary, letterSpacing: 1 },
   scrollContent: { paddingHorizontal: 15, paddingBottom: 60 },
 
-  infoCard: { flexDirection: 'row', backgroundColor: colors.surface, padding: 15, borderRadius: ui.borderRadius, marginBottom: 20, borderWidth: 1, borderColor: colors.border, alignItems: 'center' },
-  infoText: { flex: 1, ...typography.caption, marginLeft: 10, color: colors.textSecondary },
+  infoCard: { flexDirection: 'row', backgroundColor: colors.surface, padding: 14, borderRadius: ui.borderRadius, marginBottom: 15, borderWidth: 1, borderColor: colors.border, alignItems: 'center' },
+  infoText: { flex: 1, ...typography.caption, marginLeft: 10, color: colors.textSecondary, lineHeight: 18 },
 
-  calendarCard: { backgroundColor: colors.surface, padding: 20, borderRadius: ui.borderRadius, ...ui.shadow, marginBottom: 20 },
-  calendarHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
+  calendarCard: { backgroundColor: colors.surface, padding: 18, borderRadius: ui.borderRadiusLg, ...ui.shadow, marginBottom: 20, borderWidth: 1, borderColor: colors.border },
+  calendarHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 },
   monthText: { ...typography.title, fontWeight: 'bold' },
   daysOfWeekRow: { flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 },
   dayOfWeekText: { ...typography.caption, fontWeight: 'bold', width: 40, textAlign: 'center' },
   calendarGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start' },
-  dayCell: { width: '14.28%', height: 40, justifyContent: 'center', alignItems: 'center', marginBottom: 10 },
-  dayCellSelected: { backgroundColor: '#E91E63', borderRadius: 20 },
+  dayCell: { width: '14.28%', height: 38, justifyContent: 'center', alignItems: 'center', marginBottom: 6 },
+  dayCellSelected: { backgroundColor: '#E91E63', borderRadius: 19 },
   dayCellInRange: { backgroundColor: 'rgba(233, 30, 99, 0.2)' },
   dayText: { ...typography.body, fontWeight: '600' },
   dayTextSelected: { color: '#FFF' },
 
-  saveBtn: { backgroundColor: colors.primary, paddingVertical: 14, borderRadius: 12, alignItems: 'center', marginTop: 15 },
-  saveBtnText: { color: '#FFF', fontWeight: 'bold', fontSize: 16 },
+  saveBtn: { flexDrection: 'row', backgroundColor: colors.primary, paddingVertical: 14, borderRadius: 12, alignItems: 'center', justifyContent: 'center', marginTop: 15, flexDirection: 'row' },
+  saveBtnText: { color: '#FFF', fontWeight: 'bold', fontSize: 15 },
 
-  phaseCard: { backgroundColor: colors.surface, borderLeftWidth: 4, borderLeftColor: '#E91E63', padding: 18, borderRadius: ui.borderRadius, ...ui.shadow },
-  phaseTitle: { ...typography.title, fontSize: 16, marginBottom: 10 },
-  phaseAdvice: { ...typography.body, color: colors.textSecondary, lineHeight: 22 },
+  phaseCard: { backgroundColor: colors.surface, borderLeftWidth: 4, borderLeftColor: '#E91E63', padding: 16, borderRadius: ui.borderRadiusLg, ...ui.shadow, marginBottom: 15, borderWidth: 1, borderColor: colors.border },
+  phaseTitle: { ...typography.title, fontSize: 15, marginBottom: 6 },
+  phaseAdvice: { ...typography.body, color: colors.textSecondary, lineHeight: 20, fontSize: 13 },
+  workoutRecBox: { flexDirection: 'row', backgroundColor: colors.surfaceSecondary, padding: 12, borderRadius: 10, marginTop: 12, alignItems: 'center', borderWidth: 1, borderColor: colors.border },
+  recTitle: { fontSize: 12, fontWeight: 'bold', color: colors.primary },
+  recText: { fontSize: 11, color: colors.textPrimary, marginTop: 2 },
+
+  predictionsCard: { backgroundColor: colors.surface, padding: 16, borderRadius: ui.borderRadiusLg, marginBottom: 15, borderWidth: 1, borderColor: colors.border, ...ui.shadow },
+  sectionTitle: { ...typography.title, fontSize: 14, marginBottom: 12 },
+  predGrid: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10, gap: 10 },
+  predItem: { flex: 1, backgroundColor: colors.surfaceSecondary, padding: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.border },
+  predLabel: { fontSize: 10, color: colors.textSecondary, fontWeight: 'bold' },
+  predValue: { fontSize: 13, color: colors.primary, fontWeight: '900', marginTop: 4 },
+  predSubValue: { fontSize: 11, color: colors.textPrimary, fontWeight: '700', marginTop: 4 },
+
+  historyCard: { backgroundColor: colors.surface, padding: 16, borderRadius: ui.borderRadiusLg, borderWidth: 1, borderColor: colors.border, marginBottom: 20 },
+  logRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: colors.border },
+  logDateText: { fontSize: 12, fontWeight: 'bold', color: colors.textPrimary },
+  logSubText: { fontSize: 11, color: colors.textSecondary, marginTop: 2 }
 });

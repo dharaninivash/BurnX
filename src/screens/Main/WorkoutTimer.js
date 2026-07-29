@@ -160,7 +160,7 @@ export default function WorkoutTimer({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name="arrow-back" size={24} color="#FFF" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Axis Timers</Text>
+        <Text style={styles.headerTitle}>BurnX Timers</Text>
         <View style={{ width: 24 }} />
       </View>
 

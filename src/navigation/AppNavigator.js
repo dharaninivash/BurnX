@@ -5,6 +5,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../theme/theme';
 import { useStore } from '../store/useStore';
+import { Platform } from 'react-native';
 
 // Member Screens
 import Home from '../screens/Main/Home';
@@ -28,6 +29,9 @@ import MenstrualTracking from '../screens/Main/MenstrualTracking';
 // Trainer Screens
 import TrainerDashboard from '../screens/Trainer/TrainerDashboard';
 
+// Admin Screens
+import AdminDashboard from '../screens/Admin/AdminDashboard';
+
 // Auth / Onboarding Screens
 import Splash from '../screens/Auth/Splash';
 import Login from '../screens/Auth/Login';
@@ -47,12 +51,12 @@ function MemberTabs() {
         headerTintColor: colors.textPrimary,
         tabBarStyle: { 
           backgroundColor: colors.surface, 
-          borderTopColor: colors.border, 
-          elevation: 10, 
-          shadowOpacity: 0.1,
-          height: 60,
-          paddingBottom: 8,
-          paddingTop: 8,
+          borderTopColor: colors.border,
+          borderTopWidth: 1,
+          elevation: 0, 
+          height: Platform.OS === 'ios' ? 88 : 70,
+          paddingBottom: Platform.OS === 'ios' ? 28 : 12,
+          paddingTop: 12,
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textSecondary,
@@ -109,9 +113,11 @@ function TrainerTabs() {
         tabBarStyle: { 
           backgroundColor: colors.surface, 
           borderTopColor: colors.border,
-          height: 60,
-          paddingBottom: 8,
-          paddingTop: 8,
+          borderTopWidth: 1,
+          elevation: 0,
+          height: Platform.OS === 'ios' ? 88 : 70,
+          paddingBottom: Platform.OS === 'ios' ? 28 : 12,
+          paddingTop: 12,
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textSecondary,
@@ -124,6 +130,38 @@ function TrainerTabs() {
     >
       <Tab.Screen name="Schedule" component={TrainerDashboard} options={{ title: 'Dashboard' }} />
       <Tab.Screen name="Profile" component={More} options={{ title: 'Settings' }} />
+    </Tab.Navigator>
+  );
+}
+
+function AdminTabs() {
+  const { colors } = useTheme();
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        headerStyle: { backgroundColor: colors.surface, borderBottomWidth: 0 },
+        headerTintColor: colors.textPrimary,
+        tabBarStyle: { 
+          backgroundColor: colors.surface, 
+          borderTopColor: colors.border,
+          borderTopWidth: 1,
+          elevation: 0,
+          height: Platform.OS === 'ios' ? 88 : 70,
+          paddingBottom: Platform.OS === 'ios' ? 28 : 12,
+          paddingTop: 12,
+        },
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.textSecondary,
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName = focused ? 'shield-checkmark' : 'shield-checkmark-outline';
+          if (route.name === 'Settings') iconName = focused ? 'settings' : 'settings-outline';
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
+    >
+      <Tab.Screen name="Dashboard" component={AdminDashboard} />
+      <Tab.Screen name="Settings" component={More} />
     </Tab.Navigator>
   );
 }
@@ -161,6 +199,8 @@ export default function AppNavigator() {
         <AuthStack />
       ) : user?.role === 'trainer' ? (
         <TrainerTabs />
+      ) : user?.role === 'admin' ? (
+        <AdminTabs />
       ) : (
         <MainStack />
       )}
