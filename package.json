@@ -37,7 +37,8 @@
   "private": true,
   "devDependencies": {
     "babel-preset-expo": "~54.0.10",
-    "concurrently": "^9.2.4"
+    "concurrently": "^9.2.4",
+    "vercel": "^58.1.0"
   },
   "version": "1.0.0"
 }
