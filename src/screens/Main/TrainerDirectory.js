@@ -23,10 +23,10 @@ export default function TrainerDirectory({ navigation }) {
 
   const nextDays = ['Tomorrow', 'In 2 Days', 'In 3 Days', 'In 4 Days'];
 
+  const [comingSoonModalVisible, setComingSoonModalVisible] = useState(false);
+
   const openTrainerDetail = (trainer) => {
-    setSelectedTrainer(trainer);
-    setSelectedTimeSlot(trainer.slots[0]);
-    setDetailModalVisible(true);
+    setComingSoonModalVisible(true);
   };
 
   const handleConfirmBooking = () => {
@@ -241,6 +241,32 @@ export default function TrainerDirectory({ navigation }) {
                 </TouchableOpacity>
               </>
             )}
+          </View>
+        </View>
+      </Modal>
+
+      {/* TRAINER CONSULTATION COMING SOON MODAL */}
+      <Modal visible={comingSoonModalVisible} transparent animationType="fade" onRequestClose={() => setComingSoonModalVisible(false)}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.75)', justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+          <View style={{ width: '100%', maxWidth: 340, backgroundColor: colors.surface, borderRadius: 20, padding: 24, alignItems: 'center', borderBottomWidth: 3, borderBottomColor: colors.primary, elevation: 10 }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', color: colors.textPrimary, marginBottom: 8, textAlign: 'center' }}>Trainer Consultation</Text>
+            
+            <View style={{ backgroundColor: 'rgba(233, 30, 99, 0.15)', paddingHorizontal: 14, paddingVertical: 6, borderRadius: 20, marginBottom: 16, borderWidth: 1, borderColor: colors.primary }}>
+              <Text style={{ color: colors.primary, fontSize: 13, fontWeight: 'bold' }}>🚀 Coming Soon</Text>
+            </View>
+
+            <Text style={{ fontSize: 14, color: colors.textSecondary, textAlign: 'center', lineHeight: 22, marginBottom: 20 }}>
+              Live video consultation with certified trainers is currently under development.{"\n\n"}
+              This feature will be available in a future update.{"\n\n"}
+              Thank you for your patience.
+            </Text>
+
+            <TouchableOpacity 
+              style={{ backgroundColor: colors.primary, width: '100%', paddingVertical: 12, borderRadius: 12, alignItems: 'center' }} 
+              onPress={() => setComingSoonModalVisible(false)}
+            >
+              <Text style={{ color: '#FFF', fontSize: 16, fontWeight: 'bold' }}>OK</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
