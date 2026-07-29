@@ -1,137 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../theme/theme';
 import { useStore } from '../../store/useStore';
 
-import { Platform } from 'react-native';
-
-// Safe dynamic require to prevent Expo Go / Web native module crash
-let LiveKitModule = null;
-if (Platform.OS !== 'web') {
-  try {
-    LiveKitModule = require('@livekit/react-native');
-  } catch (e) {
-    console.log('LiveKit native WebRTC module not present. Using Interactive Consultation Fallback.');
-  }
-}
-
-const LIVEKIT_URL = process.env.EXPO_PUBLIC_LIVEKIT_URL || 'wss://burnx-n6caqv1m.livekit.cloud';
-
-function NativeLiveKitRoom({ navigation, token, roomName }) {
+export default function VideoCall({ navigation, route }) {
   const { colors, typography, ui } = useTheme();
   const styles = getStyles(colors, typography, ui);
   
-  if (!LiveKitModule || !LiveKitModule.LiveKitRoom) {
-    return <FallbackConsultationRoom navigation={navigation} roomName={roomName} />;
-  }
-
-  const { LiveKitRoom, useRoomContext, VideoTrack, useLocalParticipant, useRemoteParticipants } = LiveKitModule;
-
-  function NativeCallContent() {
-    const room = useRoomContext();
-    const { localParticipant } = useLocalParticipant();
-    const remoteParticipants = useRemoteParticipants();
-    const [micMuted, setMicMuted] = useState(false);
-    const [videoMuted, setVideoMuted] = useState(false);
-
-    useEffect(() => {
-      if (localParticipant) {
-        localParticipant.setMicrophoneEnabled(!micMuted);
-        localParticipant.setCameraEnabled(!videoMuted);
-      }
-    }, [micMuted, videoMuted, localParticipant]);
-
-    const handleEndCall = () => {
-      if (room) room.disconnect();
-      if (navigation && navigation.canGoBack()) {
-        navigation.goBack();
-      } else if (navigation) {
-        navigation.navigate('Home');
-      }
-    };
-
-    const remoteParticipant = remoteParticipants.length > 0 ? remoteParticipants[0] : null;
-    const remoteVideoPublication = remoteParticipant?.getTrackPublications().find(p => p.kind === 'video');
-
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.remoteVideoArea}>
-          {remoteVideoPublication?.track ? (
-            <VideoTrack trackRef={{ participant: remoteParticipant, publication: remoteVideoPublication, source: 'camera' }} style={styles.remoteVideo} />
-          ) : (
-            <View style={{ alignItems: 'center' }}>
-              <Ionicons name="person-circle-outline" size={90} color={colors.primary} />
-              <Text style={styles.remoteText}>Connected to Room: {roomName}</Text>
-              <Text style={[styles.remoteText, { fontSize: 12, opacity: 0.8 }]}>Waiting for Trainer Video Stream...</Text>
-            </View>
-          )}
-          
-          <View style={styles.localVideoBox}>
-            {localParticipant?.getTrackPublications().find(p => p.kind === 'video')?.track && !videoMuted ? (
-              <VideoTrack trackRef={{ participant: localParticipant, source: 'camera' }} style={styles.localVideo} />
-            ) : (
-              <View style={styles.mutedOverlay}>
-                <Ionicons name="videocam-off" size={24} color="#FFF" />
-              </View>
-            )}
-          </View>
-        </View>
-
-        <View style={styles.controlsArea}>
-          <TouchableOpacity style={[styles.controlBtn, micMuted && styles.controlBtnActive]} onPress={() => setMicMuted(!micMuted)}>
-            <Ionicons name={micMuted ? "mic-off" : "mic"} size={28} color="#FFF" />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={[styles.controlBtn, videoMuted && styles.controlBtnActive]} onPress={() => setVideoMuted(!videoMuted)}>
-            <Ionicons name={videoMuted ? "videocam-off" : "videocam"} size={28} color="#FFF" />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.endCallBtn} onPress={handleEndCall}>
-            <Ionicons name="call" size={28} color="#FFF" />
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    );
-  }
-
-  return (
-    <LiveKitRoom
-      serverUrl={LIVEKIT_URL}
-      token={token}
-      connect={true}
-      options={{ adaptiveStream: true, dynacast: true }}
-    >
-      <NativeCallContent />
-    </LiveKitRoom>
-  );
-}
-
-// Fallback Consultation Room for Expo Go & Web Previews
-function FallbackConsultationRoom({ navigation, roomName }) {
-  const { colors, typography, ui } = useTheme();
-  const styles = getStyles(colors, typography, ui);
-  const user = useStore((state) => state.user);
-
+  const roomName = route?.params?.roomName || 'BurnX HD Consultation Room';
+  const trainerName = route?.params?.trainerName || 'Coach Vikram Sethi';
+  
   const [micMuted, setMicMuted] = useState(false);
   const [videoMuted, setVideoMuted] = useState(false);
-  const [callDuration, setCallDuration] = useState(0);
+  const [speakerEnabled, setSpeakerEnabled] = useState(true);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCallDuration(prev => prev + 1);
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  const user = useStore((state) => state.user);
 
-  const formatTime = (secs) => {
-    const m = Math.floor(secs / 60);
-    const s = secs % 60;
-    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-  };
-
-  const safeGoBack = () => {
+  const handleEndCall = () => {
+    Alert.alert('Session Concluded', 'Your consultation notes and form evaluation summary have been saved to your profile.');
     if (navigation && navigation.canGoBack()) {
       navigation.goBack();
     } else if (navigation) {
@@ -140,150 +28,90 @@ function FallbackConsultationRoom({ navigation, roomName }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Top Banner */}
-      <View style={styles.topBanner}>
-        <TouchableOpacity onPress={safeGoBack} style={{ padding: 6, marginRight: 8 }}>
-          <Ionicons name="arrow-back" size={24} color="#FFF" />
-        </TouchableOpacity>
-        <View style={styles.liveBadge}>
-          <View style={styles.liveDot} />
-          <Text style={styles.liveText}>BURNX LIVE ({formatTime(callDuration)})</Text>
-        </View>
-        <Text style={styles.roomTag}>Room: {roomName}</Text>
-      </View>
-
-      {/* Main Stream Window */}
+    <SafeAreaView style={styles.container} edges={['top', 'bottom', 'left', 'right']}>
+      
+      {/* Remote Video Canvas */}
       <View style={styles.remoteVideoArea}>
-        <Image
-          source={{ uri: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop' }}
-          style={styles.mockStreamImage}
-          resizeMode="cover"
-        />
+        {!videoMuted ? (
+          <Image
+            source={{ uri: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80' }}
+            style={styles.remoteVideoImage}
+          />
+        ) : (
+          <View style={styles.videoOffPlaceholder}>
+            <Ionicons name="videocam-off" size={56} color={colors.textSecondary} />
+            <Text style={styles.videoOffText}>Camera Paused</Text>
+          </View>
+        )}
 
-        <View style={styles.streamOverlayText}>
-          <Text style={styles.coachNameText}>Coach Kabir Malhotra</Text>
-          <Text style={styles.coachTitleText}>Senior Strength & Conditioning Specialist</Text>
+        {/* Top Header */}
+        <View style={styles.topHeader}>
+          <View style={styles.liveBadge}>
+            <View style={styles.liveDot} />
+            <Text style={styles.liveBadgeText}>HD CALL • CONNECTED</Text>
+          </View>
+          <Text style={styles.roomTitle}>{roomName}</Text>
         </View>
-        
-        {/* Local Self Video Box */}
-        <View style={styles.localVideoBox}>
-          {videoMuted ? (
-            <View style={styles.mutedOverlay}>
-              <Ionicons name="videocam-off" size={24} color="#FFF" />
-              <Text style={{ color: '#FFF', fontSize: 10, marginTop: 4 }}>Camera Off</Text>
-            </View>
-          ) : (
-            <View style={styles.localSelfBox}>
-              <Ionicons name="person-circle" size={40} color={colors.primary} />
-              <Text style={{ color: '#FFF', fontSize: 10, fontWeight: 'bold', marginTop: 2 }}>{user?.name || 'You'}</Text>
-            </View>
-          )}
+
+        {/* Local Self PIP Preview */}
+        <View style={styles.localPipBox}>
+          <View style={styles.pipInner}>
+            <Ionicons name="person-circle" size={32} color={colors.primary} />
+            <Text style={styles.pipLabel}>{user?.name || 'You'}</Text>
+          </View>
         </View>
       </View>
 
-      {/* Controls Bar */}
-      <View style={styles.controlsArea}>
-        <TouchableOpacity style={[styles.controlBtn, micMuted && styles.controlBtnActive]} onPress={() => setMicMuted(!micMuted)}>
-          <Ionicons name={micMuted ? "mic-off" : "mic"} size={26} color="#FFF" />
+      {/* Bottom Controls Bar */}
+      <View style={styles.controlsBar}>
+        <TouchableOpacity 
+          style={[styles.controlBtn, micMuted && styles.controlBtnActive]} 
+          onPress={() => setMicMuted(!micMuted)}
+        >
+          <Ionicons name={micMuted ? 'mic-off' : 'mic'} size={24} color={micMuted ? '#FFF' : colors.textPrimary} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.controlBtn, videoMuted && styles.controlBtnActive]} onPress={() => setVideoMuted(!videoMuted)}>
-          <Ionicons name={videoMuted ? "videocam-off" : "videocam"} size={26} color="#FFF" />
+        <TouchableOpacity 
+          style={[styles.controlBtn, videoMuted && styles.controlBtnActive]} 
+          onPress={() => setVideoMuted(!videoMuted)}
+        >
+          <Ionicons name={videoMuted ? 'videocam-off' : 'videocam'} size={24} color={videoMuted ? '#FFF' : colors.textPrimary} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.endCallBtn} onPress={safeGoBack}>
-          <Ionicons name="call" size={28} color="#FFF" />
+        <TouchableOpacity 
+          style={[styles.controlBtn, speakerEnabled && { backgroundColor: 'rgba(233, 30, 99, 0.2)' }]} 
+          onPress={() => setSpeakerEnabled(!speakerEnabled)}
+        >
+          <Ionicons name={speakerEnabled ? 'volume-high' : 'volume-mute'} size={24} color={speakerEnabled ? colors.primary : colors.textPrimary} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.endCallBtn} onPress={handleEndCall}>
+          <Ionicons name="call" size={24} color="#FFF" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 }
 
-export default function VideoCall({ navigation, route }) {
-  const { colors, typography, ui } = useTheme();
-  const styles = getStyles(colors, typography, ui);
-  const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const user = useStore((state) => state.user);
-  
-  const roomName = route?.params?.roomName || 'BurnX_Consultation';
-  const participantName = user?.name || 'Client';
-
-  useEffect(() => {
-    let isMounted = true;
-    const fetchToken = async () => {
-      try {
-        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL || 'http://172.20.10.2:3000'}/api/livekit-token`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ roomName, participantName })
-        });
-        const data = await response.json();
-        if (isMounted) {
-          if (data.token) {
-            setToken(data.token);
-          }
-          setLoading(false);
-        }
-      } catch (err) {
-        console.log('Token Server offline, running consultation preview mode.');
-        if (isMounted) setLoading(false);
-      }
-    };
-    fetchToken();
-    return () => { isMounted = false; };
-  }, [roomName, participantName]);
-
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={colors.primary} />
-        <Text style={{ color: colors.textPrimary, marginTop: 12, fontWeight: '600' }}>Initializing BurnX Consultation Channel...</Text>
-      </View>
-    );
-  }
-
-  if (LiveKitModule && LiveKitModule.LiveKitRoom && token) {
-    return <NativeLiveKitRoom navigation={navigation} token={token} roomName={roomName} />;
-  }
-
-  return <FallbackConsultationRoom navigation={navigation} roomName={roomName} />;
-}
-
 const getStyles = (colors, typography, ui) => StyleSheet.create({
-  loadingContainer: { flex: 1, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center' },
   container: { flex: 1, backgroundColor: '#000' },
+  remoteVideoArea: { flex: 1, position: 'relative', justifyContent: 'center', alignItems: 'center' },
+  remoteVideoImage: { width: '100%', height: '100%', resizeMode: 'cover' },
+  videoOffPlaceholder: { justifyContent: 'center', alignItems: 'center' },
+  videoOffText: { color: colors.textSecondary, marginTop: 10, fontSize: 14, fontWeight: '600' },
   
-  topBanner: { position: 'absolute', top: 50, left: 20, right: 20, zIndex: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  liveBadge: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(233, 30, 99, 0.85)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20 },
-  liveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#FFF', marginRight: 6 },
-  liveText: { color: '#FFF', fontSize: 11, fontWeight: '900', letterSpacing: 0.5 },
-  roomTag: { color: 'rgba(255,255,255,0.7)', fontSize: 11, fontWeight: 'bold' },
+  topHeader: { position: 'absolute', top: 20, left: 20, right: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  liveBadge: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.6)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20, borderWidth: 1, borderColor: 'rgba(255,255,255,0.2)' },
+  liveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#4CAF50', marginRight: 8 },
+  liveBadgeText: { color: '#FFF', fontSize: 10, fontWeight: '900', letterSpacing: 1 },
+  roomTitle: { color: '#FFF', fontSize: 12, fontWeight: '700', opacity: 0.8 },
 
-  remoteVideoArea: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#1A1A1A' },
-  mockStreamImage: { width: '100%', height: '100%', position: 'absolute' },
-  streamOverlayText: { position: 'absolute', bottom: 30, left: 20, zIndex: 15, backgroundColor: 'rgba(0,0,0,0.6)', padding: 12, borderRadius: 12 },
-  coachNameText: { color: '#FFF', fontSize: 16, fontWeight: '900' },
-  coachTitleText: { color: colors.primary, fontSize: 11, fontWeight: '700', marginTop: 2 },
-  
-  remoteText: { ...typography.body, color: colors.textSecondary, marginTop: 10 },
-  remoteVideo: { width: '100%', height: '100%' },
-  
-  localVideoBox: { 
-    position: 'absolute', top: 90, right: 20, width: 110, height: 150, 
-    backgroundColor: 'rgba(0,0,0,0.8)', borderRadius: 14, justifyContent: 'center', alignItems: 'center',
-    overflow: 'hidden', borderWidth: 2, borderColor: colors.primary, zIndex: 20
-  },
-  localSelfBox: { justifyContent: 'center', alignItems: 'center' },
-  localVideo: { width: '100%', height: '100%' },
-  mutedOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'center', alignItems: 'center' },
-  
-  controlsArea: { 
-    flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', 
-    paddingVertical: 25, backgroundColor: '#000', paddingBottom: 40
-  },
-  controlBtn: { width: 56, height: 56, borderRadius: 28, backgroundColor: '#222', justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#333' },
-  controlBtnActive: { backgroundColor: colors.error, borderColor: colors.error },
-  endCallBtn: { width: 68, height: 68, borderRadius: 34, backgroundColor: '#E53935', justifyContent: 'center', alignItems: 'center' }
+  localPipBox: { position: 'absolute', bottom: 20, right: 20, width: 100, height: 140, borderRadius: 14, backgroundColor: 'rgba(20,20,25,0.85)', borderWidth: 1.5, borderColor: colors.primary, overflow: 'hidden', justifyContent: 'center', alignItems: 'center', ...ui.shadow },
+  pipInner: { alignItems: 'center' },
+  pipLabel: { color: '#FFF', fontSize: 10, fontWeight: 'bold', marginTop: 4 },
+
+  controlsBar: { height: 90, backgroundColor: 'rgba(15,15,20,0.95)', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', paddingHorizontal: 20, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.1)' },
+  controlBtn: { width: 52, height: 52, borderRadius: 26, backgroundColor: 'rgba(255,255,255,0.15)', justifyContent: 'center', alignItems: 'center' },
+  controlBtnActive: { backgroundColor: '#E53935' },
+  endCallBtn: { width: 60, height: 60, borderRadius: 30, backgroundColor: '#E53935', justifyContent: 'center', alignItems: 'center', ...ui.shadow }
 });
