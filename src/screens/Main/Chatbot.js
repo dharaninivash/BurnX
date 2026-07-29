@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../theme/theme';
 import { useStore } from '../../store/useStore';
-import axios from 'axios';
 import RazorpayCheckoutModal from '../../components/RazorpayCheckoutModal';
 
 export default function Chatbot({ navigation }) {
@@ -79,16 +78,26 @@ export default function Chatbot({ navigation }) {
   const initiatePremiumPurchase = async () => {
     setPaymentLoading(true);
     try {
-      const backendUrl = process.env.EXPO_PUBLIC_API_URL || 'http://172.20.10.2:3000';
-      const res = await axios.post(`${backendUrl}/api/create-order`, { amount: 199900 }, { timeout: 3000 });
-      if (res.data && res.data.order_id) {
-        setCurrentOrderId(res.data.order_id);
+      const backendUrl = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+      const response = await fetch(`${backendUrl}/api/create-order`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: 199900 }),
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+
+      const data = await response.json();
+      if (response.ok && data.order_id) {
+        setCurrentOrderId(data.order_id);
         setCheckoutVisible(true);
       } else {
         throw new Error('Order creation error');
       }
     } catch (err) {
-      // Safe fallback when backend server is offline
       console.log('Backend offline, using direct client payment gateway fallback:', err.message);
       const fallbackOrderId = 'order_burnx_' + Date.now();
       setCurrentOrderId(fallbackOrderId);
@@ -102,12 +111,16 @@ export default function Chatbot({ navigation }) {
     setCheckoutVisible(false);
     setPaymentLoading(true);
     try {
-      const backendUrl = process.env.EXPO_PUBLIC_API_URL || 'http://172.20.10.2:3000';
-      await axios.post(`${backendUrl}/api/verify-payment`, {
-        razorpay_order_id: paymentData.razorpay_order_id,
-        razorpay_payment_id: paymentData.razorpay_payment_id,
-        razorpay_signature: paymentData.razorpay_signature
-      }, { timeout: 3000 });
+      const backendUrl = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
+      await fetch(`${backendUrl}/api/verify-payment`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          razorpay_order_id: paymentData.razorpay_order_id,
+          razorpay_payment_id: paymentData.razorpay_payment_id,
+          razorpay_signature: paymentData.razorpay_signature
+        })
+      });
     } catch (err) {
       console.log('Verification network notice, proceeding with client unlock.');
     } finally {

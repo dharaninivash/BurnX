@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 /**
  * Service to scrape basic nutritional data from public sources based on a query and weight.
  * This function is used to satisfy the web scraping requirement.
