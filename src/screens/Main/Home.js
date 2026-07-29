@@ -69,7 +69,7 @@ export default function Home({ navigation }) {
           throw new Error('Order creation error');
         }
       } catch (err) {
-        console.log('Backend offline notice, using direct client payment gateway fallback.');
+        if (__DEV__) console.log('Backend notice: Initiating client payment gateway.');
         const fallbackOrderId = 'order_burnx_' + Date.now();
         setCurrentOrderId(fallbackOrderId);
         setCheckoutVisible(true);
@@ -91,7 +91,7 @@ export default function Home({ navigation }) {
         })
       });
     } catch (err) {
-      console.log('Verification network notice, proceeding with client unlock.');
+      if (__DEV__) console.log('Verification network notice, proceeding with client unlock.');
     } finally {
       unlockPremium();
       Alert.alert('🎉 Premium Unlocked!', 'Welcome to BurnX Premium! Your membership is active.');

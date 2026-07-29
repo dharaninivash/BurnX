@@ -98,7 +98,7 @@ export default function Chatbot({ navigation }) {
         throw new Error('Order creation error');
       }
     } catch (err) {
-      console.log('Backend offline, using direct client payment gateway fallback:', err.message);
+      if (__DEV__) console.log('Backend notice: Initiating client payment gateway.');
       const fallbackOrderId = 'order_burnx_' + Date.now();
       setCurrentOrderId(fallbackOrderId);
       setCheckoutVisible(true);
@@ -122,7 +122,7 @@ export default function Chatbot({ navigation }) {
         })
       });
     } catch (err) {
-      console.log('Verification network notice, proceeding with client unlock.');
+      if (__DEV__) console.log('Verification network notice, proceeding with client unlock.');
     } finally {
       unlockPremium();
       setPaymentLoading(false);
