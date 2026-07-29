@@ -281,6 +281,8 @@ export const useStore = create(
 
       // Payment & Premium
       isPremium: false,
+      subscriptionPlan: null,
+      subscriptionExpiryDate: null,
       
       // AI Coach Limits
       aiChatCount: 0,
@@ -722,12 +724,41 @@ export const useStore = create(
         set({ themeMode: mode });
       },
 
-      unlockPremium: () => {
-        set({ isPremium: true });
+      unlockPremium: (planId = 'yearly') => {
+        const now = Date.now();
+        let days = 365;
+        if (planId === 'weekly') days = 7;
+        if (planId === 'monthly') days = 30;
+        if (planId === 'yearly') days = 365;
+
+        const expiryMs = now + (days * 24 * 60 * 60 * 1000);
+
+        set({
+          isPremium: true,
+          subscriptionPlan: planId,
+          subscriptionExpiryDate: expiryMs
+        });
+
         get().addNotification(
-          'Premium Unlocked!',
-          'Thank you for upgrading. All premium features are now unlocked!'
+          '🎉 Premium Unlocked!',
+          `Your ${planId.toUpperCase()} subscription is active for ${days} days! Enjoy unlimited AI Coach & Pro Features.`
         );
+      },
+
+      checkSubscriptionStatus: () => {
+        const { isPremium, subscriptionExpiryDate, subscriptionPlan } = get();
+        if (isPremium && subscriptionExpiryDate && Date.now() > subscriptionExpiryDate) {
+          set({
+            isPremium: false,
+            subscriptionPlan: null,
+            subscriptionExpiryDate: null
+          });
+
+          get().addNotification(
+            'Subscription Expired',
+            `Your ${subscriptionPlan || 'premium'} plan has ended. Please renew to continue using BurnX Coach AI.`
+          );
+        }
       },
 
       incrementAiChatCount: () => {
