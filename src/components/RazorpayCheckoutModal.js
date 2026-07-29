@@ -1,18 +1,20 @@
-import React from 'react';
-import { View, Modal, StyleSheet, TouchableOpacity, Text, Linking, Platform } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, Modal, StyleSheet, TouchableOpacity, Text, Linking, Platform, ActivityIndicator } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 export const RAZORPAY_ME_LINK = 'https://razorpay.me/@dharaninivash';
 
 export default function RazorpayCheckoutModal({ visible, orderId, amount, onClose, onDismiss, onSuccess }) {
+  const webViewRef = useRef(null);
   const handleClose = onClose || onDismiss;
+  const [selectedMethod, setSelectedMethod] = useState('modal'); // 'modal' or 'link'
 
   const keyId = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_TJCVVsuabxQUKO';
   const hasValidOrderId = orderId && orderId.startsWith('order_') && !orderId.startsWith('order_burnx_');
 
   const handleOpenDirectLink = () => {
     Linking.openURL(RAZORPAY_ME_LINK).catch((err) => {
-      console.log('Error opening Razorpay payment link:', err);
+      if (__DEV__) console.log('Error opening Razorpay payment link:', err);
     });
   };
 
@@ -34,11 +36,24 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
       <Modal visible={visible} transparent animationType="fade" onRequestClose={handleClose}>
         <View style={styles.webOverlay}>
           <View style={styles.webCard}>
-            <Text style={styles.title}>BurnX Premium Upgrade</Text>
-            <Text style={styles.subtitle}>Complete your secure payment via Razorpay to unlock all pro features.</Text>
+            <Text style={styles.title}>BurnX Premium Checkout</Text>
+            <Text style={styles.subtitle}>Choose your preferred secure payment method below:</Text>
             
-            <TouchableOpacity style={styles.payBtn} onPress={handleOpenDirectLink}>
-              <Text style={styles.payBtnText}>💳 Pay ₹1,999 on Razorpay</Text>
+            {/* OPTION 1: Razorpay.me Personal Link */}
+            <TouchableOpacity style={styles.optionCard} onPress={handleOpenDirectLink}>
+              <View style={styles.optionHeader}>
+                <Text style={styles.optionTitle}>🔗 Option 1: Pay via razorpay.me</Text>
+                <Text style={styles.badgeText}>RECOMMENDED</Text>
+              </View>
+              <Text style={styles.optionDesc}>Instant UPI (GPay, PhonePe, Paytm), QR Code, Cards & NetBanking</Text>
+            </TouchableOpacity>
+
+            {/* OPTION 2: Razorpay Gateway */}
+            <TouchableOpacity style={styles.optionCard} onPress={handleOpenDirectLink}>
+              <View style={styles.optionHeader}>
+                <Text style={styles.optionTitle}>💳 Option 2: Pay via Razorpay Standard Checkout</Text>
+              </View>
+              <Text style={styles.optionDesc}>Official Razorpay Card & Payment Modal Gateway</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.confirmBtn} onPress={handleConfirmPaid}>
@@ -71,8 +86,8 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
       </head>
       <body>
         <div class="loader"></div>
-        <p style="font-size: 16px; font-weight: 600;">Loading Secure Razorpay Checkout...</p>
-        <a href="${RAZORPAY_ME_LINK}" class="btn">Pay via Razorpay.me</a>
+        <p style="font-size: 16px; font-weight: 600;">Loading Secure Razorpay Gateway...</p>
+        <a href="${RAZORPAY_ME_LINK}" class="btn">Pay via razorpay.me/@dharaninivash</a>
 
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <script>
@@ -114,36 +129,68 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
       } else if (message.event === 'dismissed') {
         if (handleClose) handleClose();
       } else if (message.event === 'failed') {
-        // Handle failed modal by giving payment link fallback
         handleOpenDirectLink();
       }
     } catch (e) {
-      console.error('Error parsing WebView payment message', e);
+      if (__DEV__) console.log('Error parsing WebView payment message', e);
     }
   };
 
   return (
     <Modal visible={visible} animationType="slide" onRequestClose={handleClose}>
       <View style={styles.container}>
+        
+        {/* TOP METHOD SELECTOR HEADER */}
         <View style={styles.header}>
           <TouchableOpacity onPress={handleClose} style={styles.closeBtn}>
             <Text style={styles.closeText}>✕ Close</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={handleOpenDirectLink} style={styles.directLinkBtn}>
-            <Text style={styles.directLinkText}>Open razorpay.me/@dharaninivash</Text>
+          <Text style={styles.headerTitleText}>Razorpay Payment</Text>
+        </View>
+
+        {/* 2 PAYMENT OPTIONS BAR */}
+        <View style={styles.tabBar}>
+          <TouchableOpacity 
+            style={[styles.tabItem, selectedMethod === 'modal' && styles.tabItemActive]}
+            onPress={() => setSelectedMethod('modal')}
+          >
+            <Text style={[styles.tabText, selectedMethod === 'modal' && styles.tabTextActive]}>💳 Option 1: Checkout Page</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={[styles.tabItem, selectedMethod === 'link' && styles.tabItemActive]}
+            onPress={() => {
+              setSelectedMethod('link');
+              handleOpenDirectLink();
+            }}
+          >
+            <Text style={[styles.tabText, selectedMethod === 'link' && styles.tabTextActive]}>🔗 Option 2: @dharaninivash Link</Text>
           </TouchableOpacity>
         </View>
 
-        <WebView
-          ref={webViewRef}
-          source={{ html: htmlContent }}
-          onMessage={handleMessage}
-          style={{ flex: 1 }}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-        />
+        {/* CONTENT VIEW BASED ON OPTION */}
+        {selectedMethod === 'modal' ? (
+          <WebView
+            ref={webViewRef}
+            source={{ html: htmlContent }}
+            onMessage={handleMessage}
+            style={{ flex: 1 }}
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
+          />
+        ) : (
+          <View style={styles.linkViewContainer}>
+            <Text style={styles.linkViewTitle}>Paying via Personal Link</Text>
+            <Text style={styles.linkViewDesc}>Opening razorpay.me/@dharaninivash in browser for UPI / QR Code / NetBanking payment.</Text>
+            
+            <TouchableOpacity style={styles.reopenBtn} onPress={handleOpenDirectLink}>
+              <Text style={styles.reopenBtnText}>Open razorpay.me/@dharaninivash Again</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
+        {/* BOTTOM ACTIVATION BUTTON */}
         <View style={styles.bottomBar}>
           <TouchableOpacity style={styles.verifyBtn} onPress={handleConfirmPaid}>
             <Text style={styles.verifyBtnText}>⚡ Confirm & Activate BurnX Premium</Text>
@@ -156,24 +203,40 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0F0F14' },
-  header: { height: 56, backgroundColor: '#181820', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.1)' },
+  header: { height: 54, backgroundColor: '#181820', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.1)' },
   closeBtn: { padding: 8 },
   closeText: { color: '#E91E63', fontWeight: 'bold', fontSize: 15 },
-  directLinkBtn: { backgroundColor: 'rgba(233,30,99,0.15)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 16 },
-  directLinkText: { color: '#E91E63', fontSize: 12, fontWeight: '700' },
-  
+  headerTitleText: { color: '#FFF', fontSize: 16, fontWeight: 'bold', marginLeft: 16 },
+
+  tabBar: { flexDirection: 'row', backgroundColor: '#14141A', borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.08)' },
+  tabItem: { flex: 1, paddingVertical: 12, alignItems: 'center', borderBottomWidth: 2, borderBottomColor: 'transparent' },
+  tabItemActive: { borderBottomColor: '#E91E63', backgroundColor: 'rgba(233,30,99,0.08)' },
+  tabText: { color: 'rgba(255,255,255,0.6)', fontSize: 12, fontWeight: '700' },
+  tabTextActive: { color: '#E91E63' },
+
+  linkViewContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 },
+  linkViewTitle: { color: '#FFF', fontSize: 20, fontWeight: 'bold', marginBottom: 10 },
+  linkViewDesc: { color: 'rgba(255,255,255,0.7)', fontSize: 14, textAlign: 'center', lineHeight: 22, marginBottom: 24 },
+  reopenBtn: { backgroundColor: '#E91E63', paddingHorizontal: 24, paddingVertical: 14, borderRadius: 25 },
+  reopenBtnText: { color: '#FFF', fontWeight: 'bold', fontSize: 15 },
+
   bottomBar: { padding: 16, backgroundColor: '#181820', borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.1)' },
-  verifyBtn: { backgroundColor: '#E91E63', height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center' },
-  verifyBtnText: { color: '#FFF', fontWeight: '900', fontSize: 15, letterSpacing: 0.5 },
+  verifyBtn: { backgroundColor: '#4CAF50', height: 52, borderRadius: 26, justifyContent: 'center', alignItems: 'center' },
+  verifyBtnText: { color: '#FFF', fontWeight: '900', fontSize: 16, letterSpacing: 0.5 },
 
   webOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'center', alignItems: 'center', padding: 20 },
-  webCard: { width: '100%', maxWidth: 420, backgroundColor: '#181820', borderRadius: 20, padding: 24, alignItems: 'center', borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)' },
-  title: { color: '#FFF', fontSize: 22, fontWeight: '900', marginBottom: 8 },
-  subtitle: { color: 'rgba(255,255,255,0.7)', fontSize: 14, textAlign: 'center', marginBottom: 24, lineHeight: 20 },
-  payBtn: { width: '100%', backgroundColor: '#E91E63', height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center', marginBottom: 12 },
-  payBtnText: { color: '#FFF', fontWeight: 'bold', fontSize: 16 },
-  confirmBtn: { width: '100%', backgroundColor: '#4CAF50', height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center', marginBottom: 12 },
+  webCard: { width: '100%', maxWidth: 420, backgroundColor: '#181820', borderRadius: 20, padding: 24, borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)' },
+  title: { color: '#FFF', fontSize: 22, fontWeight: '900', marginBottom: 6, textAlign: 'center' },
+  subtitle: { color: 'rgba(255,255,255,0.7)', fontSize: 13, textAlign: 'center', marginBottom: 20 },
+  
+  optionCard: { backgroundColor: '#22222E', borderRadius: 14, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)' },
+  optionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 },
+  optionTitle: { color: '#FFF', fontSize: 15, fontWeight: 'bold' },
+  badgeText: { backgroundColor: '#E91E63', color: '#FFF', fontSize: 9, fontWeight: '900', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 8 },
+  optionDesc: { color: 'rgba(255,255,255,0.6)', fontSize: 12 },
+
+  confirmBtn: { width: '100%', backgroundColor: '#4CAF50', height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center', marginTop: 8, marginBottom: 12 },
   confirmBtnText: { color: '#FFF', fontWeight: 'bold', fontSize: 15 },
-  cancelBtn: { padding: 10 },
+  cancelBtn: { padding: 10, alignItems: 'center' },
   cancelBtnText: { color: 'rgba(255,255,255,0.6)', fontWeight: '600', fontSize: 14 }
 });
