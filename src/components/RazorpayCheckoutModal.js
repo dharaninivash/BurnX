@@ -30,7 +30,6 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
             currency: 'INR',
             name: 'BurnX Premium',
             description: 'Unlock BurnX Premium Coach & Pro Features',
-            order_id: orderId,
             handler: function (response) {
               if (onSuccess) onSuccess(response);
             },
@@ -41,6 +40,11 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
               }
             }
           };
+
+          if (orderId && orderId.startsWith('order_') && !orderId.startsWith('order_burnx_')) {
+            options.order_id = orderId;
+          }
+
           const rzp = new window.Razorpay(options);
           rzp.open();
         };
@@ -53,6 +57,9 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
   if (Platform.OS === 'web') {
     return null; // Razorpay modal opens natively in web browser via script injection
   }
+
+  const hasValidOrderId = orderId && orderId.startsWith('order_') && !orderId.startsWith('order_burnx_');
+  const orderIdField = hasValidOrderId ? `"order_id": "${orderId}",` : '';
 
   const htmlContent = `
     <!DOCTYPE html>
@@ -76,7 +83,7 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
               "currency": "INR",
               "name": "BurnX Premium",
               "description": "Unlock BurnX Premium Coach & Pro Features",
-              "order_id": "${orderId}",
+              ${orderIdField}
               "handler": function (response){
                 window.ReactNativeWebView.postMessage(JSON.stringify({ event: 'success', data: response }));
               },

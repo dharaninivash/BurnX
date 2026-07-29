@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../theme/theme';
 import { useStore } from '../../store/useStore';
 import RazorpayCheckoutModal from '../../components/RazorpayCheckoutModal';
+import { createRazorpayOrder } from '../../services/razorpayService';
 
 export default function Chatbot({ navigation }) {
   const { colors, typography, ui } = useTheme();
@@ -78,29 +79,8 @@ export default function Chatbot({ navigation }) {
   const initiatePremiumPurchase = async () => {
     setPaymentLoading(true);
     try {
-      const backendUrl = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 3000);
-
-      const response = await fetch(`${backendUrl}/api/create-order`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 199900 }),
-        signal: controller.signal
-      });
-      clearTimeout(timeoutId);
-
-      const data = await response.json();
-      if (response.ok && data.order_id) {
-        setCurrentOrderId(data.order_id);
-        setCheckoutVisible(true);
-      } else {
-        throw new Error('Order creation error');
-      }
-    } catch (err) {
-      if (__DEV__) console.log('Backend notice: Initiating client payment gateway.');
-      const fallbackOrderId = 'order_burnx_' + Date.now();
-      setCurrentOrderId(fallbackOrderId);
+      const orderId = await createRazorpayOrder(199900);
+      setCurrentOrderId(orderId);
       setCheckoutVisible(true);
     } finally {
       setPaymentLoading(false);

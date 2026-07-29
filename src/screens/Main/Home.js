@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useStore } from '../../store/useStore';
 import RazorpayCheckoutModal from '../../components/RazorpayCheckoutModal';
+import { createRazorpayOrder } from '../../services/razorpayService';
 import { useTheme } from '../../theme/theme';
 
 const { width } = Dimensions.get('window');
@@ -48,32 +49,9 @@ export default function Home({ navigation }) {
     if (isPremium) {
       navigation.navigate(route);
     } else {
-      try {
-        const backendUrl = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000);
-
-        const response = await fetch(`${backendUrl}/api/create-order`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount: 199900 }),
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-
-        const data = await response.json();
-        if (response.ok && data.order_id) {
-          setCurrentOrderId(data.order_id);
-          setCheckoutVisible(true);
-        } else {
-          throw new Error('Order creation error');
-        }
-      } catch (err) {
-        if (__DEV__) console.log('Backend notice: Initiating client payment gateway.');
-        const fallbackOrderId = 'order_burnx_' + Date.now();
-        setCurrentOrderId(fallbackOrderId);
-        setCheckoutVisible(true);
-      }
+      const orderId = await createRazorpayOrder(199900);
+      setCurrentOrderId(orderId);
+      setCheckoutVisible(true);
     }
   };
 
