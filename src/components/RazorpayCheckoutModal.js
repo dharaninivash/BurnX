@@ -1,29 +1,71 @@
-import React, { useRef, useState } from 'react';
-import { View, Modal, StyleSheet, TouchableOpacity, Text, Linking, Platform, ActivityIndicator } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import { View, Modal, StyleSheet, TouchableOpacity, Text, Platform, ActivityIndicator, Alert } from 'react-native';
 import { WebView } from 'react-native-webview';
-
-export const RAZORPAY_ME_LINK = 'https://razorpay.me/@dharaninivash';
 
 export default function RazorpayCheckoutModal({ visible, orderId, amount, onClose, onDismiss, onSuccess }) {
   const webViewRef = useRef(null);
   const handleClose = onClose || onDismiss;
   const [loadingWebView, setLoadingWebView] = useState(true);
 
-  const keyId = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_TJCVVsuabxQUKO';
+  const keyId = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_TJaZ3tuKtJEWWx';
   const amountVal = amount || 199900;
   const priceFormatted = `₹${(amountVal / 100).toLocaleString('en-IN')}`;
 
-  const handleOpenDirectLink = () => {
-    Linking.openURL(RAZORPAY_ME_LINK).catch((err) => {
-      if (__DEV__) console.log('Error opening Razorpay payment link:', err);
-    });
-  };
+  // Dynamically load checkout.js on Web when modal opens
+  useEffect(() => {
+    if (Platform.OS === 'web' && visible && typeof window !== 'undefined') {
+      const loadScriptAndOpen = async () => {
+        if (!window.Razorpay) {
+          const script = document.createElement('script');
+          script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+          script.async = true;
+          script.onload = () => openWebCheckout();
+          script.onerror = () => Alert.alert('Razorpay Error', 'Failed to load Razorpay SDK');
+          document.body.appendChild(script);
+        } else {
+          openWebCheckout();
+        }
+      };
+
+      const openWebCheckout = () => {
+        const options = {
+          key: keyId,
+          amount: amountVal,
+          currency: 'INR',
+          name: 'BurnX Premium',
+          description: `Unlock BurnX Premium VIP Access (${priceFormatted})`,
+          order_id: orderId || undefined,
+          handler: function (response) {
+            if (onSuccess) onSuccess(response);
+          },
+          theme: { color: '#E91E63' },
+          modal: {
+            ondismiss: function () {
+              if (handleClose) handleClose();
+            }
+          }
+        };
+
+        const rzp = new window.Razorpay(options);
+        rzp.on('payment.failed', function (response) {
+          Alert.alert('Payment Failed', response.error?.description || 'Transaction was declined.');
+          if (handleClose) handleClose();
+        });
+        rzp.open();
+      };
+
+      loadScriptAndOpen();
+    }
+  }, [visible, orderId]);
 
   if (!visible) return null;
 
+  if (Platform.OS === 'web') {
+    return null; // On web, Razorpay opens native DOM checkout modal directly!
+  }
+
   const orderIdField = orderId ? `"order_id": "${orderId}",` : '';
 
-  // HTML content rendering Razorpay Standard Web Checkout modal with exact plan amount
   const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -84,39 +126,13 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
       const message = JSON.parse(event.nativeEvent.data);
       if (message.event === 'success') {
         if (onSuccess) onSuccess(message.data);
-      } else if (message.event === 'dismissed') {
+      } else if (message.event === 'dismissed' || message.event === 'failed') {
         if (handleClose) handleClose();
       }
     } catch (e) {
       if (__DEV__) console.log('Error parsing WebView payment message', e);
     }
   };
-
-  // On Web platform:
-  if (Platform.OS === 'web') {
-    return (
-      <Modal visible={visible} transparent animationType="fade" onRequestClose={handleClose}>
-        <View style={styles.webOverlay}>
-          <View style={styles.webCard}>
-            <Text style={styles.title}>BurnX Premium Checkout</Text>
-            <Text style={styles.subtitle}>Pay exact plan amount of {priceFormatted} via Razorpay:</Text>
-            
-            <TouchableOpacity style={styles.optionCard} onPress={handleOpenDirectLink}>
-              <View style={styles.optionHeader}>
-                <Text style={styles.optionTitle}>💳 Pay {priceFormatted} via Razorpay</Text>
-                <Text style={styles.badgeText}>SECURE</Text>
-              </View>
-              <Text style={styles.optionDesc}>Instant UPI (GPay, PhonePe, Paytm), QR Code, Cards & NetBanking</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.cancelBtn} onPress={handleClose}>
-              <Text style={styles.cancelBtnText}>Cancel</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-    );
-  }
 
   return (
     <Modal visible={visible} animationType="slide" onRequestClose={handleClose}>
@@ -169,19 +185,5 @@ const styles = StyleSheet.create({
   headerTitleText: { color: '#FFF', fontSize: 15, fontWeight: 'bold' },
 
   loadingOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: '#0F0F14', justifyContent: 'center', alignItems: 'center' },
-  loadingText: { color: '#FFF', marginTop: 12, fontSize: 14, fontWeight: '600' },
-
-  webOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'center', alignItems: 'center', padding: 20 },
-  webCard: { width: '100%', maxWidth: 420, backgroundColor: '#181820', borderRadius: 20, padding: 24, borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)' },
-  title: { color: '#FFF', fontSize: 22, fontWeight: '900', marginBottom: 6, textAlign: 'center' },
-  subtitle: { color: 'rgba(255,255,255,0.7)', fontSize: 13, textAlign: 'center', marginBottom: 20 },
-  
-  optionCard: { backgroundColor: '#22222E', borderRadius: 14, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)' },
-  optionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 },
-  optionTitle: { color: '#FFF', fontSize: 14, fontWeight: 'bold' },
-  badgeText: { backgroundColor: '#E91E63', color: '#FFF', fontSize: 9, fontWeight: '900', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 8 },
-  optionDesc: { color: 'rgba(255,255,255,0.6)', fontSize: 12 },
-
-  cancelBtn: { padding: 10, alignItems: 'center' },
-  cancelBtnText: { color: 'rgba(255,255,255,0.6)', fontWeight: '600', fontSize: 14 }
+  loadingText: { color: '#FFF', marginTop: 12, fontSize: 14, fontWeight: '600' }
 });

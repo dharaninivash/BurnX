@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../theme/theme';
-import RazorpayCheckoutModal, { RAZORPAY_ME_LINK } from './RazorpayCheckoutModal';
+import RazorpayCheckoutModal from './RazorpayCheckoutModal';
 import { createRazorpayOrder } from '../services/razorpayService';
 import { useStore } from '../store/useStore';
 
@@ -125,13 +125,6 @@ export default function SubscriptionModal({ visible, onClose }) {
             <TouchableOpacity style={styles.payBtn} onPress={handleProceedToPayment}>
               <Text style={styles.payBtnText}>Proceed to Payment ({activePlanObj.priceDisplay})</Text>
               <Ionicons name="arrow-forward" size={20} color="#FFF" style={{ marginLeft: 8 }} />
-            </TouchableOpacity>
-
-            <TouchableOpacity 
-              style={styles.linkBtn} 
-              onPress={() => Linking.openURL(RAZORPAY_ME_LINK)}
-            >
-              <Text style={styles.linkBtnText}>Or Pay via razorpay.me/@dharaninivash</Text>
             </TouchableOpacity>
           </View>
         </View>

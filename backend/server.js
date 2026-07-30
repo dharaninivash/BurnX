@@ -8,8 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const key_id = process.env.RAZORPAY_KEY_ID || 'rzp_test_TJCVVsuabxQUKO';
-const key_secret = process.env.RAZORPAY_KEY_SECRET || 'mRtDWUWHjlv5b2L20R4yJobe';
+const key_id = process.env.RAZORPAY_KEY_ID || 'rzp_test_TJaZ3tuKtJEWWx';
+const key_secret = process.env.RAZORPAY_KEY_SECRET || 'AR46DBUfSIbZttimGIcMff3m';
 
 const razorpay = new Razorpay({
   key_id: key_id,
