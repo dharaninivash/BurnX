@@ -1,17 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Platform, KeyboardAvoidingView, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as WebBrowser from 'expo-web-browser';
+import * as Linking from 'expo-linking';
 import { useStore } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
 import { supabase } from '../../services/supabase';
 import { checkUserProfile } from '../../services/authProfileService';
 
+WebBrowser.maybeCompleteAuthSession();
+
 const { height, width } = Dimensions.get('window');
+
+const extractUrlParams = (url) => {
+  if (!url) return {};
+  const params = {};
+  const hashIdx = url.indexOf('#');
+  if (hashIdx !== -1) {
+    const hashStr = url.substring(hashIdx + 1);
+    hashStr.split('&').forEach(part => {
+      const [k, v] = part.split('=');
+      if (k && v) params[decodeURIComponent(k)] = decodeURIComponent(v);
+    });
+  }
+  const queryIdx = url.indexOf('?');
+  if (queryIdx !== -1) {
+    const queryStr = url.substring(queryIdx + 1).split('#')[0];
+    queryStr.split('&').forEach(part => {
+      const [k, v] = part.split('=');
+      if (k && v && !params[k]) params[decodeURIComponent(k)] = decodeURIComponent(v);
+    });
+  }
+  return params;
+};
 
 export default function Login({ navigation }) {
   const { colors, typography, ui } = useTheme();
   const styles = getStyles(colors, typography, ui);
+  const user = useStore((state) => state.user);
+  const hasCompletedOnboarding = useStore((state) => state.hasCompletedOnboarding);
   const setVerifiedProfile = useStore((state) => state.setVerifiedProfile);
   const setPendingAuthUser = useStore((state) => state.setPendingAuthUser);
 
@@ -22,6 +50,17 @@ export default function Login({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
 
+  // When returning from OAuth redirect, if user is set in store but onboarding is not completed, auto-navigate to Signup (Onboarding Step 2)
+  useEffect(() => {
+    if (user && !hasCompletedOnboarding) {
+      navigation.navigate('Signup', {
+        email: user.email,
+        name: user.name || user.user_metadata?.full_name || 'Athlete',
+        isGoogle: true
+      });
+    }
+  }, [user, hasCompletedOnboarding, navigation]);
+
   const processAuthResult = async (authUser) => {
     const result = await checkUserProfile(authUser);
 
@@ -30,14 +69,15 @@ export default function Login({ navigation }) {
       setVerifiedProfile(result.profile);
     } else {
       // 5. If no profile exists / incomplete: Do NOT create a profile automatically -> Go to Onboarding.
-      setPendingAuthUser(result.user || {
+      const pendingUser = result.user || {
         id: authUser.id,
         email: authUser.email,
         name: authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Athlete'
-      });
+      };
+      setPendingAuthUser(pendingUser);
       navigation.navigate('Signup', {
-        email: authUser.email,
-        name: authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Athlete',
+        email: pendingUser.email,
+        name: pendingUser.name,
         isGoogle: true
       });
     }
@@ -76,18 +116,59 @@ export default function Login({ navigation }) {
     setGoogleLoading(true);
     try {
       if (supabase && supabase.auth) {
-        const { data, error } = await supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            redirectTo: Platform.OS === 'web' ? window.location.origin : 'burnx://login-callback'
+        if (Platform.OS === 'web') {
+          const redirectUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:8081';
+          const { data, error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+              redirectTo: redirectUrl
+            }
+          });
+
+          if (error) throw error;
+
+          if (data?.url && typeof window !== 'undefined') {
+            window.location.href = data.url;
+            return;
           }
-        });
+        } else {
+          // Native Mobile (iOS / Android) flow via WebBrowser
+          const redirectUrl = Linking.createURL('login-callback');
+          const { data, error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+              redirectTo: redirectUrl,
+              skipBrowserRedirect: true
+            }
+          });
 
-        if (error) throw error;
+          if (error) throw error;
 
-        if (data?.url && Platform.OS === 'web' && typeof window !== 'undefined') {
-          window.location.href = data.url;
-          return;
+          if (data?.url) {
+            const res = await WebBrowser.openAuthSessionAsync(data.url, redirectUrl);
+            if (res.type === 'success' && res.url) {
+              const { access_token, refresh_token, code } = extractUrlParams(res.url);
+
+              if (access_token && refresh_token) {
+                const { data: sessionData, error: sessErr } = await supabase.auth.setSession({
+                  access_token,
+                  refresh_token
+                });
+                if (sessErr) throw sessErr;
+                if (sessionData?.user) {
+                  await processAuthResult(sessionData.user);
+                  return;
+                }
+              } else if (code) {
+                const { data: sessionData, error: sessErr } = await supabase.auth.exchangeCodeForSession(code);
+                if (sessErr) throw sessErr;
+                if (sessionData?.user) {
+                  await processAuthResult(sessionData.user);
+                  return;
+                }
+              }
+            }
+          }
         }
       }
 
@@ -102,7 +183,7 @@ export default function Login({ navigation }) {
         });
       }
     } catch (error) {
-      console.warn('Google Sign-In notice:', error.message);
+      console.warn('Google Sign-In notice:', error.message || error);
       navigation.navigate('Signup', {
         email: 'google.athlete@burnx.com',
         name: 'Google Athlete',

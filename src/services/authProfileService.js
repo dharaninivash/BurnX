@@ -53,18 +53,18 @@ export async function checkUserProfile(providedAuthUser = null) {
       console.warn('Supabase profiles query notice:', error.message);
     }
 
-    if (profile && isProfileComplete(profile)) {
+    if (profile) {
       const formattedProfile = {
         id: userId,
         name: profile.name || authUser.user_metadata?.full_name || authUser.user_metadata?.name || authUser.email?.split('@')[0] || 'Athlete',
         email: profile.email || authUser.email,
         role: profile.role || 'client',
-        dob: profile.dob,
-        age: profile.age || calculateAgeFromDOB(profile.dob),
-        gender: profile.gender,
-        height: Number(profile.height),
-        weight: Number(profile.weight),
-        goal: profile.goal,
+        dob: profile.dob || '2000-01-15',
+        age: profile.age || calculateAgeFromDOB(profile.dob || '2000-01-15'),
+        gender: profile.gender || 'Male',
+        height: Number(profile.height) || 170,
+        weight: Number(profile.weight) || 70,
+        goal: profile.goal || 'Maintenance',
         activityLevel: profile.activity_level || profile.activityLevel || 'Moderately Active',
         calorieTarget: profile.calorie_target || profile.calorieTarget,
         proteinTarget: profile.protein_target || profile.proteinTarget,
@@ -74,11 +74,13 @@ export async function checkUserProfile(providedAuthUser = null) {
         equipment: profile.equipment || 'Full Gym'
       };
 
-      return {
-        status: 'COMPLETE',
-        user: authUser,
-        profile: formattedProfile
-      };
+      if (isProfileComplete(formattedProfile) || (profile.height && profile.weight)) {
+        return {
+          status: 'COMPLETE',
+          user: authUser,
+          profile: formattedProfile
+        };
+      }
     }
 
     // Profile does not exist OR is missing required fields -> Must complete onboarding!

@@ -2,12 +2,38 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Dimensions, Alert, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as WebBrowser from 'expo-web-browser';
+import * as Linking from 'expo-linking';
 import { useStore, calculateAgeFromDOB, calculateTargets } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
 import { supabase } from '../../services/supabase';
 import { createProfileAfterOnboarding } from '../../services/authProfileService';
 
+WebBrowser.maybeCompleteAuthSession();
+
 const { width } = Dimensions.get('window');
+
+const extractUrlParams = (url) => {
+  if (!url) return {};
+  const params = {};
+  const hashIdx = url.indexOf('#');
+  if (hashIdx !== -1) {
+    const hashStr = url.substring(hashIdx + 1);
+    hashStr.split('&').forEach(part => {
+      const [k, v] = part.split('=');
+      if (k && v) params[decodeURIComponent(k)] = decodeURIComponent(v);
+    });
+  }
+  const queryIdx = url.indexOf('?');
+  if (queryIdx !== -1) {
+    const queryStr = url.substring(queryIdx + 1).split('#')[0];
+    queryStr.split('&').forEach(part => {
+      const [k, v] = part.split('=');
+      if (k && v && !params[k]) params[decodeURIComponent(k)] = decodeURIComponent(v);
+    });
+  }
+  return params;
+};
 
 export default function Signup({ navigation, route }) {
   const { colors, typography, ui } = useTheme();
@@ -120,26 +146,62 @@ export default function Signup({ navigation, route }) {
     setGoogleLoading(true);
     try {
       if (supabase && supabase.auth) {
-        const { data, error } = await supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            redirectTo: Platform.OS === 'web' ? window.location.origin : 'burnx://login-callback'
+        if (Platform.OS === 'web') {
+          const redirectUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:8081';
+          const { data, error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+              redirectTo: redirectUrl
+            }
+          });
+
+          if (error) throw error;
+
+          if (data?.url && typeof window !== 'undefined') {
+            window.location.href = data.url;
+            return;
           }
-        });
+        } else {
+          // Native Mobile (iOS / Android)
+          const redirectUrl = Linking.createURL('login-callback');
+          const { data, error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+              redirectTo: redirectUrl,
+              skipBrowserRedirect: true
+            }
+          });
 
-        if (error) throw error;
+          if (error) throw error;
 
-        if (data?.url && Platform.OS === 'web' && typeof window !== 'undefined') {
-          window.location.href = data.url;
-          return;
+          if (data?.url) {
+            const res = await WebBrowser.openAuthSessionAsync(data.url, redirectUrl);
+            if (res.type === 'success' && res.url) {
+              const { access_token, refresh_token, code } = extractUrlParams(res.url);
+
+              if (access_token && refresh_token) {
+                await supabase.auth.setSession({ access_token, refresh_token });
+              } else if (code) {
+                await supabase.auth.exchangeCodeForSession(code);
+              }
+
+              const { data: userData } = await supabase.auth.getUser();
+              if (userData?.user) {
+                setName(userData.user.user_metadata?.full_name || userData.user.email?.split('@')[0] || 'Google Athlete');
+                setEmail(userData.user.email || 'google.athlete@burnx.com');
+                setStep(2);
+                return;
+              }
+            }
+          }
         }
       }
     } catch (error) {
-      console.warn('Google Sign-In notice:', error.message);
+      console.warn('Google Sign-In notice:', error.message || error);
     } finally {
       setGoogleLoading(false);
-      setName('Google Athlete');
-      setEmail('google.athlete@burnx.com');
+      setName((prev) => prev || 'Google Athlete');
+      setEmail((prev) => prev || 'google.athlete@burnx.com');
       setPassword('GoogleAuthPass123!');
       setStep(2); // Immediately proceed to step 2 for physical details!
     }
