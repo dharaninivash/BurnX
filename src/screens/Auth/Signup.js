@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Dimensions, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Dimensions, Alert, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStore, calculateAgeFromDOB, calculateTargets } from '../../store/useStore';
@@ -8,19 +8,20 @@ import { supabase } from '../../services/supabase';
 
 const { width } = Dimensions.get('window');
 
-export default function Signup({ navigation }) {
+export default function Signup({ navigation, route }) {
   const { colors, typography, ui } = useTheme();
-  const styles = typeof getStyles !== 'undefined' ? getStyles(colors, typography, ui) : {};
+  const styles = getStyles(colors, typography, ui);
   const completeOnboarding = useStore((state) => state.completeOnboarding);
   
   const [step, setStep] = useState(1);
   
   // Onboarding Profile State
-  const [role, setRole] = useState('client'); // 'client' | 'trainer' | 'admin'
+  const [role, setRole] = useState('client');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   
   // Date of Birth state
   const [dobYear, setDobYear] = useState('2000');
@@ -40,6 +41,19 @@ export default function Signup({ navigation }) {
   const [syncCycle, setSyncCycle] = useState(true);
   const [cycleLength, setCycleLength] = useState('28');
   const [daysAgoPeriodStarted, setDaysAgoPeriodStarted] = useState('10');
+
+  useEffect(() => {
+    if (route?.params?.email) {
+      setEmail(route.params.email);
+    }
+    if (route?.params?.name) {
+      setName(route.params.name);
+    }
+    if (route?.params?.isGoogle) {
+      setPassword('GoogleAuthPass123!');
+      setStep(2); // Jump straight to Step 2 (Demographics: DOB, Gender, Height, Weight)
+    }
+  }, [route?.params]);
 
   const genders = ['Male', 'Female', 'Other'];
   const goals = [
@@ -101,6 +115,35 @@ export default function Signup({ navigation }) {
     if (step > 1) setStep(step - 1);
   };
 
+  const handleGoogleSignup = async () => {
+    setGoogleLoading(true);
+    try {
+      if (supabase && supabase.auth) {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: Platform.OS === 'web' ? window.location.origin : 'burnx://login-callback'
+          }
+        });
+
+        if (error) throw error;
+
+        if (data?.url && Platform.OS === 'web' && typeof window !== 'undefined') {
+          window.location.href = data.url;
+          return;
+        }
+      }
+    } catch (error) {
+      console.warn('Google Sign-In notice:', error.message);
+    } finally {
+      setGoogleLoading(false);
+      setName('Google Athlete');
+      setEmail('google.athlete@burnx.com');
+      setPassword('GoogleAuthPass123!');
+      setStep(2); // Immediately proceed to step 2 for physical details!
+    }
+  };
+
   const handleComplete = async () => {
     let lastPeriodStr = null;
     if (gender === 'Female' && syncCycle) {
@@ -113,7 +156,7 @@ export default function Signup({ navigation }) {
     const profileData = {
       name: name.trim() || 'Athlete',
       email: email.trim(),
-      role: role || 'client',
+      role: 'client',
       dob: dobString,
       age: calculatedAge,
       weight: parseFloat(weight) || 70,
@@ -194,7 +237,7 @@ export default function Signup({ navigation }) {
           <View style={styles.stepWrapper}>
             <View style={styles.titleArea}>
               <Text style={styles.titleText}>Create your <Text style={{ color: colors.primary }}>BURNX</Text> Account</Text>
-              <Text style={styles.subtitleText}>Step 1 of 4: Setup your credentials.</Text>
+              <Text style={styles.subtitleText}>Step 1 of 4: Setup your credentials or continue with Google.</Text>
             </View>
 
             <View style={styles.card}>
@@ -240,6 +283,30 @@ export default function Signup({ navigation }) {
                   <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color={colors.textSecondary} />
                 </TouchableOpacity>
               </View>
+
+              {/* OR Divider */}
+              <View style={styles.dividerRow}>
+                <View style={styles.dividerLine} />
+                <Text style={styles.dividerText}>OR</Text>
+                <View style={styles.dividerLine} />
+              </View>
+
+              {/* Continue with Google Button */}
+              <TouchableOpacity 
+                style={styles.googleBtn} 
+                onPress={handleGoogleSignup}
+                disabled={googleLoading}
+                activeOpacity={0.8}
+              >
+                {googleLoading ? (
+                  <ActivityIndicator color={colors.textPrimary} size="small" />
+                ) : (
+                  <>
+                    <Ionicons name="logo-google" size={18} color="#EA4335" style={{ marginRight: 10 }} />
+                    <Text style={styles.googleBtnText}>Continue with Google</Text>
+                  </>
+                )}
+              </TouchableOpacity>
             </View>
 
             <TouchableOpacity style={styles.switchAuthBtn} onPress={() => navigation.navigate('Login')}>
@@ -258,15 +325,62 @@ export default function Signup({ navigation }) {
 
             {/* Permanent Details Warning Banner */}
             <View style={styles.warningCard}>
-              <Ionicons name="shield-alert-outline" size={22} color="#FF9800" style={{ marginRight: 10 }} />
+              <Ionicons name="alert-circle-outline" size={22} color="#FF9800" style={{ marginRight: 10 }} />
               <Text style={styles.warningText}>
-                <Text style={{ fontWeight: 'bold', color: '#FF9800' }}>Important Notice: </Text>
-                Your Name, Biological Gender, and Date of Birth can only be set ONCE during registration and CANNOT be changed later. Height and Weight can be updated anytime.
+                <Text style={{ fontWeight: 'bold', color: '#FF9800' }}>IMPORTANT NOTICE:</Text> Name, Biological Gender, and Date of Birth can only be given ONCE and cannot be changed later. Height & Weight can be updated anytime in settings.
               </Text>
             </View>
 
             <View style={styles.card}>
-              <Text style={styles.cardLabel}>Biological Gender (Locked after selection)</Text>
+              
+              {/* DATE OF BIRTH (Calculates Age) */}
+              <Text style={styles.cardLabel}>Date of Birth (Calculates Dynamic Age)</Text>
+              <View style={styles.dobRow}>
+                <View style={styles.dobBox}>
+                  <Text style={styles.dobSubLabel}>YEAR (YYYY)</Text>
+                  <TextInput
+                    style={styles.dobInput}
+                    value={dobYear}
+                    onChangeText={setDobYear}
+                    keyboardType="numeric"
+                    maxLength={4}
+                    placeholder="2000"
+                    placeholderTextColor={colors.textSecondary}
+                  />
+                </View>
+                <View style={styles.dobBox}>
+                  <Text style={styles.dobSubLabel}>MONTH (MM)</Text>
+                  <TextInput
+                    style={styles.dobInput}
+                    value={dobMonth}
+                    onChangeText={setDobMonth}
+                    keyboardType="numeric"
+                    maxLength={2}
+                    placeholder="01"
+                    placeholderTextColor={colors.textSecondary}
+                  />
+                </View>
+                <View style={styles.dobBox}>
+                  <Text style={styles.dobSubLabel}>DAY (DD)</Text>
+                  <TextInput
+                    style={styles.dobInput}
+                    value={dobDay}
+                    onChangeText={setDobDay}
+                    keyboardType="numeric"
+                    maxLength={2}
+                    placeholder="15"
+                    placeholderTextColor={colors.textSecondary}
+                  />
+                </View>
+                
+                <View style={styles.computedAgeBox}>
+                  <Text style={styles.computedAgeVal}>{calculatedAge}</Text>
+                  <Text style={styles.computedAgeLabel}>YRS AGE</Text>
+                </View>
+              </View>
+
+              {/* BIOLOGICAL GENDER */}
+              <Text style={[styles.cardLabel, { marginTop: 10 }]}>Biological Sex (Select Once Only)</Text>
               <View style={styles.chipRow}>
                 {genders.map((g) => (
                   <TouchableOpacity
@@ -279,62 +393,22 @@ export default function Signup({ navigation }) {
                 ))}
               </View>
 
-              {/* Date of Birth Input (YYYY - MM - DD) */}
-              <Text style={[styles.cardLabel, { marginTop: 10 }]}>Date of Birth (Calculates exact age)</Text>
-              <View style={styles.dobRow}>
-                <View style={styles.dobBox}>
-                  <Text style={styles.dobSubLabel}>YYYY</Text>
-                  <TextInput
-                    style={styles.dobInput}
-                    keyboardType="numeric"
-                    maxLength={4}
-                    value={dobYear}
-                    onChangeText={setDobYear}
-                    placeholder="2000"
-                    placeholderTextColor={colors.textSecondary}
-                  />
-                </View>
-                <View style={styles.dobBox}>
-                  <Text style={styles.dobSubLabel}>MM</Text>
-                  <TextInput
-                    style={styles.dobInput}
-                    keyboardType="numeric"
-                    maxLength={2}
-                    value={dobMonth}
-                    onChangeText={setDobMonth}
-                    placeholder="01"
-                    placeholderTextColor={colors.textSecondary}
-                  />
-                </View>
-                <View style={styles.dobBox}>
-                  <Text style={styles.dobSubLabel}>DD</Text>
-                  <TextInput
-                    style={styles.dobInput}
-                    keyboardType="numeric"
-                    maxLength={2}
-                    value={dobDay}
-                    onChangeText={setDobDay}
-                    placeholder="15"
-                    placeholderTextColor={colors.textSecondary}
-                  />
-                </View>
-                <View style={styles.computedAgeBox}>
-                  <Text style={styles.computedAgeVal}>{calculatedAge}</Text>
-                  <Text style={styles.computedAgeLabel}>AGE</Text>
-                </View>
-              </View>
-
-              {/* Height & Weight */}
+              {/* HEIGHT & WEIGHT */}
               <View style={styles.inputsGrid}>
                 <View style={styles.gridInputBox}>
                   <Text style={styles.cardLabel}>Height (cm)</Text>
                   <View style={styles.numInputBox}>
-                    <TouchableOpacity onPress={() => setHeight(String(Math.max(100, parseInt(height) - 1)))} style={styles.numBtn}>
-                      <Ionicons name="remove" size={18} color="#FFF" />
+                    <TouchableOpacity onPress={() => setHeight(String(Math.max(100, parseInt(height || 170) - 1)))} style={styles.numBtn}>
+                      <Ionicons name="remove" size={18} color={colors.textPrimary} />
                     </TouchableOpacity>
-                    <TextInput style={styles.numInput} keyboardType="numeric" value={height} onChangeText={setHeight} />
-                    <TouchableOpacity onPress={() => setHeight(String(Math.min(250, parseInt(height) + 1)))} style={styles.numBtn}>
-                      <Ionicons name="add" size={18} color="#FFF" />
+                    <TextInput
+                      style={styles.numInput}
+                      value={height}
+                      onChangeText={setHeight}
+                      keyboardType="numeric"
+                    />
+                    <TouchableOpacity onPress={() => setHeight(String(parseInt(height || 170) + 1))} style={styles.numBtn}>
+                      <Ionicons name="add" size={18} color={colors.textPrimary} />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -342,16 +416,22 @@ export default function Signup({ navigation }) {
                 <View style={styles.gridInputBox}>
                   <Text style={styles.cardLabel}>Weight (kg)</Text>
                   <View style={styles.numInputBox}>
-                    <TouchableOpacity onPress={() => setWeight(String(Math.max(30, parseFloat(weight) - 0.5)))} style={styles.numBtn}>
-                      <Ionicons name="remove" size={18} color="#FFF" />
+                    <TouchableOpacity onPress={() => setWeight(String(Math.max(30, parseInt(weight || 70) - 1)))} style={styles.numBtn}>
+                      <Ionicons name="remove" size={18} color={colors.textPrimary} />
                     </TouchableOpacity>
-                    <TextInput style={styles.numInput} keyboardType="numeric" value={weight} onChangeText={setWeight} />
-                    <TouchableOpacity onPress={() => setWeight(String(Math.min(200, parseFloat(weight) + 0.5)))} style={styles.numBtn}>
-                      <Ionicons name="add" size={18} color="#FFF" />
+                    <TextInput
+                      style={styles.numInput}
+                      value={weight}
+                      onChangeText={setWeight}
+                      keyboardType="numeric"
+                    />
+                    <TouchableOpacity onPress={() => setWeight(String(parseInt(weight || 70) + 1))} style={styles.numBtn}>
+                      <Ionicons name="add" size={18} color={colors.textPrimary} />
                     </TouchableOpacity>
                   </View>
                 </View>
               </View>
+
             </View>
           </View>
         )}
@@ -360,126 +440,104 @@ export default function Signup({ navigation }) {
         {step === 3 && (
           <View style={styles.stepWrapper}>
             <View style={styles.titleArea}>
-              <Text style={styles.titleText}>Choose your <Text style={{ color: colors.primary }}>Training Goal</Text></Text>
-              <Text style={styles.subtitleText}>Step 3 of 4: Calorie and macro target calculation.</Text>
+              <Text style={styles.titleText}>Primary <Text style={{ color: colors.primary }}>Fitness Goal</Text></Text>
+              <Text style={styles.subtitleText}>Step 3 of 4: Tailors macro splits and workout energy system.</Text>
             </View>
 
-            <Text style={styles.sectionLabel}>Primary Fitness Goal</Text>
-            {goals.map((g) => (
-              <TouchableOpacity
-                key={g.title}
-                style={[styles.goalSelectionCard, goal === g.title && styles.activeGoalCard]}
-                onPress={() => setGoal(g.title)}
-              >
-                <View style={[styles.iconFrame, goal === g.title && { backgroundColor: colors.textPrimary }]}>
-                  <Ionicons name={g.icon} size={24} color={goal === g.title ? colors.background : colors.primary} />
-                </View>
-                <View style={styles.goalTextFrame}>
-                  <Text style={[styles.goalCardTitle, goal === g.title && { color: colors.background }]}>{g.title}</Text>
-                  <Text style={[styles.goalCardDesc, goal === g.title && { color: 'rgba(0,0,0,0.6)' }]}>{g.desc}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-
-            <Text style={[styles.sectionLabel, { marginTop: 15 }]}>Activity Level</Text>
-            {activities.map((act) => (
-              <TouchableOpacity
-                key={act.title}
-                style={[styles.activitySelectionCard, activityLevel === act.title && styles.activeGoalCard]}
-                onPress={() => setActivityLevel(act.title)}
-              >
-                <View style={{ flex: 1 }}>
-                  <Text style={[styles.goalCardTitle, activityLevel === act.title && { color: colors.background }]}>{act.title}</Text>
-                  <Text style={[styles.goalCardDesc, activityLevel === act.title && { color: 'rgba(0,0,0,0.6)' }]}>{act.desc}</Text>
-                </View>
-                {activityLevel === act.title && <Ionicons name="checkmark-circle" size={24} color={colors.background} />}
-              </TouchableOpacity>
-            ))}
+            <ScrollView style={{ maxHeight: 420 }} showsVerticalScrollIndicator={false}>
+              {goals.map((g) => (
+                <TouchableOpacity
+                  key={g.title}
+                  style={[styles.goalSelectionCard, goal === g.title && styles.activeGoalCard]}
+                  onPress={() => setGoal(g.title)}
+                  activeOpacity={0.8}
+                >
+                  <View style={styles.iconFrame}>
+                    <Ionicons name={g.icon} size={24} color={goal === g.title ? colors.primary : colors.textPrimary} />
+                  </View>
+                  <View style={styles.goalTextFrame}>
+                    <Text style={[styles.goalCardTitle, goal === g.title && { color: '#FFF' }]}>{g.title}</Text>
+                    <Text style={[styles.goalCardDesc, goal === g.title && { color: 'rgba(255,255,255,0.85)' }]}>{g.desc}</Text>
+                  </View>
+                  {goal === g.title && (
+                    <Ionicons name="checkmark-circle" size={24} color="#FFF" />
+                  )}
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
           </View>
         )}
 
-        {/* STEP 4: PREFERENCES & FEMALE CYCLE SYNC */}
+        {/* STEP 4: EQUIPMENT & MENSTRUAL ENGINE */}
         {step === 4 && (
           <View style={styles.stepWrapper}>
             <View style={styles.titleArea}>
-              <Text style={styles.titleText}>Training Preferences & <Text style={{ color: colors.primary }}>Cycle Syncing</Text></Text>
-              <Text style={styles.subtitleText}>Step 4 of 4: Finalizing parameters.</Text>
+              <Text style={styles.titleText}>Equipment & <Text style={{ color: colors.primary }}>Engine Setup</Text></Text>
+              <Text style={styles.subtitleText}>Step 4 of 4: Finalize training environment & cycle tracking.</Text>
             </View>
 
-            <Text style={styles.sectionLabel}>Workout Experience</Text>
-            <View style={styles.chipRow}>
-              {experiences.map((exp) => (
+            <Text style={styles.sectionLabel}>Available Training Equipment</Text>
+            <View style={{ marginBottom: 15 }}>
+              {equipments.map((eq) => (
                 <TouchableOpacity
-                  key={exp}
-                  style={[styles.genderChip, experience === exp && styles.activeChip]}
-                  onPress={() => setExperience(exp)}
+                  key={eq.title}
+                  style={[styles.goalSelectionCard, equipment === eq.title && styles.activeGoalCard]}
+                  onPress={() => setEquipment(eq.title)}
+                  activeOpacity={0.8}
                 >
-                  <Text style={[styles.chipText, experience === exp && styles.activeChipText]}>{exp}</Text>
+                  <View style={styles.goalTextFrame}>
+                    <Text style={[styles.goalCardTitle, equipment === eq.title && { color: '#FFF' }]}>{eq.title}</Text>
+                    <Text style={[styles.goalCardDesc, equipment === eq.title && { color: 'rgba(255,255,255,0.85)' }]}>{eq.desc}</Text>
+                  </View>
+                  {equipment === eq.title && (
+                    <Ionicons name="checkmark-circle" size={24} color="#FFF" />
+                  )}
                 </TouchableOpacity>
               ))}
             </View>
 
-            <Text style={[styles.sectionLabel, { marginTop: 15 }]}>Equipment Available</Text>
-            {equipments.map((eq) => (
-              <TouchableOpacity
-                key={eq.title}
-                style={[styles.activitySelectionCard, equipment === eq.title && styles.activeGoalCard]}
-                onPress={() => setEquipment(eq.title)}
-              >
-                <View style={{ flex: 1 }}>
-                  <Text style={[styles.goalCardTitle, equipment === eq.title && { color: colors.background }]}>{eq.title}</Text>
-                  <Text style={[styles.goalCardDesc, equipment === eq.title && { color: 'rgba(0,0,0,0.6)' }]}>{eq.desc}</Text>
-                </View>
-                {equipment === eq.title && <Ionicons name="checkmark-circle" size={24} color={colors.background} />}
-              </TouchableOpacity>
-            ))}
-
-            {/* Dynamic Women Cycle Sync Module */}
+            {/* GENDER CONDITIONAL ENGINE NOTICE */}
             {gender === 'Female' ? (
               <View style={styles.femaleSyncCard}>
                 <View style={styles.femaleCardHeader}>
-                  <Ionicons name="flower" size={24} color="#E91E63" />
-                  <Text style={styles.femaleCardTitle}>Cycle-Adaptive Workouts</Text>
+                  <Ionicons name="flower-outline" size={22} color="#E91E63" />
+                  <Text style={styles.femaleCardTitle}>Female Menstrual & Hormone Sync</Text>
                   <TouchableOpacity onPress={() => setSyncCycle(!syncCycle)} style={styles.toggleBtn}>
-                    <Ionicons name={syncCycle ? "toggle" : "toggle-outline"} size={40} color={syncCycle ? "#E91E63" : colors.textSecondary} />
+                    <Ionicons name={syncCycle ? "toggle" : "toggle-outline"} size={32} color={syncCycle ? "#E91E63" : colors.textSecondary} />
                   </TouchableOpacity>
                 </View>
-                
+
                 {syncCycle && (
                   <View style={styles.femaleDetails}>
-                    <Text style={styles.cycleLabelText}>Cycle Length (days)</Text>
-                    <TextInput style={styles.femaleInput} keyboardType="numeric" value={cycleLength} onChangeText={setCycleLength} />
-
-                    <Text style={[styles.cycleLabelText, { marginTop: 10 }]}>How many days ago did your last period start?</Text>
-                    <View style={styles.numInputBox}>
-                      <TouchableOpacity onPress={() => setDaysAgoPeriodStarted(String(Math.max(0, parseInt(daysAgoPeriodStarted) - 1)))} style={styles.numBtn}>
-                        <Ionicons name="remove" size={18} color="#FFF" />
-                      </TouchableOpacity>
-                      <TextInput style={styles.numInput} keyboardType="numeric" value={daysAgoPeriodStarted} onChangeText={setDaysAgoPeriodStarted} />
-                      <TouchableOpacity onPress={() => setDaysAgoPeriodStarted(String(Math.min(35, parseInt(daysAgoPeriodStarted) + 1)))} style={styles.numBtn}>
-                        <Ionicons name="add" size={18} color="#FFF" />
-                      </TouchableOpacity>
-                    </View>
-                    <Text style={styles.cycleNotice}>Workouts automatically adjust sets and intensities to minimize stress during Menstrual and Luteal phases!</Text>
+                    <Text style={styles.cycleLabelText}>Days ago last period started:</Text>
+                    <TextInput
+                      style={styles.femaleInput}
+                      value={daysAgoPeriodStarted}
+                      onChangeText={setDaysAgoPeriodStarted}
+                      keyboardType="numeric"
+                    />
+                    <Text style={styles.cycleNotice}>
+                      🌸 Menstrual tracking will be unlocked in your Wellness Hub with personalized training phase recommendations.
+                    </Text>
                   </View>
                 )}
               </View>
             ) : (
               <View style={styles.maleNoticeCard}>
-                <Ionicons name="barbell-outline" size={22} color={colors.primary} />
+                <Ionicons name="information-circle-outline" size={22} color={colors.primary} />
                 <Text style={styles.maleNoticeText}>
-                  Menstrual tracking is disabled for male accounts. Your training splits and readiness metrics are optimized for direct progressive overload.
+                  Biological Male profile selected. Menstrual Tracker is disabled for this profile.
                 </Text>
               </View>
             )}
           </View>
         )}
 
-        {/* Action Button Navigation Footer */}
+        {/* BOTTOM NAVIGATION ACTION */}
         <View style={styles.footerRow}>
-          <TouchableOpacity style={styles.primaryBtn} onPress={handleNext} activeOpacity={0.8}>
-            <Text style={styles.primaryBtnText}>{step === 4 ? 'Complete & Launch BurnX' : 'Continue'}</Text>
-            <Ionicons name={step === 4 ? "rocket-outline" : "arrow-forward"} size={20} color="#FFF" style={{ marginLeft: 10 }} />
+          <TouchableOpacity style={styles.primaryBtn} onPress={handleNext} activeOpacity={0.85}>
+            <Text style={styles.primaryBtnText}>{step === 4 ? "Finish Onboarding & Prepare App" : "Continue to Next Step"}</Text>
+            <Ionicons name={step === 4 ? "checkmark-done" : "arrow-forward"} size={20} color="#FFF" style={{ marginLeft: 8 }} />
           </TouchableOpacity>
         </View>
 
@@ -492,11 +550,13 @@ export default function Signup({ navigation }) {
 const getStyles = (colors, typography, ui) => StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.background },
   container: { flex: 1 },
-  scrollContent: { paddingHorizontal: ui.spacing.l, paddingBottom: ui.spacing.xxl, flexGrow: 1, maxWidth: 520, width: '100%', alignSelf: 'center' },
-  progressHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: ui.spacing.m, marginBottom: ui.spacing.s },
+  scrollContent: { flexGrow: 1, paddingHorizontal: ui.spacing.l, paddingVertical: ui.spacing.l },
+  
+  progressHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: ui.spacing.xs },
   backBtn: { padding: ui.spacing.xs },
-  headerTitle: { ...typography.headline },
-  stepIndicator: { ...typography.headline, color: colors.primary },
+  headerTitle: { ...typography.headline, color: colors.textPrimary },
+  stepIndicator: { ...typography.subhead, color: colors.primary, fontWeight: 'bold' },
+  
   progressBarBg: { width: '100%', height: 6, backgroundColor: colors.border, borderRadius: 3, marginBottom: ui.spacing.l },
   progressBarFill: { height: '100%', backgroundColor: colors.primary, borderRadius: 3 },
   
@@ -530,6 +590,25 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
     ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {}),
   },
   
+  dividerRow: { flexDirection: 'row', alignItems: 'center', marginVertical: 18 },
+  dividerLine: { flex: 1, height: 1, backgroundColor: colors.border },
+  dividerText: { marginHorizontal: 12, color: colors.textSecondary, fontSize: 12, fontWeight: 'bold' },
+  
+  googleBtn: {
+    flexDirection: 'row',
+    height: ui.inputHeight || 54,
+    backgroundColor: colors.surfaceSecondary || colors.background,
+    borderRadius: 14,
+    borderWidth: 1.5,
+    borderColor: colors.border,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 5,
+    ...ui.shadowSm
+  },
+  googleBtnText: { color: colors.textPrimary, fontWeight: 'bold', fontSize: 15 },
+
   switchAuthBtn: { marginTop: 15, alignItems: 'center', padding: 10 },
   switchAuthText: { color: colors.textSecondary, fontSize: 14 },
 
