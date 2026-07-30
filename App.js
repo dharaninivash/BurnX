@@ -18,12 +18,12 @@ export default function App() {
     let authListener = null;
     if (supabase && supabase.auth) {
       const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-        if (event === 'SIGNED_OUT' || !session?.user) {
+        if (event === 'SIGNED_OUT') {
           useStore.getState().logout();
           return;
         }
 
-        if (session?.user) {
+        if (event === 'SIGNED_IN' && session?.user) {
           const user = session.user;
           const userMeta = user.user_metadata || {};
           const userName = userMeta.full_name || userMeta.name || user.email?.split('@')[0] || 'Athlete';
