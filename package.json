@@ -5,7 +5,9 @@
     "start": "npx expo start -c",
     "android": "npx expo run:android",
     "ios": "npx expo run:ios",
-    "web": "npx expo start --web"
+    "web": "npx expo start --web",
+    "build:web": "npx expo export -p web",
+    "vercel-build": "npx expo export -p web"
   },
   "dependencies": {
     "@expo/metro-runtime": "^57.0.7",
