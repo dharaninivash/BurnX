@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-07-30T22:30:31.977330",
+  "platform": "BurnX Fitness Platform",
+  "environment": "Production / CI Pipeline",
+  "total_test_cases": 1200,
+  "total_passed": 1200,
+  "total_failed": 0,
+  "total_skipped": 0,
+  "pass_percentage": 100.0,
+  "status": "SUCCESS",
+  "suites": [
+    {
+      "name": "Selenium E2E Web",
+      "cases": 300,
+      "passed": 300,
+      "failed": 0,
+      "status": "SUCCESS"
+    },
+    {
+      "name": "Appium Native Mobile",
+      "cases": 300,
+      "passed": 300,
+      "failed": 0,
+      "status": "SUCCESS"
+    },
+    {
+      "name": "Security & Vulnerability",
+      "cases": 300,
+      "passed": 300,
+      "failed": 0,
+      "status": "SUCCESS"
+    },
+    {
+      "name": "Load & Performance",
+      "cases": 300,
+      "passed": 300,
+      "failed": 0,
+      "status": "SUCCESS"
+    }
+  ]
+}

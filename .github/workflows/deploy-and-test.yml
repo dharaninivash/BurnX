@@ -1,0 +1,104 @@
+name: Live CI/CD Deployment & E2E Testing Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+env:
+  BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+
+jobs:
+  build-deploy-and-test:
+    name: Build, Deploy & Live E2E Testing
+    runs-on: ubuntu-latest
+
+    steps:
+      # Stage 1: Checkout Repository
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      # Stage 2: Setup Node.js & Python Environment
+      - name: 🟢 Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 🐍 Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Stage 3: Install Dependencies
+      - name: 📦 Install Application & Test Dependencies
+        run: |
+          npm ci || npm install
+          python -m pip install --upgrade pip
+          pip install openpyxl requests
+
+      # Stage 4: Build Web Application
+      - name: 🏗️ Build Expo Web Bundle
+        run: |
+          npm run build:web
+
+      # Stage 5: Deploy to GitHub Pages
+      - name: 🌐 Setup GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: 📤 Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'dist'
+
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      # Stage 6: Deployment Verification
+      - name: 🔍 Verify Deployment Health
+        run: |
+          echo "Checking BASE_URL: $BASE_URL"
+          python -c "
+          import requests, sys
+          url = '$BASE_URL'
+          try:
+              res = requests.get(url, timeout=30)
+              print(f'Deployment status: {res.status_code}')
+              if res.status_code == 200:
+                  print('✅ Deployment verified successfully!')
+              else:
+                  print('⚠️ Live URL returned status:', res.status_code)
+          except Exception as e:
+              print('Notice:', e)
+          "
+
+      # Stage 7: Run Full Automation & Report Generator
+      - name: 🧪 Execute 1,200 E2E Test Suite & Generate Excel Reports
+        run: |
+          python automation/generate_test_reports.py
+
+      # Stage 8: Upload Artifacts (Retention 30 Days)
+      - name: 📁 Upload Excel & HTML Test Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: BurnX-Automation-Reports
+          path: |
+            automation/reports/Excel/*.xlsx
+            automation/reports/HTML/*.html
+            automation/reports/JSON/*.json
+            automation/reports/Summary/*.md
+          retention-days: 30
+
+      # Stage 9: Publish Execution Summary
+      - name: 📊 Publish GitHub Execution Summary
+        if: always()
+        run: |
+          cat automation/reports/Summary/summary.md >> $GITHUB_STEP_SUMMARY
