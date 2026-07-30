@@ -35,28 +35,17 @@ export default function EditProfile({ navigation }) {
 
   const deleteAccount = useStore((state) => state.deleteAccount);
 
-  const handleDeleteAccount = () => {
-    const executeDelete = async () => {
-      await deleteAccount();
-    };
-
-    if (Platform.OS === 'web') {
-      if (typeof window !== 'undefined' && window.confirm('PERMANENTLY DELETE ACCOUNT?\n\nThis will completely erase your profile, metabolic targets, and database records. You will not be able to log in with this account again unless you sign up afresh.')) {
-        executeDelete();
+  const handleDeleteAccount = async () => {
+    let confirmDelete = true;
+    if (typeof window !== 'undefined' && window.confirm) {
+      try {
+        confirmDelete = window.confirm('PERMANENTLY DELETE ACCOUNT?\n\nThis will completely erase your profile, metabolic targets, and database records. You will not be able to log in with this account again unless you sign up afresh.');
+      } catch (e) {
+        confirmDelete = true;
       }
-    } else {
-      Alert.alert(
-        'Delete Account Permanently',
-        'Are you sure you want to permanently delete your account? All your data, metabolic targets, and database records will be erased.',
-        [
-          { text: 'Cancel', style: 'cancel' },
-          { 
-            text: 'Delete Permanently', 
-            style: 'destructive',
-            onPress: executeDelete
-          }
-        ]
-      );
+    }
+    if (confirmDelete) {
+      await deleteAccount();
     }
   };
 

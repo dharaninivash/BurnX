@@ -19,27 +19,27 @@ export default function SubscriptionModal({ visible, onClose }) {
     {
       id: 'weekly',
       name: 'Weekly Sprint Pass',
-      priceDisplay: '₹299',
+      priceDisplay: '₹10',
       billing: 'billed weekly',
-      amountPaise: 29900,
+      amountPaise: 1000,
       badge: null,
       features: ['7 Days Full BurnX Coach AI Access', 'Personal Workout Split Generator', 'Basic Hydration & Nutrition Tracker']
     },
     {
       id: 'monthly',
       name: 'Monthly Athletic Pro',
-      priceDisplay: '₹799',
+      priceDisplay: '₹100',
       billing: 'billed monthly',
-      amountPaise: 79900,
+      amountPaise: 10000,
       badge: 'MOST POPULAR',
       features: ['Unlimited AI Fitness & Form Coach', 'Custom Progressive Overload Logger', 'Menstrual & CNS Recovery Engine', 'Priority Meal Macro Scanner']
     },
     {
       id: 'yearly',
       name: 'Yearly VIP Champion',
-      priceDisplay: '₹1,999',
-      billing: '₹166/mo (save 80%)',
-      amountPaise: 199900,
+      priceDisplay: '₹1,000',
+      billing: 'billed annually',
+      amountPaise: 100000,
       badge: 'BEST VALUE',
       features: ['All Monthly Pro Features Included', 'Lifetime VIP Achievement Badges', 'Trainer Consultation Priority Pass', '24/7 Unlimited AI Coaching Access']
     }

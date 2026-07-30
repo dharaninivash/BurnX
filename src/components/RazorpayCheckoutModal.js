@@ -7,7 +7,7 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
   const handleClose = onClose || onDismiss;
   const [loadingWebView, setLoadingWebView] = useState(true);
 
-  const keyId = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_TJaZ3tuKtJEWWx';
+  const keyId = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID;
   const amountVal = amount || 199900;
   const priceFormatted = `₹${(amountVal / 100).toLocaleString('en-IN')}`;
 

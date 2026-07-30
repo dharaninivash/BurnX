@@ -1,6 +1,6 @@
 // Razorpay Client Service for direct order creation & signature verification
-const RAZORPAY_KEY_ID = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_TJaZ3tuKtJEWWx';
-const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || 'AR46DBUfSIbZttimGIcMff3m';
+const RAZORPAY_KEY_ID = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID;
+const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
 
 export async function createRazorpayOrder(amountInPaise = 199900) {
   // 1. Try local Express backend first

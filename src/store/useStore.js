@@ -444,14 +444,8 @@ export const useStore = create(
 
       deleteAccount: async () => {
         const currentUser = get().user;
-        if (currentUser?.id && supabase) {
-          try {
-            await supabase.from('profiles').delete().eq('id', currentUser.id);
-            await supabase.auth.signOut().catch(() => {});
-          } catch (err) {
-            console.log('Error deleting database profile:', err);
-          }
-        }
+
+        // 1. Immediately reset Zustand state so UI returns to Login screen synchronously
         set({
           user: null,
           hasCompletedOnboarding: false,
@@ -463,6 +457,23 @@ export const useStore = create(
           achievements: DEFAULT_ACHIEVEMENTS.map(a => ({ ...a, unlocked: false, date: null })),
           notifications: []
         });
+
+        // 2. Wipe browser / local storage completely
+        try {
+          if (typeof window !== 'undefined' && window.localStorage) {
+            window.localStorage.clear();
+          }
+        } catch (e) {}
+
+        // 3. Delete user profile record from Supabase database
+        if (currentUser?.id && supabase) {
+          try {
+            await supabase.from('profiles').delete().eq('id', currentUser.id);
+            await supabase.auth.signOut().catch(() => {});
+          } catch (err) {
+            console.log('Error deleting database profile:', err);
+          }
+        }
       },
 
       // Water Logger Actions (in mL)
