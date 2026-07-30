@@ -195,7 +195,7 @@ export default function AppNavigator() {
 
   return (
     <NavigationContainer theme={AppTheme}>
-      {!hasCompletedOnboarding ? (
+      {(!user || !hasCompletedOnboarding) ? (
         <AuthStack />
       ) : user?.role === 'trainer' ? (
         <TrainerTabs />

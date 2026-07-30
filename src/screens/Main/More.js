@@ -22,14 +22,16 @@ export default function More({ navigation }) {
   const [subModalVisible, setSubModalVisible] = React.useState(false);
 
   const handleLogout = async () => {
+    // 1. Immediately reset Zustand store so UI instantly navigates to Login screen
+    logout();
+
+    // 2. Sign out of Supabase auth session
     try {
       if (supabase && supabase.auth) {
         await supabase.auth.signOut().catch(() => {});
       }
     } catch (e) {
       console.log('Supabase signout notice:', e);
-    } finally {
-      logout();
     }
   };
 
