@@ -39,14 +39,17 @@ export default function Signup({ navigation, route }) {
   const { colors, typography, ui } = useTheme();
   const styles = getStyles(colors, typography, ui);
   const completeOnboarding = useStore((state) => state.completeOnboarding);
+  const storeUser = useStore((state) => state.user);
   
-  const [step, setStep] = useState(1);
+  const isAlreadyAuthenticated = !!storeUser || !!route?.params?.isGoogle;
+
+  const [step, setStep] = useState(() => (isAlreadyAuthenticated ? 2 : 1));
   
   // Onboarding Profile State
   const [role, setRole] = useState('client');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState(storeUser?.name || storeUser?.user_metadata?.full_name || route?.params?.name || '');
+  const [email, setEmail] = useState(storeUser?.email || route?.params?.email || '');
+  const [password, setPassword] = useState('GoogleAuthPass123!');
   const [showPassword, setShowPassword] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   
@@ -70,17 +73,22 @@ export default function Signup({ navigation, route }) {
   const [daysAgoPeriodStarted, setDaysAgoPeriodStarted] = useState('10');
 
   useEffect(() => {
-    if (route?.params?.email) {
+    if (storeUser?.email) {
+      setEmail(storeUser.email);
+    } else if (route?.params?.email) {
       setEmail(route.params.email);
     }
-    if (route?.params?.name) {
+
+    if (storeUser?.name || storeUser?.user_metadata?.full_name) {
+      setName(storeUser.name || storeUser.user_metadata?.full_name);
+    } else if (route?.params?.name) {
       setName(route.params.name);
     }
-    if (route?.params?.isGoogle) {
-      setPassword('GoogleAuthPass123!');
+
+    if (isAlreadyAuthenticated) {
       setStep(2); // Jump straight to Step 2 (Demographics: DOB, Gender, Height, Weight)
     }
-  }, [route?.params]);
+  }, [route?.params, storeUser, isAlreadyAuthenticated]);
 
   const genders = ['Male', 'Female', 'Other'];
   const goals = [
@@ -139,6 +147,11 @@ export default function Signup({ navigation, route }) {
   };
 
   const handleBack = () => {
+    if (isAlreadyAuthenticated && step === 2) {
+      useStore.getState().logout();
+      navigation.navigate('Login');
+      return;
+    }
     if (step > 1) setStep(step - 1);
   };
 
@@ -269,20 +282,22 @@ export default function Signup({ navigation, route }) {
           
           {/* Progress Bar Header */}
           <View style={styles.progressHeader}>
-            {step > 1 ? (
+            {(step > 1 && (!isAlreadyAuthenticated || step > 2)) ? (
               <TouchableOpacity onPress={handleBack} style={styles.backBtn}>
                 <Ionicons name="arrow-back" size={24} color={colors.textPrimary} />
               </TouchableOpacity>
             ) : (
-              <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.backBtn}>
+              <TouchableOpacity onPress={() => { useStore.getState().logout(); navigation.navigate('Login'); }} style={styles.backBtn}>
                 <Ionicons name="close" size={24} color={colors.textPrimary} />
               </TouchableOpacity>
             )}
-            <Text style={styles.headerTitle}>Account Registration</Text>
-            <Text style={styles.stepIndicator}>{step}/4</Text>
+            <Text style={styles.headerTitle}>{isAlreadyAuthenticated ? 'Physical Profile Setup' : 'Account Registration'}</Text>
+            <Text style={styles.stepIndicator}>
+              {isAlreadyAuthenticated ? `${step - 1}/3` : `${step}/4`}
+            </Text>
           </View>
           <View style={styles.progressBarBg}>
-            <View style={[styles.progressBarFill, { width: `${(step / 4) * 100}%` }]} />
+            <View style={[styles.progressBarFill, { width: isAlreadyAuthenticated ? `${((step - 1) / 3) * 100}%` : `${(step / 4) * 100}%` }]} />
           </View>
 
         {/* STEP 1: WELCOME & ACCOUNT CREATION */}

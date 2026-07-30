@@ -167,8 +167,11 @@ function AdminTabs() {
 }
 
 function AuthStack() {
+  const user = useStore((state) => state.user);
+  const initialRoute = user ? 'Signup' : 'Login';
+
   return (
-    <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName={initialRoute} screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Splash" component={Splash} />
