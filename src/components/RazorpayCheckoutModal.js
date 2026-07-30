@@ -7,8 +7,8 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
   const handleClose = onClose || onDismiss;
   const [loadingWebView, setLoadingWebView] = useState(true);
 
-  const keyId = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID;
-  const amountVal = amount || 199900;
+  const keyId = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_TJanYRtVFuGwbj';
+  const amountVal = amount || 1000;
   const priceFormatted = `₹${(amountVal / 100).toLocaleString('en-IN')}`;
 
   // Dynamically load checkout.js on Web when modal opens
@@ -20,7 +20,11 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
           script.src = 'https://checkout.razorpay.com/v1/checkout.js';
           script.async = true;
           script.onload = () => openWebCheckout();
-          script.onerror = () => Alert.alert('Razorpay Error', 'Failed to load Razorpay SDK');
+          script.onerror = () => {
+            if (typeof window !== 'undefined' && window.alert) {
+              window.alert('Failed to load Razorpay SDK. Please check your network connection.');
+            }
+          };
           document.body.appendChild(script);
         } else {
           openWebCheckout();
@@ -28,30 +32,39 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
       };
 
       const openWebCheckout = () => {
-        const options = {
-          key: keyId,
-          amount: amountVal,
-          currency: 'INR',
-          name: 'BurnX Premium',
-          description: `Unlock BurnX Premium VIP Access (${priceFormatted})`,
-          order_id: orderId || undefined,
-          handler: function (response) {
-            if (onSuccess) onSuccess(response);
-          },
-          theme: { color: '#E91E63' },
-          modal: {
-            ondismiss: function () {
-              if (handleClose) handleClose();
+        try {
+          const options = {
+            key: keyId,
+            amount: amountVal,
+            currency: 'INR',
+            name: 'BurnX Premium',
+            description: `Unlock BurnX Premium Access (${priceFormatted})`,
+            order_id: orderId || undefined,
+            handler: function (response) {
+              if (onSuccess) onSuccess(response);
+            },
+            theme: { color: '#E91E63' },
+            modal: {
+              ondismiss: function () {
+                if (handleClose) handleClose();
+              }
             }
-          }
-        };
+          };
 
-        const rzp = new window.Razorpay(options);
-        rzp.on('payment.failed', function (response) {
-          Alert.alert('Payment Failed', response.error?.description || 'Transaction was declined.');
-          if (handleClose) handleClose();
-        });
-        rzp.open();
+          const rzp = new window.Razorpay(options);
+          rzp.on('payment.failed', function (response) {
+            if (typeof window !== 'undefined' && window.alert) {
+              window.alert('Payment Failed: ' + (response.error?.description || 'Transaction was declined.'));
+            }
+            if (handleClose) handleClose();
+          });
+          rzp.open();
+        } catch (err) {
+          console.error('Error opening Razorpay modal:', err);
+          if (typeof window !== 'undefined' && window.alert) {
+            window.alert('Error launching Razorpay payment gateway: ' + err.message);
+          }
+        }
       };
 
       loadScriptAndOpen();
