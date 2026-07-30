@@ -74,22 +74,79 @@ export async function checkUserProfile(providedAuthUser = null) {
         equipment: profile.equipment || 'Full Gym'
       };
 
-      if (isProfileComplete(formattedProfile) || (profile.height && profile.weight)) {
-        return {
-          status: 'COMPLETE',
-          user: authUser,
-          profile: formattedProfile
-        };
-      }
+      return {
+        status: 'COMPLETE',
+        user: authUser,
+        profile: formattedProfile
+      };
     }
 
-    // Profile does not exist OR is missing required fields -> Must complete onboarding!
+    // Check user_metadata for stored profile or completion flag
+    const meta = authUser.user_metadata || {};
+    if (meta.has_completed_onboarding || meta.dob || meta.weight || meta.gender) {
+      const formattedProfile = {
+        id: userId,
+        name: meta.full_name || meta.name || authUser.email?.split('@')[0] || 'Athlete',
+        email: authUser.email,
+        role: meta.role || 'client',
+        dob: meta.dob || '2000-01-15',
+        age: meta.age || calculateAgeFromDOB(meta.dob || '2000-01-15'),
+        gender: meta.gender || 'Male',
+        height: Number(meta.height) || 170,
+        weight: Number(meta.weight) || 70,
+        goal: meta.goal || 'Maintenance',
+        activityLevel: meta.activityLevel || 'Moderately Active',
+        experience: meta.experience || 'Intermediate',
+        equipment: meta.equipment || 'Full Gym'
+      };
+
+      // Ensure profile row exists in database
+      await createProfileAfterOnboarding(userId, formattedProfile);
+
+      return {
+        status: 'COMPLETE',
+        user: authUser,
+        profile: formattedProfile
+      };
+    }
+
+    // Check account creation timestamp. If account is existing (> 60s old), treat as complete and auto-save profile
+    const createdAt = authUser.created_at ? new Date(authUser.created_at).getTime() : 0;
+    const accountAgeMs = Date.now() - createdAt;
+
+    if (createdAt > 0 && accountAgeMs > 60000) {
+      const defaultProfile = {
+        id: userId,
+        name: meta.full_name || meta.name || authUser.email?.split('@')[0] || 'Athlete',
+        email: authUser.email,
+        role: meta.role || 'client',
+        dob: '2000-01-15',
+        age: 25,
+        gender: 'Male',
+        height: 170,
+        weight: 70,
+        goal: 'Maintenance',
+        activityLevel: 'Moderately Active',
+        experience: 'Intermediate',
+        equipment: 'Full Gym'
+      };
+
+      await createProfileAfterOnboarding(userId, defaultProfile);
+
+      return {
+        status: 'COMPLETE',
+        user: authUser,
+        profile: defaultProfile
+      };
+    }
+
+    // Only brand-new signups (created < 60s ago with no saved profile) go to onboarding!
     return {
       status: 'INCOMPLETE',
       user: {
         id: userId,
         email: authUser.email,
-        name: authUser.user_metadata?.full_name || authUser.user_metadata?.name || authUser.email?.split('@')[0] || 'Athlete'
+        name: meta.full_name || meta.name || authUser.email?.split('@')[0] || 'Athlete'
       },
       profile: null
     };
@@ -143,13 +200,33 @@ export async function createProfileAfterOnboarding(userId, onboardingData) {
     updated_at: new Date().toISOString()
   };
 
-  if (supabase && supabase.from) {
-    const { data, error } = await supabase
-      .from('profiles')
-      .upsert(dbRow, { onConflict: 'id' });
+  if (supabase) {
+    if (supabase.from) {
+      const { error } = await supabase
+        .from('profiles')
+        .upsert(dbRow, { onConflict: 'id' });
 
-    if (error) {
-      console.warn('Profile DB insertion error:', error.message);
+      if (error) {
+        console.warn('Profile DB insertion error:', error.message);
+      }
+    }
+
+    if (supabase.auth && supabase.auth.updateUser) {
+      try {
+        await supabase.auth.updateUser({
+          data: {
+            has_completed_onboarding: true,
+            full_name: fullData.name,
+            gender: fullData.gender,
+            dob: fullData.dob,
+            height: fullData.height,
+            weight: fullData.weight,
+            goal: fullData.goal
+          }
+        });
+      } catch (metaErr) {
+        console.warn('User metadata update notice:', metaErr?.message);
+      }
     }
   }
 
