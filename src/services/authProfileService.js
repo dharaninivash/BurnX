@@ -1,5 +1,5 @@
-import { supabase } from './supabase.js';
-import { calculateAgeFromDOB, calculateTargets } from '../store/useStore.js';
+import { supabase } from './supabase';
+import { calculateAgeFromDOB, calculateTargets } from '../store/useStore';
 
 /**
  * Validates whether a profile record exists in Supabase database and has all required fields.

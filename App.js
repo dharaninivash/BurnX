@@ -20,24 +20,28 @@ export default function App() {
     let authListener = null;
     if (supabase && supabase.auth) {
       const handleAuthSession = async (event, session) => {
-        if (event === 'SIGNED_OUT' || !session?.user) {
-          useStore.getState().logout();
-          return;
-        }
-
-        if (session?.user) {
-          const result = await checkUserProfile(session.user);
-          if (result.status === 'COMPLETE' && result.profile) {
-            // Profile exists & complete -> Load data -> Go to Home
-            useStore.getState().setVerifiedProfile(result.profile);
-          } else {
-            // Profile missing or incomplete -> DO NOT create profile automatically -> Direct to Onboarding
-            useStore.getState().setPendingAuthUser(result.user || {
-              id: session.user.id,
-              email: session.user.email,
-              name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'Athlete'
-            });
+        try {
+          if (event === 'SIGNED_OUT' || !session?.user) {
+            useStore.getState().logout();
+            return;
           }
+
+          if (session?.user) {
+            const result = await checkUserProfile(session.user);
+            if (result.status === 'COMPLETE' && result.profile) {
+              // Profile exists & complete -> Load data -> Go to Home
+              useStore.getState().setVerifiedProfile(result.profile);
+            } else {
+              // Profile missing or incomplete -> DO NOT create profile automatically -> Direct to Onboarding
+              useStore.getState().setPendingAuthUser(result.user || {
+                id: session.user.id,
+                email: session.user.email,
+                name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'Athlete'
+              });
+            }
+          }
+        } catch (err) {
+          console.warn('Auth session handler exception:', err?.message);
         }
       };
 
