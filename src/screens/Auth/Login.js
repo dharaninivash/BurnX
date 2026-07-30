@@ -117,7 +117,8 @@ export default function Login({ navigation }) {
     try {
       if (supabase && supabase.auth) {
         if (Platform.OS === 'web') {
-          const redirectUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:8081';
+          const rawOrigin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:8081';
+          const redirectUrl = rawOrigin.endsWith('/') ? rawOrigin.slice(0, -1) : rawOrigin;
           const { data, error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
