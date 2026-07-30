@@ -80,25 +80,26 @@ jobs:
               print('Notice:', e)
           "
 
-      # Stage 7: Run Full Automation & Report Generator
-      - name: 🧪 Execute 1,200 E2E Test Suite & Generate Excel Reports
+      # Stage 7: Run Enterprise QA Automation Engine
+      - name: 🧪 Execute 1,200 Enterprise Test Suite & Generate All Reports
         run: |
+          python automation/enterprise_report_generator.py
           python automation/generate_test_reports.py
 
-      # Stage 8: Upload Artifacts (Retention 30 Days)
-      - name: 📁 Upload Excel & HTML Test Artifacts
+      # Stage 8: Upload All Test Results Artifacts (Retention 30 Days)
+      - name: 📁 Upload Enterprise Test Results Artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: BurnX-Automation-Reports
+          name: BurnX-Enterprise-Test-Results
           path: |
-            automation/reports/Excel/*.xlsx
-            automation/reports/HTML/*.html
-            automation/reports/JSON/*.json
-            automation/reports/Summary/*.md
+            Test Results/**
+            automation/reports/**
           retention-days: 30
 
       # Stage 9: Publish Execution Summary
       - name: 📊 Publish GitHub Execution Summary
         if: always()
         run: |
-          cat automation/reports/Summary/summary.md >> $GITHUB_STEP_SUMMARY
+          cat Test Results/Selenium/Summary/summary.md >> $GITHUB_STEP_SUMMARY || true
+          cat automation/reports/Summary/summary.md >> $GITHUB_STEP_SUMMARY || true

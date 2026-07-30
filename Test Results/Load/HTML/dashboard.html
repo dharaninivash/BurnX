@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BurnX Load Test Execution Dashboard</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 24px; }
+    .header { text-align: center; margin-bottom: 24px; border-bottom: 1px solid #334155; padding-bottom: 16px; }
+    .header h1 { color: #FF4500; font-size: 26px; margin: 0; }
+    .header p { color: #94a3b8; font-size: 13px; margin-top: 6px; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
+    .metric-card { background: #1e293b; border-radius: 10px; padding: 16px; text-align: center; border: 1px solid #334155; }
+    .metric-card h4 { margin: 0; color: #94a3b8; font-size: 12px; text-transform: uppercase; }
+    .metric-card .num { font-size: 28px; font-weight: bold; margin-top: 8px; color: #38bdf8; }
+    .metric-card .num.pass { color: #22c55e; }
+    .metric-card .num.fail { color: #ef4444; }
+    .metric-card .num.skip { color: #f59e0b; }
+    .metric-card .num.block { color: #a855f7; }
+    .table-box { background: #1e293b; border-radius: 10px; border: 1px solid #334155; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    th { background: #0f172a; color: #94a3b8; padding: 12px 14px; border-bottom: 1px solid #334155; uppercase; }
+    td { padding: 12px 14px; border-bottom: 1px solid #334155; color: #e2e8f0; }
+    .tag { display: inline-block; padding: 3px 8px; border-radius: 6px; font-weight: bold; font-size: 11px; }
+    .tag-pass { background: #166534; color: #4ade80; }
+    .tag-fail { background: #991b1b; color: #fca5a5; }
+    .tag-skip { background: #92400e; color: #fde68a; }
+    .tag-block { background: #6b21a8; color: #e9d5ff; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>BURNX ENTERPRISE LOAD AUTOMATION DASHBOARD</h1>
+    <p>Execution Date: 2026-07-30 22:42:34 UTC | Environment: Live CI/CD Pipeline</p>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-card"><h4>Total Executed</h4><div class="num">300</div></div>
+    <div class="metric-card"><h4>Passed</h4><div class="num pass">268</div></div>
+    <div class="metric-card"><h4>Failed</h4><div class="num fail">16</div></div>
+    <div class="metric-card"><h4>Skipped</h4><div class="num skip">11</div></div>
+    <div class="metric-card"><h4>Blocked</h4><div class="num block">5</div></div>
+    <div class="metric-card"><h4>Pass Rate</h4><div class="num pass">89.3%</div></div>
+  </div>
+  <div class="table-box">
+    <table>
+      <thead>
+        <tr><th>Test ID</th><th>Feature</th><th>Test Scenario</th><th>Priority</th><th>Exec Time</th><th>Status</th><th>Failure Reason / Evidence</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>PERF-TC-001</b></td>
+          <td>Concurrent Users</td>
+          <td>Performance SLA Benchmark: Concurrent Users - Scenario #1</td>
+          <td>P1-High</td>
+          <td>39ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-002</b></td>
+          <td>Spike Tests</td>
+          <td>Performance SLA Benchmark: Spike Tests - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>174ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-003</b></td>
+          <td>Stress Tests</td>
+          <td>Performance SLA Benchmark: Stress Tests - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>109ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-004</b></td>
+          <td>Endurance</td>
+          <td>Performance SLA Benchmark: Endurance - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>145ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-005</b></td>
+          <td>Volume</td>
+          <td>Performance SLA Benchmark: Volume - Scenario #1</td>
+          <td>P1-High</td>
+          <td>156ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-006</b></td>
+          <td>Scalability</td>
+          <td>Performance SLA Benchmark: Scalability - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>81ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-007</b></td>
+          <td>Throughput</td>
+          <td>Performance SLA Benchmark: Throughput - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>145ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-008</b></td>
+          <td>Latency</td>
+          <td>Performance SLA Benchmark: Latency - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>41ms</td>
+          <td><span class="tag tag-block">BLOCKED</span></td>
+          <td>Blocked by third-party API rate limit quota.</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-009</b></td>
+          <td>Memory</td>
+          <td>Performance SLA Benchmark: Memory - Scenario #1</td>
+          <td>P1-High</td>
+          <td>139ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-010</b></td>
+          <td>CPU</td>
+          <td>Performance SLA Benchmark: CPU - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>161ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-011</b></td>
+          <td>Database</td>
+          <td>Performance SLA Benchmark: Database - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>98ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-012</b></td>
+          <td>API Load</td>
+          <td>Performance SLA Benchmark: API Load - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>68ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-013</b></td>
+          <td>Peak Traffic</td>
+          <td>Performance SLA Benchmark: Peak Traffic - Scenario #1</td>
+          <td>P1-High</td>
+          <td>81ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-014</b></td>
+          <td>Recovery</td>
+          <td>Performance SLA Benchmark: Recovery - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>76ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-015</b></td>
+          <td>Response Time</td>
+          <td>Performance SLA Benchmark: Response Time - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>88ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-016</b></td>
+          <td>Concurrent Users</td>
+          <td>Performance SLA Benchmark: Concurrent Users - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>70ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-017</b></td>
+          <td>Spike Tests</td>
+          <td>Performance SLA Benchmark: Spike Tests - Scenario #2</td>
+          <td>P1-High</td>
+          <td>179ms</td>
+          <td><span class="tag tag-fail">FAIL</span></td>
+          <td>Performance SLA Violation: 95th percentile latency exceeded 500ms threshold during Spike Tests</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-018</b></td>
+          <td>Stress Tests</td>
+          <td>Performance SLA Benchmark: Stress Tests - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>18ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-019</b></td>
+          <td>Endurance</td>
+          <td>Performance SLA Benchmark: Endurance - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>56ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-020</b></td>
+          <td>Volume</td>
+          <td>Performance SLA Benchmark: Volume - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>141ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-021</b></td>
+          <td>Scalability</td>
+          <td>Performance SLA Benchmark: Scalability - Scenario #2</td>
+          <td>P1-High</td>
+          <td>111ms</td>
+          <td><span class="tag tag-skip">SKIPPED</span></td>
+          <td>Skipped to prevent database connection pool exhaustion.</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-022</b></td>
+          <td>Throughput</td>
+          <td>Performance SLA Benchmark: Throughput - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>66ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-023</b></td>
+          <td>Latency</td>
+          <td>Performance SLA Benchmark: Latency - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>179ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-024</b></td>
+          <td>Memory</td>
+          <td>Performance SLA Benchmark: Memory - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>33ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-025</b></td>
+          <td>CPU</td>
+          <td>Performance SLA Benchmark: CPU - Scenario #2</td>
+          <td>P1-High</td>
+          <td>43ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-026</b></td>
+          <td>Database</td>
+          <td>Performance SLA Benchmark: Database - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>31ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-027</b></td>
+          <td>API Load</td>
+          <td>Performance SLA Benchmark: API Load - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>97ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-028</b></td>
+          <td>Peak Traffic</td>
+          <td>Performance SLA Benchmark: Peak Traffic - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>106ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-029</b></td>
+          <td>Recovery</td>
+          <td>Performance SLA Benchmark: Recovery - Scenario #2</td>
+          <td>P1-High</td>
+          <td>25ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-030</b></td>
+          <td>Response Time</td>
+          <td>Performance SLA Benchmark: Response Time - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>39ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-031</b></td>
+          <td>Concurrent Users</td>
+          <td>Performance SLA Benchmark: Concurrent Users - Scenario #3</td>
+          <td>P3-Low</td>
+          <td>126ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-032</b></td>
+          <td>Spike Tests</td>
+          <td>Performance SLA Benchmark: Spike Tests - Scenario #3</td>
+          <td>P0-Critical</td>
+          <td>113ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-033</b></td>
+          <td>Stress Tests</td>
+          <td>Performance SLA Benchmark: Stress Tests - Scenario #3</td>
+          <td>P1-High</td>
+          <td>151ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-034</b></td>
+          <td>Endurance</td>
+          <td>Performance SLA Benchmark: Endurance - Scenario #3</td>
+          <td>P2-Medium</td>
+          <td>176ms</td>
+          <td><span class="tag tag-skip">SKIPPED</span></td>
+          <td>Skipped to prevent database connection pool exhaustion.</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-035</b></td>
+          <td>Volume</td>
+          <td>Performance SLA Benchmark: Volume - Scenario #3</td>
+          <td>P3-Low</td>
+          <td>169ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-036</b></td>
+          <td>Scalability</td>
+          <td>Performance SLA Benchmark: Scalability - Scenario #3</td>
+          <td>P0-Critical</td>
+          <td>34ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-037</b></td>
+          <td>Throughput</td>
+          <td>Performance SLA Benchmark: Throughput - Scenario #3</td>
+          <td>P1-High</td>
+          <td>115ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-038</b></td>
+          <td>Latency</td>
+          <td>Performance SLA Benchmark: Latency - Scenario #3</td>
+          <td>P2-Medium</td>
+          <td>105ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-039</b></td>
+          <td>Memory</td>
+          <td>Performance SLA Benchmark: Memory - Scenario #3</td>
+          <td>P3-Low</td>
+          <td>61ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-040</b></td>
+          <td>CPU</td>
+          <td>Performance SLA Benchmark: CPU - Scenario #3</td>
+          <td>P0-Critical</td>
+          <td>156ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-041</b></td>
+          <td>Database</td>
+          <td>Performance SLA Benchmark: Database - Scenario #3</td>
+          <td>P1-High</td>
+          <td>129ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-042</b></td>
+          <td>API Load</td>
+          <td>Performance SLA Benchmark: API Load - Scenario #3</td>
+          <td>P2-Medium</td>
+          <td>129ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-043</b></td>
+          <td>Peak Traffic</td>
+          <td>Performance SLA Benchmark: Peak Traffic - Scenario #3</td>
+          <td>P3-Low</td>
+          <td>49ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-044</b></td>
+          <td>Recovery</td>
+          <td>Performance SLA Benchmark: Recovery - Scenario #3</td>
+          <td>P0-Critical</td>
+          <td>165ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-045</b></td>
+          <td>Response Time</td>
+          <td>Performance SLA Benchmark: Response Time - Scenario #3</td>
+          <td>P1-High</td>
+          <td>108ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-046</b></td>
+          <td>Concurrent Users</td>
+          <td>Performance SLA Benchmark: Concurrent Users - Scenario #4</td>
+          <td>P2-Medium</td>
+          <td>69ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-047</b></td>
+          <td>Spike Tests</td>
+          <td>Performance SLA Benchmark: Spike Tests - Scenario #4</td>
+          <td>P3-Low</td>
+          <td>179ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-048</b></td>
+          <td>Stress Tests</td>
+          <td>Performance SLA Benchmark: Stress Tests - Scenario #4</td>
+          <td>P0-Critical</td>
+          <td>18ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-049</b></td>
+          <td>Endurance</td>
+          <td>Performance SLA Benchmark: Endurance - Scenario #4</td>
+          <td>P1-High</td>
+          <td>91ms</td>
+          <td><span class="tag tag-fail">FAIL</span></td>
+          <td>Performance SLA Violation: 95th percentile latency exceeded 500ms threshold during Endurance</td>
+        </tr>
+        <tr>
+          <td><b>PERF-TC-050</b></td>
+          <td>Volume</td>
+          <td>Performance SLA Benchmark: Volume - Scenario #4</td>
+          <td>P2-Medium</td>
+          <td>46ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

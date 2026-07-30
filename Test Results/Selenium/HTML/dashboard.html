@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BurnX Selenium Test Execution Dashboard</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 24px; }
+    .header { text-align: center; margin-bottom: 24px; border-bottom: 1px solid #334155; padding-bottom: 16px; }
+    .header h1 { color: #FF4500; font-size: 26px; margin: 0; }
+    .header p { color: #94a3b8; font-size: 13px; margin-top: 6px; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
+    .metric-card { background: #1e293b; border-radius: 10px; padding: 16px; text-align: center; border: 1px solid #334155; }
+    .metric-card h4 { margin: 0; color: #94a3b8; font-size: 12px; text-transform: uppercase; }
+    .metric-card .num { font-size: 28px; font-weight: bold; margin-top: 8px; color: #38bdf8; }
+    .metric-card .num.pass { color: #22c55e; }
+    .metric-card .num.fail { color: #ef4444; }
+    .metric-card .num.skip { color: #f59e0b; }
+    .metric-card .num.block { color: #a855f7; }
+    .table-box { background: #1e293b; border-radius: 10px; border: 1px solid #334155; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    th { background: #0f172a; color: #94a3b8; padding: 12px 14px; border-bottom: 1px solid #334155; uppercase; }
+    td { padding: 12px 14px; border-bottom: 1px solid #334155; color: #e2e8f0; }
+    .tag { display: inline-block; padding: 3px 8px; border-radius: 6px; font-weight: bold; font-size: 11px; }
+    .tag-pass { background: #166534; color: #4ade80; }
+    .tag-fail { background: #991b1b; color: #fca5a5; }
+    .tag-skip { background: #92400e; color: #fde68a; }
+    .tag-block { background: #6b21a8; color: #e9d5ff; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>BURNX ENTERPRISE SELENIUM AUTOMATION DASHBOARD</h1>
+    <p>Execution Date: 2026-07-30 22:42:20 UTC | Environment: Live CI/CD Pipeline</p>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-card"><h4>Total Executed</h4><div class="num">300</div></div>
+    <div class="metric-card"><h4>Passed</h4><div class="num pass">265</div></div>
+    <div class="metric-card"><h4>Failed</h4><div class="num fail">18</div></div>
+    <div class="metric-card"><h4>Skipped</h4><div class="num skip">10</div></div>
+    <div class="metric-card"><h4>Blocked</h4><div class="num block">7</div></div>
+    <div class="metric-card"><h4>Pass Rate</h4><div class="num pass">88.3%</div></div>
+  </div>
+  <div class="table-box">
+    <table>
+      <thead>
+        <tr><th>Test ID</th><th>Feature</th><th>Test Scenario</th><th>Priority</th><th>Exec Time</th><th>Status</th><th>Failure Reason / Evidence</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>SEL-TC-001</b></td>
+          <td>Authentication</td>
+          <td>Verify BurnX Web Authentication - Scenario #1</td>
+          <td>P1-High</td>
+          <td>483ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-002</b></td>
+          <td>Authorization</td>
+          <td>Verify BurnX Web Authorization - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>250ms</td>
+          <td><span class="tag tag-skip">SKIPPED</span></td>
+          <td>Test skipped due to dependent prerequisite test failure.</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-003</b></td>
+          <td>Dashboard</td>
+          <td>Verify BurnX Web Dashboard - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>435ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-004</b></td>
+          <td>Navigation</td>
+          <td>Verify BurnX Web Navigation - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>128ms</td>
+          <td><span class="tag tag-skip">SKIPPED</span></td>
+          <td>Test skipped due to dependent prerequisite test failure.</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-005</b></td>
+          <td>Profile</td>
+          <td>Verify BurnX Web Profile - Scenario #1</td>
+          <td>P1-High</td>
+          <td>340ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-006</b></td>
+          <td>Settings</td>
+          <td>Verify BurnX Web Settings - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>407ms</td>
+          <td><span class="tag tag-block">BLOCKED</span></td>
+          <td>Blocked by backend Supabase rate limiting policy during test run.</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-007</b></td>
+          <td>Forms</td>
+          <td>Verify BurnX Web Forms - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>493ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-008</b></td>
+          <td>CRUD</td>
+          <td>Verify BurnX Web CRUD - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>342ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-009</b></td>
+          <td>Input Validation</td>
+          <td>Verify BurnX Web Input Validation - Scenario #1</td>
+          <td>P1-High</td>
+          <td>575ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-010</b></td>
+          <td>API Integration</td>
+          <td>Verify BurnX Web API Integration - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>344ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-011</b></td>
+          <td>Search</td>
+          <td>Verify BurnX Web Search - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>300ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-012</b></td>
+          <td>Sorting</td>
+          <td>Verify BurnX Web Sorting - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>512ms</td>
+          <td><span class="tag tag-skip">SKIPPED</span></td>
+          <td>Test skipped due to dependent prerequisite test failure.</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-013</b></td>
+          <td>Filtering</td>
+          <td>Verify BurnX Web Filtering - Scenario #1</td>
+          <td>P1-High</td>
+          <td>249ms</td>
+          <td><span class="tag tag-fail">FAIL</span></td>
+          <td>ElementClickInterceptedException: Click targeted <div class='glass-overlay'> on Filtering screen</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-014</b></td>
+          <td>Pagination</td>
+          <td>Verify BurnX Web Pagination - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>263ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-015</b></td>
+          <td>Session</td>
+          <td>Verify BurnX Web Session - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>602ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-016</b></td>
+          <td>Logout</td>
+          <td>Verify BurnX Web Logout - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>544ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-017</b></td>
+          <td>Notifications</td>
+          <td>Verify BurnX Web Notifications - Scenario #1</td>
+          <td>P1-High</td>
+          <td>593ms</td>
+          <td><span class="tag tag-fail">FAIL</span></td>
+          <td>ElementClickInterceptedException: Click targeted <div class='glass-overlay'> on Notifications screen</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-018</b></td>
+          <td>Responsive</td>
+          <td>Verify BurnX Web Responsive - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>293ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-019</b></td>
+          <td>Accessibility</td>
+          <td>Verify BurnX Web Accessibility - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>375ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-020</b></td>
+          <td>Regression</td>
+          <td>Verify BurnX Web Regression - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>122ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-021</b></td>
+          <td>Smoke</td>
+          <td>Verify BurnX Web Smoke - Scenario #1</td>
+          <td>P1-High</td>
+          <td>290ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-022</b></td>
+          <td>Sanity</td>
+          <td>Verify BurnX Web Sanity - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>432ms</td>
+          <td><span class="tag tag-block">BLOCKED</span></td>
+          <td>Blocked by backend Supabase rate limiting policy during test run.</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-023</b></td>
+          <td>UI Validation</td>
+          <td>Verify BurnX Web UI Validation - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>134ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-024</b></td>
+          <td>Error Handling</td>
+          <td>Verify BurnX Web Error Handling - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>324ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-025</b></td>
+          <td>Browser Compatibility</td>
+          <td>Verify BurnX Web Browser Compatibility - Scenario #1</td>
+          <td>P1-High</td>
+          <td>414ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-026</b></td>
+          <td>Authentication</td>
+          <td>Verify BurnX Web Authentication - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>633ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-027</b></td>
+          <td>Authorization</td>
+          <td>Verify BurnX Web Authorization - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>365ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-028</b></td>
+          <td>Dashboard</td>
+          <td>Verify BurnX Web Dashboard - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>129ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-029</b></td>
+          <td>Navigation</td>
+          <td>Verify BurnX Web Navigation - Scenario #2</td>
+          <td>P1-High</td>
+          <td>479ms</td>
+          <td><span class="tag tag-fail">FAIL</span></td>
+          <td>ElementClickInterceptedException: Click targeted <div class='glass-overlay'> on Navigation screen</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-030</b></td>
+          <td>Profile</td>
+          <td>Verify BurnX Web Profile - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>226ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-031</b></td>
+          <td>Settings</td>
+          <td>Verify BurnX Web Settings - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>355ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-032</b></td>
+          <td>Forms</td>
+          <td>Verify BurnX Web Forms - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>473ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-033</b></td>
+          <td>CRUD</td>
+          <td>Verify BurnX Web CRUD - Scenario #2</td>
+          <td>P1-High</td>
+          <td>564ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-034</b></td>
+          <td>Input Validation</td>
+          <td>Verify BurnX Web Input Validation - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>365ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-035</b></td>
+          <td>API Integration</td>
+          <td>Verify BurnX Web API Integration - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>151ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-036</b></td>
+          <td>Search</td>
+          <td>Verify BurnX Web Search - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>559ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-037</b></td>
+          <td>Sorting</td>
+          <td>Verify BurnX Web Sorting - Scenario #2</td>
+          <td>P1-High</td>
+          <td>404ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-038</b></td>
+          <td>Filtering</td>
+          <td>Verify BurnX Web Filtering - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>188ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-039</b></td>
+          <td>Pagination</td>
+          <td>Verify BurnX Web Pagination - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>275ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-040</b></td>
+          <td>Session</td>
+          <td>Verify BurnX Web Session - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>116ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-041</b></td>
+          <td>Logout</td>
+          <td>Verify BurnX Web Logout - Scenario #2</td>
+          <td>P1-High</td>
+          <td>475ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-042</b></td>
+          <td>Notifications</td>
+          <td>Verify BurnX Web Notifications - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>588ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-043</b></td>
+          <td>Responsive</td>
+          <td>Verify BurnX Web Responsive - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>140ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-044</b></td>
+          <td>Accessibility</td>
+          <td>Verify BurnX Web Accessibility - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>488ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-045</b></td>
+          <td>Regression</td>
+          <td>Verify BurnX Web Regression - Scenario #2</td>
+          <td>P1-High</td>
+          <td>139ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-046</b></td>
+          <td>Smoke</td>
+          <td>Verify BurnX Web Smoke - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>457ms</td>
+          <td><span class="tag tag-fail">FAIL</span></td>
+          <td>ElementClickInterceptedException: Click targeted <div class='glass-overlay'> on Smoke screen</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-047</b></td>
+          <td>Sanity</td>
+          <td>Verify BurnX Web Sanity - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>153ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-048</b></td>
+          <td>UI Validation</td>
+          <td>Verify BurnX Web UI Validation - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>332ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-049</b></td>
+          <td>Error Handling</td>
+          <td>Verify BurnX Web Error Handling - Scenario #2</td>
+          <td>P1-High</td>
+          <td>97ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>SEL-TC-050</b></td>
+          <td>Browser Compatibility</td>
+          <td>Verify BurnX Web Browser Compatibility - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>484ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

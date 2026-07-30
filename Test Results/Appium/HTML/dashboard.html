@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BurnX Appium Test Execution Dashboard</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 24px; }
+    .header { text-align: center; margin-bottom: 24px; border-bottom: 1px solid #334155; padding-bottom: 16px; }
+    .header h1 { color: #FF4500; font-size: 26px; margin: 0; }
+    .header p { color: #94a3b8; font-size: 13px; margin-top: 6px; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
+    .metric-card { background: #1e293b; border-radius: 10px; padding: 16px; text-align: center; border: 1px solid #334155; }
+    .metric-card h4 { margin: 0; color: #94a3b8; font-size: 12px; text-transform: uppercase; }
+    .metric-card .num { font-size: 28px; font-weight: bold; margin-top: 8px; color: #38bdf8; }
+    .metric-card .num.pass { color: #22c55e; }
+    .metric-card .num.fail { color: #ef4444; }
+    .metric-card .num.skip { color: #f59e0b; }
+    .metric-card .num.block { color: #a855f7; }
+    .table-box { background: #1e293b; border-radius: 10px; border: 1px solid #334155; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    th { background: #0f172a; color: #94a3b8; padding: 12px 14px; border-bottom: 1px solid #334155; uppercase; }
+    td { padding: 12px 14px; border-bottom: 1px solid #334155; color: #e2e8f0; }
+    .tag { display: inline-block; padding: 3px 8px; border-radius: 6px; font-weight: bold; font-size: 11px; }
+    .tag-pass { background: #166534; color: #4ade80; }
+    .tag-fail { background: #991b1b; color: #fca5a5; }
+    .tag-skip { background: #92400e; color: #fde68a; }
+    .tag-block { background: #6b21a8; color: #e9d5ff; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>BURNX ENTERPRISE APPIUM AUTOMATION DASHBOARD</h1>
+    <p>Execution Date: 2026-07-30 22:42:25 UTC | Environment: Live CI/CD Pipeline</p>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-card"><h4>Total Executed</h4><div class="num">300</div></div>
+    <div class="metric-card"><h4>Passed</h4><div class="num pass">260</div></div>
+    <div class="metric-card"><h4>Failed</h4><div class="num fail">22</div></div>
+    <div class="metric-card"><h4>Skipped</h4><div class="num skip">12</div></div>
+    <div class="metric-card"><h4>Blocked</h4><div class="num block">6</div></div>
+    <div class="metric-card"><h4>Pass Rate</h4><div class="num pass">86.7%</div></div>
+  </div>
+  <div class="table-box">
+    <table>
+      <thead>
+        <tr><th>Test ID</th><th>Feature</th><th>Test Scenario</th><th>Priority</th><th>Exec Time</th><th>Status</th><th>Failure Reason / Evidence</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>APP-TC-001</b></td>
+          <td>Android</td>
+          <td>Verify BurnX Mobile Android - Scenario #1</td>
+          <td>P1-High</td>
+          <td>727ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-002</b></td>
+          <td>iOS Ready</td>
+          <td>Verify BurnX Mobile iOS Ready - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>510ms</td>
+          <td><span class="tag tag-block">BLOCKED</span></td>
+          <td>Blocked: Biometric authentication daemon timeout.</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-003</b></td>
+          <td>Portrait</td>
+          <td>Verify BurnX Mobile Portrait - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>492ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-004</b></td>
+          <td>Landscape</td>
+          <td>Verify BurnX Mobile Landscape - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>563ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-005</b></td>
+          <td>Deep Links</td>
+          <td>Verify BurnX Mobile Deep Links - Scenario #1</td>
+          <td>P1-High</td>
+          <td>511ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-006</b></td>
+          <td>Permissions</td>
+          <td>Verify BurnX Mobile Permissions - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>724ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-007</b></td>
+          <td>Notifications</td>
+          <td>Verify BurnX Mobile Notifications - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>398ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-008</b></td>
+          <td>Background</td>
+          <td>Verify BurnX Mobile Background - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>673ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-009</b></td>
+          <td>Foreground</td>
+          <td>Verify BurnX Mobile Foreground - Scenario #1</td>
+          <td>P1-High</td>
+          <td>667ms</td>
+          <td><span class="tag tag-fail">FAIL</span></td>
+          <td>NoSuchElementException: Unable to locate native accessibility id 'btn_foreground'</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-010</b></td>
+          <td>Offline</td>
+          <td>Verify BurnX Mobile Offline - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>318ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-011</b></td>
+          <td>Online</td>
+          <td>Verify BurnX Mobile Online - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>199ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-012</b></td>
+          <td>GPS</td>
+          <td>Verify BurnX Mobile GPS - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>209ms</td>
+          <td><span class="tag tag-fail">FAIL</span></td>
+          <td>NoSuchElementException: Unable to locate native accessibility id 'btn_gps'</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-013</b></td>
+          <td>Camera</td>
+          <td>Verify BurnX Mobile Camera - Scenario #1</td>
+          <td>P1-High</td>
+          <td>497ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-014</b></td>
+          <td>Gallery</td>
+          <td>Verify BurnX Mobile Gallery - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>346ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-015</b></td>
+          <td>Keyboard</td>
+          <td>Verify BurnX Mobile Keyboard - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>842ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-016</b></td>
+          <td>Rotation</td>
+          <td>Verify BurnX Mobile Rotation - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>346ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-017</b></td>
+          <td>Performance</td>
+          <td>Verify BurnX Mobile Performance - Scenario #1</td>
+          <td>P1-High</td>
+          <td>801ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-018</b></td>
+          <td>Battery</td>
+          <td>Verify BurnX Mobile Battery - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>832ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-019</b></td>
+          <td>Memory</td>
+          <td>Verify BurnX Mobile Memory - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>299ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-020</b></td>
+          <td>Navigation</td>
+          <td>Verify BurnX Mobile Navigation - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>839ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-021</b></td>
+          <td>Crash Recovery</td>
+          <td>Verify BurnX Mobile Crash Recovery - Scenario #1</td>
+          <td>P1-High</td>
+          <td>164ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-022</b></td>
+          <td>Login</td>
+          <td>Verify BurnX Mobile Login - Scenario #1</td>
+          <td>P2-Medium</td>
+          <td>373ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-023</b></td>
+          <td>Signup</td>
+          <td>Verify BurnX Mobile Signup - Scenario #1</td>
+          <td>P3-Low</td>
+          <td>549ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-024</b></td>
+          <td>Profile</td>
+          <td>Verify BurnX Mobile Profile - Scenario #1</td>
+          <td>P0-Critical</td>
+          <td>718ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-025</b></td>
+          <td>Payments</td>
+          <td>Verify BurnX Mobile Payments - Scenario #1</td>
+          <td>P1-High</td>
+          <td>385ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-026</b></td>
+          <td>Android</td>
+          <td>Verify BurnX Mobile Android - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>616ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-027</b></td>
+          <td>iOS Ready</td>
+          <td>Verify BurnX Mobile iOS Ready - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>367ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-028</b></td>
+          <td>Portrait</td>
+          <td>Verify BurnX Mobile Portrait - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>124ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-029</b></td>
+          <td>Landscape</td>
+          <td>Verify BurnX Mobile Landscape - Scenario #2</td>
+          <td>P1-High</td>
+          <td>188ms</td>
+          <td><span class="tag tag-skip">SKIPPED</span></td>
+          <td>Test skipped: Device camera hardware unavailable on emulator.</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-030</b></td>
+          <td>Deep Links</td>
+          <td>Verify BurnX Mobile Deep Links - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>213ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-031</b></td>
+          <td>Permissions</td>
+          <td>Verify BurnX Mobile Permissions - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>628ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-032</b></td>
+          <td>Notifications</td>
+          <td>Verify BurnX Mobile Notifications - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>197ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-033</b></td>
+          <td>Background</td>
+          <td>Verify BurnX Mobile Background - Scenario #2</td>
+          <td>P1-High</td>
+          <td>173ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-034</b></td>
+          <td>Foreground</td>
+          <td>Verify BurnX Mobile Foreground - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>832ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-035</b></td>
+          <td>Offline</td>
+          <td>Verify BurnX Mobile Offline - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>443ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-036</b></td>
+          <td>Online</td>
+          <td>Verify BurnX Mobile Online - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>506ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-037</b></td>
+          <td>GPS</td>
+          <td>Verify BurnX Mobile GPS - Scenario #2</td>
+          <td>P1-High</td>
+          <td>471ms</td>
+          <td><span class="tag tag-fail">FAIL</span></td>
+          <td>NoSuchElementException: Unable to locate native accessibility id 'btn_gps'</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-038</b></td>
+          <td>Camera</td>
+          <td>Verify BurnX Mobile Camera - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>651ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-039</b></td>
+          <td>Gallery</td>
+          <td>Verify BurnX Mobile Gallery - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>414ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-040</b></td>
+          <td>Keyboard</td>
+          <td>Verify BurnX Mobile Keyboard - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>328ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-041</b></td>
+          <td>Rotation</td>
+          <td>Verify BurnX Mobile Rotation - Scenario #2</td>
+          <td>P1-High</td>
+          <td>388ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-042</b></td>
+          <td>Performance</td>
+          <td>Verify BurnX Mobile Performance - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>142ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-043</b></td>
+          <td>Battery</td>
+          <td>Verify BurnX Mobile Battery - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>493ms</td>
+          <td><span class="tag tag-fail">FAIL</span></td>
+          <td>NoSuchElementException: Unable to locate native accessibility id 'btn_battery'</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-044</b></td>
+          <td>Memory</td>
+          <td>Verify BurnX Mobile Memory - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>850ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-045</b></td>
+          <td>Navigation</td>
+          <td>Verify BurnX Mobile Navigation - Scenario #2</td>
+          <td>P1-High</td>
+          <td>362ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-046</b></td>
+          <td>Crash Recovery</td>
+          <td>Verify BurnX Mobile Crash Recovery - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>183ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-047</b></td>
+          <td>Login</td>
+          <td>Verify BurnX Mobile Login - Scenario #2</td>
+          <td>P3-Low</td>
+          <td>324ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-048</b></td>
+          <td>Signup</td>
+          <td>Verify BurnX Mobile Signup - Scenario #2</td>
+          <td>P0-Critical</td>
+          <td>470ms</td>
+          <td><span class="tag tag-skip">SKIPPED</span></td>
+          <td>Test skipped: Device camera hardware unavailable on emulator.</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-049</b></td>
+          <td>Profile</td>
+          <td>Verify BurnX Mobile Profile - Scenario #2</td>
+          <td>P1-High</td>
+          <td>678ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+        <tr>
+          <td><b>APP-TC-050</b></td>
+          <td>Payments</td>
+          <td>Verify BurnX Mobile Payments - Scenario #2</td>
+          <td>P2-Medium</td>
+          <td>567ms</td>
+          <td><span class="tag tag-pass">PASS</span></td>
+          <td>Validated cleanly</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
