@@ -11,14 +11,29 @@ const { height, width } = Dimensions.get('window');
 export default function Login({ navigation }) {
   const { colors, typography, ui } = useTheme();
   const styles = getStyles(colors, typography, ui);
-  const completeOnboarding = useStore((state) => state.completeOnboarding);
+  const setVerifiedProfile = useStore((state) => state.setVerifiedProfile);
+  const setPendingAuthUser = useStore((state) => state.setPendingAuthUser);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [focusedField, setFocusedField] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
+  const processAuthResult = async (authUser) => {
+    const result = await checkUserProfile(authUser);
+
+    if (result.status === 'COMPLETE' && result.profile) {
+      // 4. If profile exists & complete: Load all data -> Go directly to Home. Do not show onboarding again.
+      setVerifiedProfile(result.profile);
+    } else {
+      // 5. If no profile exists / incomplete: Do NOT create a profile automatically -> Go to Onboarding.
+      setPendingAuthUser(result.user || {
+        id: authUser.id,
+        email: authUser.email,
+        name: authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Athlete'
+      });
+      navigation.navigate('Signup', {
+        email: authUser.email,
+        name: authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Athlete',
+        isGoogle: true
+      });
+    }
+  };
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
@@ -35,31 +50,15 @@ export default function Login({ navigation }) {
         });
 
         if (error) throw error;
-        
-        // Query database profiles table to check if onboarding details were completed
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', data.user.id)
-          .single();
-
-        if (profile && profile.dob && profile.gender) {
-          // Existing profile with details -> proceed into App
-          completeOnboarding(profile);
+        if (data?.user) {
+          await processAuthResult(data.user);
           return;
         }
       }
 
-      // If profile missing details -> Redirect to Signup Onboarding to collect details!
-      navigation.navigate('Signup', { 
-        email: email.trim(),
-        name: email.split('@')[0] || 'Athlete'
-      });
-      
+      navigation.navigate('Signup', { email: email.trim(), name: email.split('@')[0] || 'Athlete' });
     } catch (error) {
-      console.warn('Supabase Login fallback:', error.message);
-      const userName = email.split('@')[0] || 'Athlete';
-      navigation.navigate('Signup', { email: email.trim(), name: userName });
+      Alert.alert('Authentication Error', error.message || 'Login failed. Please check credentials.');
     } finally {
       setLoading(false);
     }
@@ -78,26 +77,28 @@ export default function Login({ navigation }) {
 
         if (error) throw error;
 
-        if (data?.url) {
-          if (Platform.OS === 'web' && typeof window !== 'undefined') {
-            window.location.href = data.url;
-            return;
-          }
+        if (data?.url && Platform.OS === 'web' && typeof window !== 'undefined') {
+          window.location.href = data.url;
+          return;
         }
       }
 
-      // Treat Google Login for new account as automatic Sign Up (collect onboarding details)
-      navigation.navigate('Signup', { 
-        email: 'google.athlete@burnx.com', 
-        name: 'Google Athlete',
-        isGoogle: true 
-      });
+      const { data: userData } = await supabase.auth.getUser();
+      if (userData?.user) {
+        await processAuthResult(userData.user);
+      } else {
+        navigation.navigate('Signup', {
+          email: 'google.athlete@burnx.com',
+          name: 'Google Athlete',
+          isGoogle: true
+        });
+      }
     } catch (error) {
       console.warn('Google Sign-In notice:', error.message);
-      navigation.navigate('Signup', { 
-        email: 'google.athlete@burnx.com', 
+      navigation.navigate('Signup', {
+        email: 'google.athlete@burnx.com',
         name: 'Google Athlete',
-        isGoogle: true 
+        isGoogle: true
       });
     } finally {
       setGoogleLoading(false);

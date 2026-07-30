@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './src/navigation/AppNavigator';
 import { useStore } from './src/store/useStore';
 import { supabase } from './src/services/supabase';
+import { checkUserProfile } from './src/services/authProfileService';
 
 export default function App() {
   const checkDailyReset = useStore((state) => state.checkDailyReset);
@@ -14,48 +15,43 @@ export default function App() {
     if (checkDailyReset) checkDailyReset();
     if (checkSubscriptionStatus) checkSubscriptionStatus();
 
-    // Step 14 & 17: Persist Auth Session & Sync Profiles Table
+    // 9. On app startup & session state change:
+    // Restore Supabase session -> Query profiles table -> Direct to Home if complete, else Onboarding.
     let authListener = null;
     if (supabase && supabase.auth) {
-      const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-        if (event === 'SIGNED_OUT') {
+      const handleAuthSession = async (event, session) => {
+        if (event === 'SIGNED_OUT' || !session?.user) {
           useStore.getState().logout();
           return;
         }
 
-        if (event === 'SIGNED_IN' && session?.user) {
-          const user = session.user;
-          const userMeta = user.user_metadata || {};
-          const userName = userMeta.full_name || userMeta.name || user.email?.split('@')[0] || 'Athlete';
-          const avatarUrl = userMeta.avatar_url || userMeta.picture || null;
-
-          // Sync session user into Zustand store
-          const currentUser = useStore.getState().user;
-          if (!currentUser || currentUser.email !== user.email) {
-            useStore.getState().completeOnboarding({
-              id: user.id,
-              name: userName,
-              email: user.email,
-              avatar: avatarUrl,
-              role: 'client'
+        if (session?.user) {
+          const result = await checkUserProfile(session.user);
+          if (result.status === 'COMPLETE' && result.profile) {
+            // Profile exists & complete -> Load data -> Go to Home
+            useStore.getState().setVerifiedProfile(result.profile);
+          } else {
+            // Profile missing or incomplete -> DO NOT create profile automatically -> Direct to Onboarding
+            useStore.getState().setPendingAuthUser(result.user || {
+              id: session.user.id,
+              email: session.user.email,
+              name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'Athlete'
             });
-          }
-
-          // Step 17: Store Extra User Data in profiles table
-          try {
-            await supabase.from('profiles').upsert({
-              id: user.id,
-              name: userName,
-              email: user.email,
-              avatar: avatarUrl,
-              updated_at: new Date().toISOString()
-            });
-          } catch (err) {
-            console.log('Profile sync note:', err?.message);
           }
         }
+      };
+
+      const { data } = supabase.auth.onAuthStateChange((event, session) => {
+        handleAuthSession(event, session);
       });
       authListener = data?.subscription;
+
+      // Check current session immediately on startup
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          handleAuthSession('INITIAL_SESSION', session);
+        }
+      });
     }
 
     // Interval check every minute for midnight transition & subscription expiry
@@ -72,7 +68,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar style="light" />
+      <StatusBar style="light" translucent backgroundColor="transparent" />
       <AppNavigator />
     </SafeAreaProvider>
   );

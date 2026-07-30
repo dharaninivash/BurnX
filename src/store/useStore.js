@@ -426,6 +426,23 @@ export const useStore = create(
         set((state) => ({ user: { ...state.user, role: role } }));
       },
 
+      setVerifiedProfile: (completeProfile) => {
+        const targets = calculateTargets(completeProfile);
+        set({
+          user: completeProfile,
+          hasCompletedOnboarding: true,
+          calorieTarget: targets.calories,
+          macroTarget: { protein: targets.protein, carbs: targets.carbs, fats: targets.fats }
+        });
+      },
+
+      setPendingAuthUser: (authUser) => {
+        set({
+          user: authUser,
+          hasCompletedOnboarding: false
+        });
+      },
+
       logout: () => {
         set({
           user: null,

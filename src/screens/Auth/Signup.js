@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStore, calculateAgeFromDOB, calculateTargets } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
 import { supabase } from '../../services/supabase';
+import { createProfileAfterOnboarding } from '../../services/authProfileService';
 
 const { width } = Dimensions.get('window');
 
@@ -170,41 +171,30 @@ export default function Signup({ navigation, route }) {
       cycleLength: parseInt(cycleLength) || 28
     };
 
-    const targets = calculateTargets(profileData);
-
     try {
-      if (supabase && supabase.auth) {
-        const { data, error } = await supabase.auth.signUp({
-          email: email.trim(),
-          password: password.trim(),
-          options: {
-            data: { ...profileData, calorieTarget: targets.calories }
-          }
-        });
+      let userId = useStore.getState().user?.id;
 
-        if (!error && data?.user) {
-          await supabase.from('profiles').upsert({
-            id: data.user.id,
-            name: profileData.name,
-            email: profileData.email,
-            gender: profileData.gender,
-            dob: profileData.dob,
-            age: profileData.age,
-            height: profileData.height,
-            weight: profileData.weight,
-            goal: profileData.goal,
-            activity_level: profileData.activityLevel,
-            calorie_target: targets.calories,
-            protein_target: targets.protein,
-            carbs_target: targets.carbs,
-            fats_target: targets.fats,
-            created_at: new Date().toISOString()
-          }).catch((err) => console.log('Profile DB notice:', err?.message));
+      if (supabase && supabase.auth) {
+        let { data: authData } = await supabase.auth.getUser();
+        if (!authData?.user?.id) {
+          const { data: signUpData } = await supabase.auth.signUp({
+            email: email.trim(),
+            password: password.trim()
+          });
+          userId = signUpData?.user?.id || userId;
+        } else {
+          userId = authData.user.id;
         }
       }
+
+      const finalUserId = userId || `user_${Date.now()}`;
+
+      // Insert profile into database ONLY AFTER ONBOARDING IS COMPLETED using id = auth.uid()
+      await createProfileAfterOnboarding(finalUserId, profileData);
+      
+      completeOnboarding({ ...profileData, id: finalUserId, email: email.trim() });
     } catch (error) {
-      console.warn('Supabase offline or unreachable:', error?.message);
-    } finally {
+      console.warn('Profile completion notice:', error?.message);
       completeOnboarding({ ...profileData, email: email.trim() });
     }
   };
