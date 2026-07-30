@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useStore } from '../../store/useStore';
+import { useStore, calculateAgeFromDOB } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
 
 export default function EditProfile({ navigation }) {
@@ -10,22 +10,23 @@ export default function EditProfile({ navigation }) {
   const user = useStore((state) => state.user) || {};
   const updateProfile = useStore((state) => state.updateProfile);
 
-  const [name, setName] = useState(user.name || '');
+  // Immutable values (Read-Only)
+  const name = user.name || 'Athlete';
+  const gender = user.gender || 'Male';
+  const dob = user.dob || '2000-01-15';
+  const age = calculateAgeFromDOB(dob);
+
+  // Mutable values (Editable anytime)
   const [email, setEmail] = useState(user.email || '');
-  const [age, setAge] = useState(user.age ? String(user.age) : '25');
   const [weight, setWeight] = useState(user.weight ? String(user.weight) : '70');
   const [height, setHeight] = useState(user.height ? String(user.height) : '170');
-  const [gender, setGender] = useState(user.gender || 'Male');
   const [goal, setGoal] = useState(user.goal || 'Muscle Gain');
   const [activity, setActivity] = useState(user.activityLevel || 'Moderately Active');
-  
-  // Custom properties
   const [experience, setExperience] = useState(user.experience || 'Intermediate');
   const [equipment, setEquipment] = useState(user.equipment || 'Full Gym');
   const [dietaryPreference, setDietaryPreference] = useState(user.dietaryPreference || 'None');
   const [injuries, setInjuries] = useState(user.injuries || '');
 
-  const genders = ['Male', 'Female', 'Other'];
   const goals = ['Weight Loss', 'Muscle Gain', 'Maintenance', 'Athletic Performance'];
   const activities = ['Sedentary', 'Lightly Active', 'Moderately Active', 'Very Active'];
   const experiences = ['Beginner', 'Intermediate', 'Advanced'];
@@ -33,18 +34,10 @@ export default function EditProfile({ navigation }) {
   const dietPrefs = ['None', 'Vegetarian', 'Vegan', 'Keto', 'Paleo'];
 
   const handleSave = () => {
-    if (!name.trim()) {
-      Alert.alert('Validation Error', 'Full Name cannot be empty.');
-      return;
-    }
-
     const updates = {
-      name: name.trim(),
       email: email.trim(),
-      age: parseInt(age) || 25,
       weight: parseFloat(weight) || 70,
       height: parseFloat(height) || 170,
-      gender,
       goal,
       activityLevel: activity,
       experience,
@@ -53,10 +46,9 @@ export default function EditProfile({ navigation }) {
       injuries: injuries.trim()
     };
 
-    // Update local Zustand store
     updateProfile(updates);
 
-    Alert.alert('Profile Hydrated', 'Your physical metrics have been updated and calories/macronutrients target recalculated successfully!');
+    Alert.alert('Profile Saved', 'Your physical metrics (Height/Weight/Goals) have been updated and metabolic calorie targets recalculated!');
     navigation.goBack();
   };
 
@@ -81,45 +73,69 @@ export default function EditProfile({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name="arrow-back" size={24} color="#FFF" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Edit Baseline</Text>
+        <Text style={styles.headerTitle}>Edit Fitness Baseline</Text>
         <TouchableOpacity onPress={handleSave} style={styles.saveBtn}>
-          <Ionicons name="checkmark" size={24} color={colors.primary} />
+          <Ionicons name="checkmark-circle" size={26} color={colors.primary} />
         </TouchableOpacity>
       </View>
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.formCard}>
           
-          <Text style={styles.sectionLabel}>Core Account Identity</Text>
-          <Text style={styles.label}>Full Name</Text>
-          <TextInput style={styles.input} value={name} onChangeText={setName} />
+          {/* Permanent Notice */}
+          <View style={styles.lockNoticeCard}>
+            <Ionicons name="lock-closed" size={20} color="#FF9800" style={{ marginRight: 8 }} />
+            <Text style={styles.lockNoticeText}>
+              Name, Gender, and DOB were locked during registration and cannot be modified. Height and Weight can be updated anytime!
+            </Text>
+          </View>
 
-          <Text style={styles.label}>Email Address (local storage)</Text>
+          <Text style={styles.sectionLabel}>Permanent Identity (Locked 🔒)</Text>
+
+          <Text style={styles.label}>Full Name</Text>
+          <View style={styles.lockedInputBox}>
+            <Text style={styles.lockedInputText}>{name}</Text>
+            <Ionicons name="lock-closed-outline" size={16} color={colors.textSecondary} />
+          </View>
+
+          <View style={styles.row}>
+            <View style={{ flex: 1, marginRight: 10 }}>
+              <Text style={styles.label}>Biological Gender</Text>
+              <View style={styles.lockedInputBox}>
+                <Text style={styles.lockedInputText}>{gender}</Text>
+                <Ionicons name="lock-closed-outline" size={16} color={colors.textSecondary} />
+              </View>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.label}>DOB (Age: {age})</Text>
+              <View style={styles.lockedInputBox}>
+                <Text style={styles.lockedInputText}>{dob}</Text>
+                <Ionicons name="lock-closed-outline" size={16} color={colors.textSecondary} />
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.divider} />
+          
+          <Text style={styles.sectionLabel}>Physical Parameters (Editable ✏️)</Text>
+          
+          <View style={styles.row}>
+            <View style={{ flex: 1, marginRight: 10 }}>
+              <Text style={styles.label}>Height (cm)</Text>
+              <TextInput style={styles.input} value={height} onChangeText={setHeight} keyboardType="numeric" />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.label}>Weight (kg)</Text>
+              <TextInput style={styles.input} value={weight} onChangeText={setWeight} keyboardType="numeric" />
+            </View>
+          </View>
+
+          <Text style={styles.label}>Email Address</Text>
           <TextInput style={styles.input} value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
 
           <View style={styles.divider} />
           
-          <Text style={styles.sectionLabel}>Physical Attributes</Text>
-          <View style={styles.row}>
-            <View style={{ flex: 1, marginRight: 15 }}>
-              <Text style={styles.label}>Age</Text>
-              <TextInput style={styles.input} value={age} onChangeText={setAge} keyboardType="numeric" />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.label}>Height (cm)</Text>
-              <TextInput style={styles.input} value={height} onChangeText={setHeight} keyboardType="numeric" />
-            </View>
-          </View>
-          
-          <Text style={styles.label}>Weight (kg)</Text>
-          <TextInput style={styles.input} value={weight} onChangeText={setWeight} keyboardType="numeric" />
-
-          <Text style={styles.label}>Gender</Text>
-          {renderChips(genders, gender, setGender)}
-
-          <View style={styles.divider} />
-          
-          <Text style={styles.sectionLabel}>Fitness Baseline</Text>
+          <Text style={styles.sectionLabel}>Fitness Baseline & Goals</Text>
           <Text style={styles.label}>Primary Fitness Goal</Text>
           {renderChips(goals, goal, setGoal)}
 
@@ -150,17 +166,24 @@ export default function EditProfile({ navigation }) {
 }
 
 const getStyles = (colors, typography, ui) => StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.background },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 15, paddingVertical: 10, paddingTop: Platform.OS === 'ios' ? 45 : 15 },
   headerTitle: { ...typography.title, color: colors.primary, fontSize: 18, fontWeight: '900' },
   backBtn: { padding: 5 },
   saveBtn: { padding: 5 },
-  content: { padding: 15, paddingBottom: 50 },
+  content: { padding: 15, paddingBottom: 50, maxWidth: 520, width: '100%', alignSelf: 'center' },
   
-  formCard: { backgroundColor: colors.surface, padding: 20, borderRadius: ui.borderRadius, borderWidth: 1, borderColor: colors.border, ...ui.shadow },
-  sectionLabel: { fontSize: 15, fontWeight: 'bold', color: colors.textPrimary, marginBottom: 15, marginTop: 10 },
+  formCard: { backgroundColor: colors.surface, padding: 20, borderRadius: ui.borderRadiusLg, borderWidth: 1, borderColor: colors.border, ...ui.shadow },
+  
+  lockNoticeCard: { flexDirection: 'row', backgroundColor: 'rgba(255, 152, 0, 0.1)', padding: 12, borderRadius: 10, borderWidth: 1, borderColor: '#FF9800', marginBottom: 15, alignItems: 'center' },
+  lockNoticeText: { flex: 1, fontSize: 11, color: colors.textPrimary, lineHeight: 16 },
+
+  sectionLabel: { fontSize: 14, fontWeight: 'bold', color: colors.textPrimary, marginBottom: 15, marginTop: 10 },
   label: { fontSize: 10, fontWeight: 'bold', marginBottom: 6, color: colors.primary, letterSpacing: 0.5 },
-  input: { borderBottomWidth: 1, borderBottomColor: colors.border, paddingVertical: 10, marginBottom: 20, color: colors.textPrimary, fontSize: 15 },
+  
+  lockedInputBox: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: colors.background, paddingHorizontal: 14, paddingVertical: 12, borderRadius: 10, borderWidth: 1, borderColor: colors.border, marginBottom: 15 },
+  lockedInputText: { color: colors.textSecondary, fontWeight: 'bold', fontSize: 14 },
+
+  input: { backgroundColor: colors.surfaceSecondary, borderRadius: 10, borderWidth: 1, borderColor: colors.border, paddingHorizontal: 14, paddingVertical: 10, marginBottom: 15, color: colors.textPrimary, fontSize: 15, fontWeight: 'bold' },
   row: { flexDirection: 'row' },
   divider: { height: 1, backgroundColor: colors.border, marginVertical: 20 },
   
@@ -168,5 +191,5 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   chip: { backgroundColor: colors.background, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 20, marginRight: 8, marginBottom: 8, borderWidth: 1, borderColor: colors.border },
   chipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
   chipText: { color: colors.textSecondary, fontSize: 12, fontWeight: '600' },
-  chipTextActive: { color: colors.textPrimary, fontWeight: 'bold' },
+  chipTextActive: { color: '#FFF', fontWeight: 'bold' },
 });

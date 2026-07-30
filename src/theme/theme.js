@@ -47,6 +47,8 @@ const getTypography = (colors) => ({
 });
 
 const ui = {
+  inputHeight: 56,
+  buttonHeight: 56,
   borderRadius: 16,
   borderRadiusLg: 24,
   borderRadiusSm: 12,

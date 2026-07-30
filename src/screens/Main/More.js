@@ -7,6 +7,8 @@ import { useTheme } from '../../theme/theme';
 
 import SubscriptionModal from '../../components/SubscriptionModal';
 
+import { supabase } from '../../services/supabase';
+
 export default function More({ navigation }) {
   const { colors, typography, ui } = useTheme();
   const styles = typeof getStyles !== 'undefined' ? getStyles(colors, typography, ui) : {};
@@ -19,21 +21,16 @@ export default function More({ navigation }) {
 
   const [subModalVisible, setSubModalVisible] = React.useState(false);
 
-  const handleLogout = () => {
-    Alert.alert(
-      'Reset Profile',
-      'This will log you out and permanently delete all your local offline training, nutrition, and cycle logs. Continue?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { 
-          text: 'Reset All', 
-          style: 'destructive',
-          onPress: () => {
-            logout();
-          }
-        }
-      ]
-    );
+  const handleLogout = async () => {
+    try {
+      if (supabase && supabase.auth) {
+        await supabase.auth.signOut().catch(() => {});
+      }
+    } catch (e) {
+      console.log('Supabase signout notice:', e);
+    } finally {
+      logout();
+    }
   };
 
   const menuItems = [
@@ -118,10 +115,10 @@ export default function More({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* RESET/LOGOUT ACTION BUTTON */}
-      <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
-        <Ionicons name="trash-outline" size={18} color={colors.error} style={{ marginRight: 8 }} />
-        <Text style={styles.logoutText}>Reset Offline Session</Text>
+      {/* LOGOUT ACTION BUTTON */}
+      <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout} activeOpacity={0.8}>
+        <Ionicons name="log-out-outline" size={20} color={colors.error} style={{ marginRight: 8 }} />
+        <Text style={styles.logoutText}>Log Out</Text>
       </TouchableOpacity>
 
         <Text style={styles.copyrightText}>BurnX v1.0.0 Premium • Responsive Universal build</Text>

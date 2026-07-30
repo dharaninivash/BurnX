@@ -72,14 +72,28 @@ export const DEFAULT_ACHIEVEMENTS = [
 ];
 
 // ----------------------------------------------------
+// ----------------------------------------------------
 // CALCULATORS
 // ----------------------------------------------------
+export const calculateAgeFromDOB = (dobString) => {
+  if (!dobString) return 25;
+  const dob = new Date(dobString);
+  if (isNaN(dob.getTime())) return 25;
+  const today = new Date();
+  let age = today.getFullYear() - dob.getFullYear();
+  const m = today.getMonth() - dob.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+    age--;
+  }
+  return Math.max(1, age);
+};
+
 export const calculateTargets = (profile) => {
   if (!profile) return { calories: 2000, protein: 120, carbs: 200, fats: 60 };
 
   const weight = parseFloat(profile.weight) || 70;
   const height = parseFloat(profile.height) || 170;
-  const age = parseInt(profile.age) || 25;
+  const age = profile.dob ? calculateAgeFromDOB(profile.dob) : (parseInt(profile.age) || 25);
   const gender = profile.gender || 'Male';
   const activity = profile.activityLevel || 'Moderately Active';
   const goal = profile.goal || 'Maintenance';
@@ -294,13 +308,13 @@ export const useStore = create(
       
       // Onboarding & Profile Action
       completeOnboarding: (profileData) => {
-        const targets = calculateTargets(profileData);
+        const computedAge = profileData.dob ? calculateAgeFromDOB(profileData.dob) : (parseInt(profileData.age) || 25);
+        const fullProfile = { ...profileData, age: computedAge };
+        const targets = calculateTargets(fullProfile);
         
         // Setup initial female cycle dates if female gender
-        let cyclePhase = 'Follicular Phase';
         let lastPeriod = profileData.lastPeriodDate || null;
         if (profileData.gender === 'Female' && !lastPeriod) {
-          // Set to 10 days ago as a beautiful pre-population
           const tenDaysAgo = new Date();
           tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
           lastPeriod = tenDaysAgo.toISOString().split('T')[0];
@@ -309,10 +323,11 @@ export const useStore = create(
         const calculatedReadiness = calculateReadinessScore(7.5, 'Calm', profileData.gender === 'Female' ? 'Follicular Phase (Day 10)' : 'N/A');
 
         const updatedUser = {
-          id: 'burnx-user-id',
+          id: profileData.id || 'burnx-user-id',
           name: profileData.name || 'Athlete',
           email: profileData.email || 'athlete@burnx.com',
-          age: parseInt(profileData.age) || 25,
+          dob: profileData.dob || '2001-01-01',
+          age: computedAge,
           weight: parseFloat(profileData.weight) || 70,
           height: parseFloat(profileData.height) || 170,
           gender: profileData.gender || 'Male',
@@ -344,7 +359,20 @@ export const useStore = create(
 
       updateProfile: (profileData) => {
         const currentUser = get().user || {};
-        const mergedProfile = { ...currentUser, ...profileData };
+        // Immutable fields (Name, Gender, DOB) cannot be changed once set
+        const immutableName = currentUser.name || profileData.name;
+        const immutableGender = currentUser.gender || profileData.gender;
+        const immutableDob = currentUser.dob || profileData.dob;
+        const computedAge = immutableDob ? calculateAgeFromDOB(immutableDob) : (parseInt(profileData.age) || currentUser.age || 25);
+
+        const mergedProfile = { 
+          ...currentUser, 
+          ...profileData, 
+          name: immutableName,
+          gender: immutableGender,
+          dob: immutableDob,
+          age: computedAge
+        };
         const targets = calculateTargets(mergedProfile);
         
         // Recalculate phase & readiness if female gender
