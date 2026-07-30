@@ -198,24 +198,7 @@ export default function Signup({ navigation }) {
             </View>
 
             <View style={styles.card}>
-              <Text style={styles.cardLabel}>Select Account Role</Text>
-              <View style={styles.chipRow}>
-                {[
-                  { id: 'client', label: 'Client' },
-                  { id: 'trainer', label: 'Trainer' },
-                  { id: 'admin', label: 'Admin' },
-                ].map((r) => (
-                  <TouchableOpacity
-                    key={r.id}
-                    style={[styles.genderChip, role === r.id && styles.activeChip]}
-                    onPress={() => setRole(r.id)}
-                  >
-                    <Text style={[styles.chipText, role === r.id && styles.activeChipText]}>{r.label}</Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-
-              <Text style={[styles.cardLabel, { marginTop: 10 }]}>Full Name</Text>
+              <Text style={styles.cardLabel}>Full Name</Text>
               <View style={styles.inputContainer}>
                 <Ionicons name="person-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
                 <TextInput

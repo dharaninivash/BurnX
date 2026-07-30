@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert, KeyboardAvoidingView, Platform, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useStore, calculateAgeFromDOB } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
 
 export default function EditProfile({ navigation }) {
   const { colors, typography, ui } = useTheme();
-  const styles = typeof getStyles !== 'undefined' ? getStyles(colors, typography, ui) : {};
+  const styles = getStyles(colors, typography, ui);
   const user = useStore((state) => state.user) || {};
   const updateProfile = useStore((state) => state.updateProfile);
 
@@ -27,6 +27,10 @@ export default function EditProfile({ navigation }) {
   const [dietaryPreference, setDietaryPreference] = useState(user.dietaryPreference || 'None');
   const [injuries, setInjuries] = useState(user.injuries || '');
 
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [confirmInputText, setConfirmInputText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const goals = ['Weight Loss', 'Muscle Gain', 'Maintenance', 'Athletic Performance'];
   const activities = ['Sedentary', 'Lightly Active', 'Moderately Active', 'Very Active'];
   const experiences = ['Beginner', 'Intermediate', 'Advanced'];
@@ -35,17 +39,24 @@ export default function EditProfile({ navigation }) {
 
   const deleteAccount = useStore((state) => state.deleteAccount);
 
-  const handleDeleteAccount = async () => {
-    let confirmDelete = true;
-    if (typeof window !== 'undefined' && window.confirm) {
-      try {
-        confirmDelete = window.confirm('PERMANENTLY DELETE ACCOUNT?\n\nThis will completely erase your profile, metabolic targets, and database records. You will not be able to log in with this account again unless you sign up afresh.');
-      } catch (e) {
-        confirmDelete = true;
-      }
+  const handleOpenDeleteModal = () => {
+    setConfirmInputText('');
+    setDeleteModalVisible(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (confirmInputText.trim() !== 'CONFIRM') {
+      Alert.alert('Confirmation Mismatch', 'Please type CONFIRM exactly in capital letters to delete your account.');
+      return;
     }
-    if (confirmDelete) {
+    setIsDeleting(true);
+    try {
+      setDeleteModalVisible(false);
       await deleteAccount();
+    } catch (e) {
+      console.log('Error during account deletion:', e);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -73,7 +84,7 @@ export default function EditProfile({ navigation }) {
       {options.map((opt) => (
         <TouchableOpacity 
           key={opt} 
-          style={[styles.chip, selected === opt && styles.chipActive]} 
+          style={[styles.chip, selected === opt && styles.chipActive]}
           onPress={() => onSelect(opt)}
         >
           <Text style={[styles.chipText, selected === opt && styles.chipTextActive]}>{opt}</Text>
@@ -84,104 +95,170 @@ export default function EditProfile({ navigation }) {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: colors.background }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      {/* Header */}
+      {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Ionicons name="arrow-back" size={24} color="#FFF" />
+          <Ionicons name="arrow-back" size={24} color={colors.textPrimary} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Edit Fitness Baseline</Text>
+        <Text style={styles.headerTitle}>Edit Profile & Metrics</Text>
         <TouchableOpacity onPress={handleSave} style={styles.saveBtn}>
-          <Ionicons name="checkmark-circle" size={26} color={colors.primary} />
+          <Text style={{ color: colors.primary, fontWeight: 'bold', fontSize: 16 }}>Save</Text>
         </TouchableOpacity>
       </View>
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.formCard}>
           
-          {/* Permanent Notice */}
+          {/* IMMUTABLE PROFILE DETAILS NOTICE */}
           <View style={styles.lockNoticeCard}>
-            <Ionicons name="lock-closed" size={20} color="#FF9800" style={{ marginRight: 8 }} />
+            <Ionicons name="lock-closed-outline" size={20} color="#FF9800" style={{ marginRight: 8 }} />
             <Text style={styles.lockNoticeText}>
-              Name, Gender, and DOB were locked during registration and cannot be modified. Height and Weight can be updated anytime!
+              Identity locked post-onboarding. Name, Biological Gender, and DOB cannot be modified.
             </Text>
           </View>
 
-          <Text style={styles.sectionLabel}>Permanent Identity (Locked 🔒)</Text>
-
-          <Text style={styles.label}>Full Name</Text>
+          {/* Locked Name */}
+          <Text style={styles.label}>FULL NAME (PERMANENT)</Text>
           <View style={styles.lockedInputBox}>
             <Text style={styles.lockedInputText}>{name}</Text>
-            <Ionicons name="lock-closed-outline" size={16} color={colors.textSecondary} />
+            <Ionicons name="lock-closed" size={16} color={colors.textSecondary} />
           </View>
 
+          {/* Locked Gender & Age */}
           <View style={styles.row}>
-            <View style={{ flex: 1, marginRight: 10 }}>
-              <Text style={styles.label}>Biological Gender</Text>
+            <View style={{ flex: 1, marginRight: 8 }}>
+              <Text style={styles.label}>GENDER (PERMANENT)</Text>
               <View style={styles.lockedInputBox}>
                 <Text style={styles.lockedInputText}>{gender}</Text>
-                <Ionicons name="lock-closed-outline" size={16} color={colors.textSecondary} />
+                <Ionicons name="lock-closed" size={16} color={colors.textSecondary} />
               </View>
             </View>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.label}>DOB (Age: {age})</Text>
+            <View style={{ flex: 1, marginLeft: 8 }}>
+              <Text style={styles.label}>AGE / DOB (AUTOMATIC)</Text>
               <View style={styles.lockedInputBox}>
-                <Text style={styles.lockedInputText}>{dob}</Text>
-                <Ionicons name="lock-closed-outline" size={16} color={colors.textSecondary} />
+                <Text style={styles.lockedInputText}>{age} Yrs ({dob})</Text>
+                <Ionicons name="lock-closed" size={16} color={colors.textSecondary} />
               </View>
             </View>
           </View>
 
           <View style={styles.divider} />
-          
-          <Text style={styles.sectionLabel}>Physical Parameters (Editable ✏️)</Text>
-          
-          <View style={styles.row}>
-            <View style={{ flex: 1, marginRight: 10 }}>
-              <Text style={styles.label}>Height (cm)</Text>
-              <TextInput style={styles.input} value={height} onChangeText={setHeight} keyboardType="numeric" />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.label}>Weight (kg)</Text>
-              <TextInput style={styles.input} value={weight} onChangeText={setWeight} keyboardType="numeric" />
-            </View>
-          </View>
 
-          <Text style={styles.label}>Email Address</Text>
-          <TextInput style={styles.input} value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
+          {/* DYNAMIC EDITABLE METRICS */}
+          <Text style={styles.sectionLabel}>Editable Physical Baseline & Goals</Text>
 
-          <View style={styles.divider} />
-          
-          <Text style={styles.sectionLabel}>Fitness Baseline & Goals</Text>
-          <Text style={styles.label}>Primary Fitness Goal</Text>
-          {renderChips(goals, goal, setGoal)}
-
-          <Text style={styles.label}>Daily Activity Factor</Text>
-          {renderChips(activities, activity, setActivity)}
-
-          <Text style={styles.label}>Lifting Experience</Text>
-          {renderChips(experiences, experience, setExperience)}
-
-          <Text style={styles.label}>Equipment Setup</Text>
-          {renderChips(equipments, equipment, setEquipment)}
-
-          <Text style={styles.label}>Diet Preference</Text>
-          {renderChips(dietPrefs, dietaryPreference, setDietaryPreference)}
-
-          <Text style={styles.label}>Injuries & Joint Limitations</Text>
-          <TextInput 
-            style={[styles.input, { marginBottom: 20 }]} 
-            placeholder="E.g. Mild patella tendinitis, bad back" 
-            placeholderTextColor={colors.textSecondary}
-            value={injuries} 
-            onChangeText={setInjuries} 
+          <Text style={styles.label}>EMAIL ADDRESS</Text>
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
           />
 
-          <TouchableOpacity style={styles.deleteAccountBtn} onPress={handleDeleteAccount} activeOpacity={0.8}>
+          <View style={styles.row}>
+            <View style={{ flex: 1, marginRight: 8 }}>
+              <Text style={styles.label}>WEIGHT (KG)</Text>
+              <TextInput
+                style={styles.input}
+                value={weight}
+                onChangeText={setWeight}
+                keyboardType="numeric"
+              />
+            </View>
+
+            <View style={{ flex: 1, marginLeft: 8 }}>
+              <Text style={styles.label}>HEIGHT (CM)</Text>
+              <TextInput
+                style={styles.input}
+                value={height}
+                onChangeText={setHeight}
+                keyboardType="numeric"
+              />
+            </View>
+          </View>
+
+          <Text style={styles.label}>PRIMARY FITNESS GOAL</Text>
+          {renderChips(goals, goal, setGoal)}
+
+          <Text style={styles.label}>WEEKLY ACTIVITY LEVEL</Text>
+          {renderChips(activities, activity, setActivity)}
+
+          <Text style={styles.label}>TRAINING EXPERIENCE</Text>
+          {renderChips(experiences, experience, setExperience)}
+
+          <Text style={styles.label}>AVAILABLE EQUIPMENT</Text>
+          {renderChips(equipments, equipment, setEquipment)}
+
+          <Text style={styles.label}>DIETARY PREFERENCE</Text>
+          {renderChips(dietPrefs, dietaryPreference, setDietaryPreference)}
+
+          <Text style={styles.label}>KNOWN INJURIES / MEDICAL LIMITATIONS</Text>
+          <TextInput
+            style={[styles.input, { height: 70, textAlignVertical: 'top' }]}
+            value={injuries}
+            onChangeText={setInjuries}
+            placeholder="e.g. Lower back pain, shoulder impingement..."
+            placeholderTextColor={colors.textSecondary}
+            multiline
+          />
+
+          <TouchableOpacity style={styles.deleteAccountBtn} onPress={handleOpenDeleteModal}>
             <Ionicons name="trash-outline" size={18} color="#FF4D4D" style={{ marginRight: 6 }} />
             <Text style={styles.deleteAccountText}>Delete My Account</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      {/* DELETE ACCOUNT CONFIRMATION MODAL */}
+      <Modal visible={deleteModalVisible} transparent animationType="fade" onRequestClose={() => setDeleteModalVisible(false)}>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalCard}>
+            <View style={styles.warningIconCircle}>
+              <Ionicons name="alert-circle-outline" size={42} color="#FF4D4D" />
+            </View>
+            <Text style={styles.modalTitle}>PERMANENTLY DELETE ACCOUNT?</Text>
+            <Text style={styles.modalSub}>
+              This action is <Text style={{ fontWeight: 'bold', color: '#FF4D4D' }}>IRREVERSIBLE</Text>. All your profile details, metabolic targets, calorie logs, and database records will be erased forever.
+            </Text>
+            <Text style={styles.modalPrompt}>
+              To confirm, type <Text style={styles.capitalTag}>CONFIRM</Text> in capital letters below:
+            </Text>
+
+            <TextInput
+              style={styles.modalInput}
+              placeholder="CONFIRM"
+              placeholderTextColor="rgba(255,255,255,0.3)"
+              value={confirmInputText}
+              onChangeText={setConfirmInputText}
+              autoCapitalize="characters"
+              autoCorrect={false}
+            />
+
+            <View style={styles.modalBtnRow}>
+              <TouchableOpacity 
+                style={styles.modalCancelBtn} 
+                onPress={() => setDeleteModalVisible(false)}
+              >
+                <Text style={styles.modalCancelText}>Cancel</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[
+                  styles.modalDeleteBtn,
+                  confirmInputText.trim() !== 'CONFIRM' && styles.modalDeleteBtnDisabled
+                ]}
+                disabled={confirmInputText.trim() !== 'CONFIRM' || isDeleting}
+                onPress={handleConfirmDelete}
+              >
+                <Text style={styles.modalDeleteText}>
+                  {isDeleting ? 'Deleting...' : 'Delete Account'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </KeyboardAvoidingView>
   );
 }
@@ -215,5 +292,21 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   chipTextActive: { color: '#FFF', fontWeight: 'bold' },
 
   deleteAccountBtn: { flexDirection: 'row', height: 48, backgroundColor: 'rgba(255, 77, 77, 0.1)', borderRadius: 12, alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: '#FF4D4D', marginTop: 15, marginBottom: 20 },
-  deleteAccountText: { color: '#FF4D4D', fontWeight: 'bold', fontSize: 14 }
+  deleteAccountText: { color: '#FF4D4D', fontWeight: 'bold', fontSize: 14 },
+
+  // MODAL STYLES FOR DELETE ACCOUNT
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'center', alignItems: 'center', padding: 20 },
+  modalCard: { width: '100%', maxWidth: 440, backgroundColor: '#181820', borderRadius: 24, padding: 24, borderWidth: 1.5, borderColor: '#FF4D4D', alignItems: 'center' },
+  warningIconCircle: { width: 64, height: 64, borderRadius: 32, backgroundColor: 'rgba(255,77,77,0.15)', justifyContent: 'center', alignItems: 'center', marginBottom: 16 },
+  modalTitle: { color: '#FFF', fontSize: 18, fontWeight: '900', textAlign: 'center', marginBottom: 8 },
+  modalSub: { color: 'rgba(255,255,255,0.7)', fontSize: 13, textAlign: 'center', marginBottom: 16, lineHeight: 18 },
+  modalPrompt: { color: '#FFF', fontSize: 13, textAlign: 'center', marginBottom: 12 },
+  capitalTag: { color: '#FF4D4D', fontWeight: '900', letterSpacing: 1 },
+  modalInput: { width: '100%', height: 48, backgroundColor: '#22222E', borderRadius: 12, borderWidth: 1.5, borderColor: '#FF4D4D', color: '#FFF', textAlign: 'center', fontSize: 16, fontWeight: 'bold', letterSpacing: 2, marginBottom: 20 },
+  modalBtnRow: { flexDirection: 'row', gap: 12, width: '100%' },
+  modalCancelBtn: { flex: 1, height: 46, borderRadius: 23, backgroundColor: '#2B2B36', justifyContent: 'center', alignItems: 'center' },
+  modalCancelText: { color: '#FFF', fontWeight: 'bold', fontSize: 14 },
+  modalDeleteBtn: { flex: 1, height: 46, borderRadius: 23, backgroundColor: '#FF4D4D', justifyContent: 'center', alignItems: 'center' },
+  modalDeleteBtnDisabled: { opacity: 0.35, backgroundColor: '#552222' },
+  modalDeleteText: { color: '#FFF', fontWeight: 'bold', fontSize: 14 }
 });
