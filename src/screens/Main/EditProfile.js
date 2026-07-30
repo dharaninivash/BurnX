@@ -33,6 +33,33 @@ export default function EditProfile({ navigation }) {
   const equipments = ['Full Gym', 'Dumbbell Only', 'Bodyweight Only'];
   const dietPrefs = ['None', 'Vegetarian', 'Vegan', 'Keto', 'Paleo'];
 
+  const deleteAccount = useStore((state) => state.deleteAccount);
+
+  const handleDeleteAccount = () => {
+    const executeDelete = async () => {
+      await deleteAccount();
+    };
+
+    if (Platform.OS === 'web') {
+      if (typeof window !== 'undefined' && window.confirm('PERMANENTLY DELETE ACCOUNT?\n\nThis will completely erase your profile, metabolic targets, and database records. You will not be able to log in with this account again unless you sign up afresh.')) {
+        executeDelete();
+      }
+    } else {
+      Alert.alert(
+        'Delete Account Permanently',
+        'Are you sure you want to permanently delete your account? All your data, metabolic targets, and database records will be erased.',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { 
+            text: 'Delete Permanently', 
+            style: 'destructive',
+            onPress: executeDelete
+          }
+        ]
+      );
+    }
+  };
+
   const handleSave = () => {
     const updates = {
       email: email.trim(),
@@ -153,12 +180,17 @@ export default function EditProfile({ navigation }) {
 
           <Text style={styles.label}>Injuries & Joint Limitations</Text>
           <TextInput 
-            style={[styles.input, { marginBottom: 30 }]} 
+            style={[styles.input, { marginBottom: 20 }]} 
             placeholder="E.g. Mild patella tendinitis, bad back" 
             placeholderTextColor={colors.textSecondary}
             value={injuries} 
             onChangeText={setInjuries} 
           />
+
+          <TouchableOpacity style={styles.deleteAccountBtn} onPress={handleDeleteAccount} activeOpacity={0.8}>
+            <Ionicons name="trash-outline" size={18} color="#FF4D4D" style={{ marginRight: 6 }} />
+            <Text style={styles.deleteAccountText}>Delete My Account</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -192,4 +224,7 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   chipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
   chipText: { color: colors.textSecondary, fontSize: 12, fontWeight: '600' },
   chipTextActive: { color: '#FFF', fontWeight: 'bold' },
+
+  deleteAccountBtn: { flexDirection: 'row', height: 48, backgroundColor: 'rgba(255, 77, 77, 0.1)', borderRadius: 12, alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: '#FF4D4D', marginTop: 15, marginBottom: 20 },
+  deleteAccountText: { color: '#FF4D4D', fontWeight: 'bold', fontSize: 14 }
 });

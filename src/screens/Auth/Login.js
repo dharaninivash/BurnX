@@ -28,21 +28,38 @@ export default function Login({ navigation }) {
 
     setLoading(true);
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password: password.trim()
-      });
+      if (supabase && supabase.auth) {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: email.trim(),
+          password: password.trim()
+        });
 
-      if (error) throw error;
-      
-      const profileData = data.user?.user_metadata || {};
-      completeOnboarding({ ...profileData, email: data.user.email });
+        if (error) throw error;
+        
+        // Query database profiles table to check if onboarding details were completed
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', data.user.id)
+          .single();
+
+        if (profile && profile.dob && profile.gender) {
+          // Existing profile with details -> proceed into App
+          completeOnboarding(profile);
+          return;
+        }
+      }
+
+      // If profile missing details -> Redirect to Signup Onboarding to collect details!
+      navigation.navigate('Signup', { 
+        email: email.trim(),
+        name: email.split('@')[0] || 'Athlete'
+      });
       
     } catch (error) {
-      console.warn('Supabase Login fallback triggered:', error.message);
-      // Fallback local login for smooth offline/localhost experience
+      console.warn('Supabase Login fallback:', error.message);
       const userName = email.split('@')[0] || 'Athlete';
-      completeOnboarding({ name: userName, email: email.trim(), role: 'client' });
+      navigation.navigate('Signup', { email: email.trim(), name: userName });
     } finally {
       setLoading(false);
     }
@@ -59,12 +76,7 @@ export default function Login({ navigation }) {
           }
         });
 
-        if (error) {
-          console.warn('Supabase Google OAuth Notice:', error.message);
-          // Fallback to Demo Google Login so testing is never blocked by disabled Supabase provider
-          completeOnboarding({ name: 'Google Athlete', email: 'google.user@burnx.com', role: 'client' });
-          return;
-        }
+        if (error) throw error;
 
         if (data?.url) {
           if (Platform.OS === 'web' && typeof window !== 'undefined') {
@@ -73,11 +85,20 @@ export default function Login({ navigation }) {
           }
         }
       }
-      // Fallback for offline/local testing
-      completeOnboarding({ name: 'Google Athlete', email: 'google.user@burnx.com', role: 'client' });
+
+      // Treat Google Login for new account as automatic Sign Up (collect onboarding details)
+      navigation.navigate('Signup', { 
+        email: 'google.athlete@burnx.com', 
+        name: 'Google Athlete',
+        isGoogle: true 
+      });
     } catch (error) {
       console.warn('Google Sign-In notice:', error.message);
-      completeOnboarding({ name: 'Google Athlete', email: 'google.user@burnx.com', role: 'client' });
+      navigation.navigate('Signup', { 
+        email: 'google.athlete@burnx.com', 
+        name: 'Google Athlete',
+        isGoogle: true 
+      });
     } finally {
       setGoogleLoading(false);
     }

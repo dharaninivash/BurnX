@@ -442,6 +442,29 @@ export const useStore = create(
         });
       },
 
+      deleteAccount: async () => {
+        const currentUser = get().user;
+        if (currentUser?.id && supabase) {
+          try {
+            await supabase.from('profiles').delete().eq('id', currentUser.id);
+            await supabase.auth.signOut().catch(() => {});
+          } catch (err) {
+            console.log('Error deleting database profile:', err);
+          }
+        }
+        set({
+          user: null,
+          hasCompletedOnboarding: false,
+          caloriesConsumed: 0,
+          loggedFoods: [],
+          waterIntake: 0,
+          completedWorkouts: [],
+          bookedAppointments: [],
+          achievements: DEFAULT_ACHIEVEMENTS.map(a => ({ ...a, unlocked: false, date: null })),
+          notifications: []
+        });
+      },
+
       // Water Logger Actions (in mL)
       addWater: (amountMl) => {
         const newIntake = get().waterIntake + amountMl;

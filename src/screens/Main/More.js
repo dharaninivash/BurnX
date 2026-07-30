@@ -21,6 +21,8 @@ export default function More({ navigation }) {
 
   const [subModalVisible, setSubModalVisible] = React.useState(false);
 
+  const deleteAccount = useStore((state) => state.deleteAccount);
+
   const handleLogout = async () => {
     // 1. Immediately reset Zustand store so UI instantly navigates to Login screen
     logout();
@@ -32,6 +34,31 @@ export default function More({ navigation }) {
       }
     } catch (e) {
       console.log('Supabase signout notice:', e);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    const executeDelete = async () => {
+      await deleteAccount();
+    };
+
+    if (Platform.OS === 'web') {
+      if (typeof window !== 'undefined' && window.confirm('PERMANENTLY DELETE ACCOUNT?\n\nThis will completely erase your profile, metabolic targets, and database records. You will not be able to log in with this account again unless you sign up afresh.')) {
+        await executeDelete();
+      }
+    } else {
+      Alert.alert(
+        'Delete Account Permanently',
+        'Are you sure you want to permanently delete your account? All your data, metabolic targets, and database records will be erased.',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { 
+            text: 'Delete Permanently', 
+            style: 'destructive',
+            onPress: executeDelete
+          }
+        ]
+      );
     }
   };
 
@@ -117,11 +144,18 @@ export default function More({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* LOGOUT ACTION BUTTON */}
-      <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout} activeOpacity={0.8}>
-        <Ionicons name="log-out-outline" size={20} color={colors.error} style={{ marginRight: 8 }} />
-        <Text style={styles.logoutText}>Log Out</Text>
-      </TouchableOpacity>
+      {/* LOGOUT & DELETE ACCOUNT ACTION BUTTONS */}
+      <View style={styles.actionButtonsContainer}>
+        <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout} activeOpacity={0.8}>
+          <Ionicons name="log-out-outline" size={20} color={colors.error} style={{ marginRight: 8 }} />
+          <Text style={styles.logoutText}>Log Out</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.deleteBtn} onPress={handleDeleteAccount} activeOpacity={0.8}>
+          <Ionicons name="trash-outline" size={20} color="#FF4D4D" style={{ marginRight: 8 }} />
+          <Text style={styles.deleteText}>Delete My Account</Text>
+        </TouchableOpacity>
+      </View>
 
         <Text style={styles.copyrightText}>BurnX v1.0.0 Premium • Responsive Universal build</Text>
       </ScrollView>
@@ -158,7 +192,12 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   menuIconBox: { marginRight: ui.spacing.m, width: 24, alignItems: 'center' },
   menuTitle: { ...typography.subhead, color: colors.textPrimary, fontWeight: '700' },
   
-  logoutBtn: { flexDirection: 'row', marginHorizontal: ui.spacing.m, height: ui.buttonHeight, backgroundColor: colors.surface, borderRadius: ui.borderRadius, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.border, ...ui.shadow, marginBottom: ui.spacing.xl },
-  logoutText: { ...typography.headline, color: colors.error, marginLeft: 8 },
+  actionButtonsContainer: { marginHorizontal: ui.spacing.m, marginBottom: ui.spacing.xl, gap: 12 },
+  logoutBtn: { flexDirection: 'row', height: ui.buttonHeight || 52, backgroundColor: colors.surface, borderRadius: ui.borderRadius, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.border, ...ui.shadow },
+  logoutText: { ...typography.headline, color: colors.error, marginLeft: 8, fontWeight: '700' },
+  
+  deleteBtn: { flexDirection: 'row', height: ui.buttonHeight || 52, backgroundColor: 'rgba(255, 77, 77, 0.1)', borderRadius: ui.borderRadius, alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: '#FF4D4D' },
+  deleteText: { ...typography.headline, color: '#FF4D4D', marginLeft: 8, fontWeight: '700' },
+  
   copyrightText: { ...typography.footnote, color: colors.textSecondary, textAlign: 'center', marginBottom: 40 },
 });
