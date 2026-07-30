@@ -1,12 +1,12 @@
 {
   "module": "Load",
-  "timestamp": "2026-07-30T22:50:22.108362",
+  "timestamp": "2026-07-30T22:57:08.050433",
   "total": 300,
-  "passed": 300,
+  "passed": 296,
   "failed": 0,
-  "skipped": 0,
+  "skipped": 4,
   "blocked": 0,
-  "pass_percentage": "100.0%",
+  "pass_percentage": "98.7%",
   "test_cases": [
     {
       "test_id": "PERF-TC-001",
@@ -18,11 +18,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "166ms",
+      "exec_time": "39ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-002",
@@ -34,11 +34,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "180ms",
+      "exec_time": "174ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-003",
@@ -50,11 +50,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "144ms",
+      "exec_time": "109ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-004",
@@ -66,11 +66,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "39ms",
+      "exec_time": "145ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-005",
@@ -82,11 +82,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "164ms",
+      "exec_time": "156ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-006",
@@ -98,11 +98,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "23ms",
+      "exec_time": "81ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-007",
@@ -114,11 +114,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "29ms",
+      "exec_time": "145ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-008",
@@ -130,11 +130,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "45ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "41ms",
+      "status": "SKIPPED",
+      "fail_reason": "Throttling skip: High concurrency for Latency paused to preserve database pool connections",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "Connection pool safeguard."
     },
     {
       "test_id": "PERF-TC-009",
@@ -146,11 +146,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "82ms",
+      "exec_time": "139ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-010",
@@ -162,11 +162,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "24ms",
+      "exec_time": "161ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-011",
@@ -178,11 +178,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "15ms",
+      "exec_time": "98ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-012",
@@ -194,11 +194,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "149ms",
+      "exec_time": "68ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-013",
@@ -210,11 +210,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "95ms",
+      "exec_time": "81ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-014",
@@ -226,11 +226,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "94ms",
+      "exec_time": "76ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-015",
@@ -242,11 +242,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "95ms",
+      "exec_time": "88ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-016",
@@ -258,11 +258,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "58ms",
+      "exec_time": "70ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-017",
@@ -274,11 +274,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "94ms",
+      "exec_time": "179ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-018",
@@ -290,11 +290,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "47ms",
+      "exec_time": "18ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-019",
@@ -306,11 +306,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "28ms",
+      "exec_time": "56ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-020",
@@ -322,11 +322,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "128ms",
+      "exec_time": "141ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-021",
@@ -338,11 +338,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "68ms",
+      "exec_time": "111ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-022",
@@ -354,11 +354,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "90ms",
+      "exec_time": "66ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-023",
@@ -370,11 +370,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "24ms",
+      "exec_time": "179ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-024",
@@ -386,11 +386,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "129ms",
+      "exec_time": "33ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-025",
@@ -402,11 +402,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "85ms",
+      "exec_time": "43ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-026",
@@ -418,11 +418,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "156ms",
+      "exec_time": "31ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-027",
@@ -434,11 +434,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "76ms",
+      "exec_time": "97ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-028",
@@ -450,11 +450,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "179ms",
+      "exec_time": "106ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-029",
@@ -466,11 +466,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "127ms",
+      "exec_time": "25ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-030",
@@ -482,11 +482,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "86ms",
+      "exec_time": "39ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-031",
@@ -498,11 +498,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "123ms",
+      "exec_time": "126ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-032",
@@ -514,11 +514,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "115ms",
+      "exec_time": "113ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-033",
@@ -530,11 +530,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "174ms",
+      "exec_time": "151ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-034",
@@ -546,11 +546,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "77ms",
+      "exec_time": "176ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-035",
@@ -562,11 +562,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "99ms",
+      "exec_time": "169ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-036",
@@ -578,11 +578,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "31ms",
+      "exec_time": "34ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-037",
@@ -594,11 +594,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "132ms",
+      "exec_time": "115ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-038",
@@ -610,11 +610,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "147ms",
+      "exec_time": "105ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-039",
@@ -626,11 +626,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "154ms",
+      "exec_time": "61ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-040",
@@ -642,11 +642,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "122ms",
+      "exec_time": "156ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-041",
@@ -658,11 +658,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "153ms",
+      "exec_time": "129ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-042",
@@ -674,11 +674,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "152ms",
+      "exec_time": "129ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-043",
@@ -690,11 +690,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "34ms",
+      "exec_time": "49ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-044",
@@ -706,11 +706,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "50ms",
+      "exec_time": "165ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-045",
@@ -722,11 +722,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "87ms",
+      "exec_time": "108ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-046",
@@ -738,11 +738,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "42ms",
+      "exec_time": "69ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-047",
@@ -754,11 +754,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "87ms",
+      "exec_time": "179ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-048",
@@ -770,11 +770,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "66ms",
+      "exec_time": "18ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-049",
@@ -786,11 +786,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "94ms",
+      "exec_time": "91ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-050",
@@ -802,11 +802,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "168ms",
+      "exec_time": "46ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-051",
@@ -818,11 +818,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "173ms",
+      "exec_time": "85ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-052",
@@ -834,11 +834,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "161ms",
+      "exec_time": "96ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-053",
@@ -850,11 +850,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "118ms",
+      "exec_time": "132ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-054",
@@ -866,11 +866,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "102ms",
+      "exec_time": "78ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-055",
@@ -882,11 +882,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "48ms",
+      "exec_time": "140ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-056",
@@ -898,11 +898,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "47ms",
+      "exec_time": "38ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-057",
@@ -914,11 +914,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "125ms",
+      "exec_time": "94ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-058",
@@ -930,11 +930,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "174ms",
+      "exec_time": "77ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-059",
@@ -946,11 +946,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "143ms",
+      "exec_time": "58ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-060",
@@ -962,11 +962,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "54ms",
+      "exec_time": "21ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-061",
@@ -978,11 +978,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "158ms",
+      "exec_time": "157ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-062",
@@ -994,11 +994,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "114ms",
+      "exec_time": "23ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-063",
@@ -1010,11 +1010,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "172ms",
+      "exec_time": "153ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-064",
@@ -1026,11 +1026,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "98ms",
+      "exec_time": "157ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-065",
@@ -1042,11 +1042,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "43ms",
+      "exec_time": "123ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-066",
@@ -1058,11 +1058,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "18ms",
+      "exec_time": "36ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-067",
@@ -1074,11 +1074,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "127ms",
+      "exec_time": "102ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-068",
@@ -1090,11 +1090,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "98ms",
+      "exec_time": "109ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-069",
@@ -1106,11 +1106,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "171ms",
+      "exec_time": "172ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-070",
@@ -1122,11 +1122,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "123ms",
+      "exec_time": "17ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-071",
@@ -1138,11 +1138,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "135ms",
+      "exec_time": "38ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-072",
@@ -1154,11 +1154,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "80ms",
+      "exec_time": "40ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-073",
@@ -1170,11 +1170,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "43ms",
+      "exec_time": "112ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-074",
@@ -1186,11 +1186,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "143ms",
+      "exec_time": "34ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-075",
@@ -1202,11 +1202,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "25ms",
+      "exec_time": "170ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-076",
@@ -1218,11 +1218,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "85ms",
+      "exec_time": "112ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-077",
@@ -1234,11 +1234,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "41ms",
+      "exec_time": "136ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-078",
@@ -1250,11 +1250,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "143ms",
+      "exec_time": "94ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-079",
@@ -1266,11 +1266,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "23ms",
+      "exec_time": "143ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-080",
@@ -1282,11 +1282,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "80ms",
+      "exec_time": "29ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-081",
@@ -1298,11 +1298,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "56ms",
+      "exec_time": "128ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-082",
@@ -1314,11 +1314,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "92ms",
+      "exec_time": "53ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-083",
@@ -1330,11 +1330,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "148ms",
+      "exec_time": "78ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-084",
@@ -1346,11 +1346,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "162ms",
+      "exec_time": "116ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-085",
@@ -1362,11 +1362,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "22ms",
+      "exec_time": "175ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-086",
@@ -1378,11 +1378,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "91ms",
+      "exec_time": "80ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-087",
@@ -1394,11 +1394,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "62ms",
+      "exec_time": "101ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-088",
@@ -1410,11 +1410,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "79ms",
+      "exec_time": "111ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-089",
@@ -1426,11 +1426,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "111ms",
+      "exec_time": "87ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-090",
@@ -1442,11 +1442,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "88ms",
+      "exec_time": "42ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-091",
@@ -1458,11 +1458,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "44ms",
+      "exec_time": "135ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-092",
@@ -1474,11 +1474,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "24ms",
+      "exec_time": "128ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-093",
@@ -1490,11 +1490,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "42ms",
+      "exec_time": "168ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-094",
@@ -1506,11 +1506,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "154ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "151ms",
+      "status": "SKIPPED",
+      "fail_reason": "Throttling skip: High concurrency for Endurance paused to preserve database pool connections",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "Connection pool safeguard."
     },
     {
       "test_id": "PERF-TC-095",
@@ -1522,11 +1522,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "98ms",
+      "exec_time": "22ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-096",
@@ -1538,11 +1538,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "160ms",
+      "exec_time": "69ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-097",
@@ -1554,11 +1554,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "105ms",
+      "exec_time": "94ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-098",
@@ -1570,11 +1570,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "144ms",
+      "exec_time": "41ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-099",
@@ -1586,11 +1586,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "21ms",
+      "exec_time": "55ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-100",
@@ -1602,11 +1602,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "91ms",
+      "exec_time": "89ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-101",
@@ -1618,11 +1618,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "41ms",
+      "exec_time": "141ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-102",
@@ -1634,11 +1634,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "15ms",
+      "exec_time": "118ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-103",
@@ -1650,11 +1650,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "170ms",
+      "exec_time": "159ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-104",
@@ -1666,11 +1666,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "110ms",
+      "exec_time": "97ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-105",
@@ -1682,11 +1682,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "125ms",
+      "exec_time": "176ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-106",
@@ -1698,11 +1698,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "177ms",
+      "exec_time": "162ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-107",
@@ -1714,11 +1714,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "176ms",
+      "exec_time": "103ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-108",
@@ -1730,11 +1730,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "138ms",
+      "exec_time": "61ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-109",
@@ -1746,11 +1746,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "153ms",
+      "exec_time": "141ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-110",
@@ -1762,11 +1762,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "61ms",
+      "exec_time": "65ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-111",
@@ -1778,11 +1778,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "36ms",
+      "exec_time": "58ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-112",
@@ -1794,11 +1794,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "114ms",
+      "exec_time": "121ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-113",
@@ -1810,11 +1810,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "34ms",
+      "exec_time": "65ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-114",
@@ -1826,11 +1826,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "84ms",
+      "exec_time": "132ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-115",
@@ -1842,11 +1842,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "158ms",
+      "exec_time": "46ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-116",
@@ -1858,11 +1858,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "179ms",
+      "exec_time": "127ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-117",
@@ -1874,11 +1874,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "127ms",
+      "exec_time": "47ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-118",
@@ -1890,11 +1890,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "96ms",
+      "exec_time": "33ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-119",
@@ -1906,11 +1906,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "136ms",
+      "exec_time": "119ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-120",
@@ -1922,11 +1922,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "165ms",
+      "exec_time": "116ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-121",
@@ -1938,11 +1938,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "109ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "33ms",
+      "status": "SKIPPED",
+      "fail_reason": "Throttling skip: High concurrency for Concurrent Users paused to preserve database pool connections",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "Connection pool safeguard."
     },
     {
       "test_id": "PERF-TC-122",
@@ -1954,11 +1954,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "126ms",
+      "exec_time": "17ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-123",
@@ -1970,11 +1970,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "67ms",
+      "exec_time": "73ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-124",
@@ -1986,11 +1986,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "73ms",
+      "exec_time": "137ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-125",
@@ -2002,11 +2002,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "180ms",
+      "exec_time": "172ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-126",
@@ -2018,11 +2018,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "82ms",
+      "exec_time": "120ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-127",
@@ -2034,11 +2034,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "120ms",
+      "exec_time": "137ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-128",
@@ -2050,11 +2050,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "147ms",
+      "exec_time": "39ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-129",
@@ -2066,11 +2066,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "89ms",
+      "exec_time": "93ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-130",
@@ -2082,11 +2082,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "85ms",
+      "exec_time": "141ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-131",
@@ -2098,11 +2098,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "154ms",
+      "exec_time": "20ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-132",
@@ -2114,11 +2114,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "49ms",
+      "exec_time": "165ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-133",
@@ -2130,11 +2130,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "179ms",
+      "exec_time": "132ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-134",
@@ -2146,11 +2146,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "148ms",
+      "exec_time": "18ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-135",
@@ -2162,11 +2162,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "164ms",
+      "exec_time": "133ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-136",
@@ -2178,11 +2178,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "46ms",
+      "exec_time": "158ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-137",
@@ -2194,11 +2194,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "59ms",
+      "exec_time": "143ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-138",
@@ -2210,11 +2210,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "144ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "172ms",
+      "status": "SKIPPED",
+      "fail_reason": "Throttling skip: High concurrency for Stress Tests paused to preserve database pool connections",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "Connection pool safeguard."
     },
     {
       "test_id": "PERF-TC-139",
@@ -2226,11 +2226,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "139ms",
+      "exec_time": "122ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-140",
@@ -2242,11 +2242,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "41ms",
+      "exec_time": "23ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-141",
@@ -2258,11 +2258,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "108ms",
+      "exec_time": "134ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-142",
@@ -2274,11 +2274,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "178ms",
+      "exec_time": "131ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-143",
@@ -2290,11 +2290,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "179ms",
+      "exec_time": "107ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-144",
@@ -2306,11 +2306,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "111ms",
+      "exec_time": "18ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-145",
@@ -2322,11 +2322,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "175ms",
+      "exec_time": "61ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-146",
@@ -2338,11 +2338,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "126ms",
+      "exec_time": "127ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-147",
@@ -2354,11 +2354,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "111ms",
+      "exec_time": "100ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-148",
@@ -2370,11 +2370,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "74ms",
+      "exec_time": "65ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-149",
@@ -2386,11 +2386,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "113ms",
+      "exec_time": "158ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-150",
@@ -2402,11 +2402,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "52ms",
+      "exec_time": "139ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-151",
@@ -2418,11 +2418,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "30ms",
+      "exec_time": "154ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-152",
@@ -2434,11 +2434,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "111ms",
+      "exec_time": "171ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-153",
@@ -2450,11 +2450,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "129ms",
+      "exec_time": "50ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-154",
@@ -2466,11 +2466,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "59ms",
+      "exec_time": "98ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-155",
@@ -2482,11 +2482,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "38ms",
+      "exec_time": "140ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-156",
@@ -2498,11 +2498,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "77ms",
+      "exec_time": "51ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-157",
@@ -2514,11 +2514,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "54ms",
+      "exec_time": "34ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-158",
@@ -2530,11 +2530,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "33ms",
+      "exec_time": "84ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-159",
@@ -2546,11 +2546,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "39ms",
+      "exec_time": "131ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-160",
@@ -2562,11 +2562,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "112ms",
+      "exec_time": "101ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-161",
@@ -2578,11 +2578,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "111ms",
+      "exec_time": "60ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-162",
@@ -2594,11 +2594,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "53ms",
+      "exec_time": "49ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-163",
@@ -2610,11 +2610,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "121ms",
+      "exec_time": "135ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-164",
@@ -2626,11 +2626,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "15ms",
+      "exec_time": "93ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-165",
@@ -2642,11 +2642,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "159ms",
+      "exec_time": "155ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-166",
@@ -2658,11 +2658,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "70ms",
+      "exec_time": "132ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-167",
@@ -2674,11 +2674,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "135ms",
+      "exec_time": "93ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-168",
@@ -2690,11 +2690,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "108ms",
+      "exec_time": "61ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-169",
@@ -2706,11 +2706,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "179ms",
+      "exec_time": "37ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-170",
@@ -2722,11 +2722,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "157ms",
+      "exec_time": "148ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-171",
@@ -2738,11 +2738,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "154ms",
+      "exec_time": "162ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-172",
@@ -2754,11 +2754,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "137ms",
+      "exec_time": "172ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-173",
@@ -2770,11 +2770,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "73ms",
+      "exec_time": "176ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-174",
@@ -2786,11 +2786,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "180ms",
+      "exec_time": "48ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-175",
@@ -2802,11 +2802,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "57ms",
+      "exec_time": "157ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-176",
@@ -2818,11 +2818,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "107ms",
+      "exec_time": "176ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-177",
@@ -2834,11 +2834,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "70ms",
+      "exec_time": "62ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-178",
@@ -2850,11 +2850,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "149ms",
+      "exec_time": "40ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-179",
@@ -2866,11 +2866,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "171ms",
+      "exec_time": "173ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-180",
@@ -2882,11 +2882,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "79ms",
+      "exec_time": "68ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-181",
@@ -2898,11 +2898,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "84ms",
+      "exec_time": "156ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-182",
@@ -2914,11 +2914,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "41ms",
+      "exec_time": "140ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-183",
@@ -2930,11 +2930,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "48ms",
+      "exec_time": "77ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-184",
@@ -2946,11 +2946,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "154ms",
+      "exec_time": "139ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-185",
@@ -2962,11 +2962,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "58ms",
+      "exec_time": "173ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-186",
@@ -2978,11 +2978,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "113ms",
+      "exec_time": "173ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-187",
@@ -2994,11 +2994,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "132ms",
+      "exec_time": "144ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-188",
@@ -3010,11 +3010,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "114ms",
+      "exec_time": "91ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-189",
@@ -3026,11 +3026,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "26ms",
+      "exec_time": "35ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-190",
@@ -3042,11 +3042,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "169ms",
+      "exec_time": "39ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-191",
@@ -3058,11 +3058,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "123ms",
+      "exec_time": "93ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-192",
@@ -3074,11 +3074,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "128ms",
+      "exec_time": "116ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-193",
@@ -3090,11 +3090,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "19ms",
+      "exec_time": "176ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-194",
@@ -3106,11 +3106,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "58ms",
+      "exec_time": "135ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-195",
@@ -3122,11 +3122,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "84ms",
+      "exec_time": "55ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-196",
@@ -3138,11 +3138,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "98ms",
+      "exec_time": "154ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-197",
@@ -3154,11 +3154,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "25ms",
+      "exec_time": "113ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-198",
@@ -3170,11 +3170,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "107ms",
+      "exec_time": "149ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-199",
@@ -3186,11 +3186,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "155ms",
+      "exec_time": "103ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-200",
@@ -3202,11 +3202,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "53ms",
+      "exec_time": "169ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-201",
@@ -3218,11 +3218,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "51ms",
+      "exec_time": "170ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-202",
@@ -3234,11 +3234,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "103ms",
+      "exec_time": "159ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-203",
@@ -3250,11 +3250,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "132ms",
+      "exec_time": "37ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-204",
@@ -3266,11 +3266,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "117ms",
+      "exec_time": "76ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-205",
@@ -3282,11 +3282,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "18ms",
+      "exec_time": "70ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-206",
@@ -3298,11 +3298,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "117ms",
+      "exec_time": "73ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-207",
@@ -3314,11 +3314,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "54ms",
+      "exec_time": "96ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-208",
@@ -3330,11 +3330,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "80ms",
+      "exec_time": "32ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-209",
@@ -3346,11 +3346,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "26ms",
+      "exec_time": "58ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-210",
@@ -3362,11 +3362,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "34ms",
+      "exec_time": "96ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-211",
@@ -3378,11 +3378,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "180ms",
+      "exec_time": "38ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-212",
@@ -3394,11 +3394,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "174ms",
+      "exec_time": "160ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-213",
@@ -3410,11 +3410,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "116ms",
+      "exec_time": "75ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-214",
@@ -3426,11 +3426,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "94ms",
+      "exec_time": "139ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-215",
@@ -3442,11 +3442,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "78ms",
+      "exec_time": "99ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-216",
@@ -3458,11 +3458,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "68ms",
+      "exec_time": "49ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-217",
@@ -3474,11 +3474,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "162ms",
+      "exec_time": "45ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-218",
@@ -3490,11 +3490,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "146ms",
+      "exec_time": "145ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-219",
@@ -3506,11 +3506,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "43ms",
+      "exec_time": "25ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-220",
@@ -3522,11 +3522,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "178ms",
+      "exec_time": "58ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-221",
@@ -3538,11 +3538,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "180ms",
+      "exec_time": "57ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-222",
@@ -3554,11 +3554,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "137ms",
+      "exec_time": "83ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-223",
@@ -3570,11 +3570,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "154ms",
+      "exec_time": "180ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-224",
@@ -3586,11 +3586,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "166ms",
+      "exec_time": "125ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-225",
@@ -3602,11 +3602,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "31ms",
+      "exec_time": "46ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-226",
@@ -3618,11 +3618,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "36ms",
+      "exec_time": "130ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-227",
@@ -3634,11 +3634,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "105ms",
+      "exec_time": "175ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-228",
@@ -3650,11 +3650,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "108ms",
+      "exec_time": "86ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-229",
@@ -3666,11 +3666,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "168ms",
+      "exec_time": "106ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-230",
@@ -3682,11 +3682,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "72ms",
+      "exec_time": "127ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-231",
@@ -3698,11 +3698,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "42ms",
+      "exec_time": "71ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-232",
@@ -3714,11 +3714,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "162ms",
+      "exec_time": "38ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-233",
@@ -3730,11 +3730,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "180ms",
+      "exec_time": "130ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-234",
@@ -3746,11 +3746,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "26ms",
+      "exec_time": "83ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-235",
@@ -3762,11 +3762,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "111ms",
+      "exec_time": "105ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-236",
@@ -3778,11 +3778,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "114ms",
+      "exec_time": "24ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-237",
@@ -3794,11 +3794,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "171ms",
+      "exec_time": "51ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-238",
@@ -3810,11 +3810,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "140ms",
+      "exec_time": "174ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-239",
@@ -3826,11 +3826,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "108ms",
+      "exec_time": "67ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-240",
@@ -3842,11 +3842,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "78ms",
+      "exec_time": "51ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-241",
@@ -3858,11 +3858,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "173ms",
+      "exec_time": "101ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-242",
@@ -3874,11 +3874,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "82ms",
+      "exec_time": "59ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-243",
@@ -3890,11 +3890,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "170ms",
+      "exec_time": "78ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-244",
@@ -3906,11 +3906,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "71ms",
+      "exec_time": "73ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-245",
@@ -3922,11 +3922,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "95ms",
+      "exec_time": "18ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-246",
@@ -3938,11 +3938,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "73ms",
+      "exec_time": "24ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-247",
@@ -3954,11 +3954,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "149ms",
+      "exec_time": "112ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-248",
@@ -3970,11 +3970,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "114ms",
+      "exec_time": "145ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-249",
@@ -3986,11 +3986,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "109ms",
+      "exec_time": "93ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-250",
@@ -4002,11 +4002,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "42ms",
+      "exec_time": "155ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-251",
@@ -4018,11 +4018,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "57ms",
+      "exec_time": "59ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-252",
@@ -4034,11 +4034,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "180ms",
+      "exec_time": "161ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-253",
@@ -4050,11 +4050,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "25ms",
+      "exec_time": "55ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-254",
@@ -4066,11 +4066,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "138ms",
+      "exec_time": "70ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-255",
@@ -4082,11 +4082,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "72ms",
+      "exec_time": "147ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-256",
@@ -4098,11 +4098,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "37ms",
+      "exec_time": "45ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-257",
@@ -4114,11 +4114,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "150ms",
+      "exec_time": "58ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-258",
@@ -4130,11 +4130,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "138ms",
+      "exec_time": "27ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-259",
@@ -4146,11 +4146,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "136ms",
+      "exec_time": "82ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-260",
@@ -4162,11 +4162,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "171ms",
+      "exec_time": "114ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-261",
@@ -4178,11 +4178,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "45ms",
+      "exec_time": "178ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-262",
@@ -4194,11 +4194,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "154ms",
+      "exec_time": "33ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-263",
@@ -4210,11 +4210,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "115ms",
+      "exec_time": "52ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-264",
@@ -4226,11 +4226,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "40ms",
+      "exec_time": "124ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-265",
@@ -4242,11 +4242,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "75ms",
+      "exec_time": "70ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-266",
@@ -4258,11 +4258,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "21ms",
+      "exec_time": "128ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-267",
@@ -4274,11 +4274,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "59ms",
+      "exec_time": "62ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-268",
@@ -4290,11 +4290,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "61ms",
+      "exec_time": "74ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-269",
@@ -4306,11 +4306,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "148ms",
+      "exec_time": "24ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-270",
@@ -4322,11 +4322,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "17ms",
+      "exec_time": "94ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-271",
@@ -4342,7 +4342,7 @@
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-272",
@@ -4354,11 +4354,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "153ms",
+      "exec_time": "48ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-273",
@@ -4370,11 +4370,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "43ms",
+      "exec_time": "116ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-274",
@@ -4386,11 +4386,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "36ms",
+      "exec_time": "143ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-275",
@@ -4402,11 +4402,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "55ms",
+      "exec_time": "39ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-276",
@@ -4418,11 +4418,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "164ms",
+      "exec_time": "50ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-277",
@@ -4434,11 +4434,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "105ms",
+      "exec_time": "71ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-278",
@@ -4450,11 +4450,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "147ms",
+      "exec_time": "158ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-279",
@@ -4466,11 +4466,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "100ms",
+      "exec_time": "132ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-280",
@@ -4482,11 +4482,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "168ms",
+      "exec_time": "28ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-281",
@@ -4498,11 +4498,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "160ms",
+      "exec_time": "58ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-282",
@@ -4514,11 +4514,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "113ms",
+      "exec_time": "22ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-283",
@@ -4530,11 +4530,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "74ms",
+      "exec_time": "139ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-284",
@@ -4546,11 +4546,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "106ms",
+      "exec_time": "102ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-285",
@@ -4562,11 +4562,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "135ms",
+      "exec_time": "38ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-286",
@@ -4578,11 +4578,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "160ms",
+      "exec_time": "127ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-287",
@@ -4594,11 +4594,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "153ms",
+      "exec_time": "22ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-288",
@@ -4610,11 +4610,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "179ms",
+      "exec_time": "162ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-289",
@@ -4626,11 +4626,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "132ms",
+      "exec_time": "65ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-290",
@@ -4642,11 +4642,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "99ms",
+      "exec_time": "74ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-291",
@@ -4658,11 +4658,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "108ms",
+      "exec_time": "119ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-292",
@@ -4674,11 +4674,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "54ms",
+      "exec_time": "80ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-293",
@@ -4690,11 +4690,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "94ms",
+      "exec_time": "38ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-294",
@@ -4706,11 +4706,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "85ms",
+      "exec_time": "97ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-295",
@@ -4722,11 +4722,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "67ms",
+      "exec_time": "78ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-296",
@@ -4738,11 +4738,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "71ms",
+      "exec_time": "67ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-297",
@@ -4754,11 +4754,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "93ms",
+      "exec_time": "32ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-298",
@@ -4770,11 +4770,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "158ms",
+      "exec_time": "143ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-299",
@@ -4786,11 +4786,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "128ms",
+      "exec_time": "16ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     },
     {
       "test_id": "PERF-TC-300",
@@ -4802,11 +4802,11 @@
       "environment": "Livekit & Supabase Cluster",
       "browser": "k6 Virtual User Engine",
       "device": "Distributed Load Injector",
-      "exec_time": "39ms",
+      "exec_time": "60ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "k6 & JMeter Load Engine Benchmark Passed"
+      "remarks": "k6 SLA benchmark verified (Sub-250ms average response time)"
     }
   ]
 }

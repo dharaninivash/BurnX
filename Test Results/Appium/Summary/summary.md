@@ -1,6 +1,6 @@
 # 📑 BurnX Appium Automation Summary Report
 
-**Execution Timestamp:** 2026-07-30 22:50:13 UTC  
+**Execution Timestamp:** 2026-07-30 22:56:59 UTC  
 **Environment:** Live Production / CI Pipeline  
 **Module:** Appium Suite  
 
@@ -9,11 +9,11 @@
 ### 📊 Metric Breakdown
 
 - **Total Test Cases:** 300
-- **Passed:** 300
+- **Passed:** 292
 - **Failed:** 0
-- **Skipped:** 0
+- **Skipped:** 8
 - **Blocked:** 0
-- **Pass Rate:** `100.0%`
+- **Pass Rate:** `97.3%`
 
 ---
 

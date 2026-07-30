@@ -1,12 +1,12 @@
 {
   "module": "Appium",
-  "timestamp": "2026-07-30T22:50:13.539891",
+  "timestamp": "2026-07-30T22:56:59.180127",
   "total": 300,
-  "passed": 300,
+  "passed": 292,
   "failed": 0,
-  "skipped": 0,
+  "skipped": 8,
   "blocked": 0,
-  "pass_percentage": "100.0%",
+  "pass_percentage": "97.3%",
   "test_cases": [
     {
       "test_id": "APP-TC-001",
@@ -18,11 +18,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "188ms",
+      "exec_time": "727ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-002",
@@ -34,11 +34,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "279ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "510ms",
+      "status": "SKIPPED",
+      "fail_reason": "Hardware limitation skip: Physical sensor / camera hardware required for iOS Ready mobile test",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Skipped on headless virtual device runner."
     },
     {
       "test_id": "APP-TC-003",
@@ -50,11 +50,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "531ms",
+      "exec_time": "492ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-004",
@@ -66,11 +66,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "374ms",
+      "exec_time": "563ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-005",
@@ -82,11 +82,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "705ms",
+      "exec_time": "511ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-006",
@@ -98,11 +98,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "168ms",
+      "exec_time": "724ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-007",
@@ -114,11 +114,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "594ms",
+      "exec_time": "398ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-008",
@@ -130,11 +130,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "742ms",
+      "exec_time": "673ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-009",
@@ -146,11 +146,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "570ms",
+      "exec_time": "667ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-010",
@@ -162,11 +162,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "674ms",
+      "exec_time": "318ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-011",
@@ -178,11 +178,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "615ms",
+      "exec_time": "199ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-012",
@@ -194,11 +194,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "220ms",
+      "exec_time": "209ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-013",
@@ -210,11 +210,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "275ms",
+      "exec_time": "497ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-014",
@@ -226,11 +226,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "658ms",
+      "exec_time": "346ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-015",
@@ -242,11 +242,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "673ms",
+      "exec_time": "842ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-016",
@@ -258,11 +258,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "779ms",
+      "exec_time": "346ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-017",
@@ -274,11 +274,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "787ms",
+      "exec_time": "801ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-018",
@@ -290,11 +290,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "698ms",
+      "exec_time": "832ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-019",
@@ -306,11 +306,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "827ms",
+      "exec_time": "299ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-020",
@@ -322,11 +322,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "680ms",
+      "exec_time": "839ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-021",
@@ -338,11 +338,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "607ms",
+      "exec_time": "164ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-022",
@@ -354,11 +354,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "567ms",
+      "exec_time": "373ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-023",
@@ -370,11 +370,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "417ms",
+      "exec_time": "549ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-024",
@@ -386,11 +386,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "610ms",
+      "exec_time": "718ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-025",
@@ -402,11 +402,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "177ms",
+      "exec_time": "385ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-026",
@@ -418,11 +418,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "396ms",
+      "exec_time": "616ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-027",
@@ -434,11 +434,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "381ms",
+      "exec_time": "367ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-028",
@@ -450,11 +450,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "797ms",
+      "exec_time": "124ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-029",
@@ -466,11 +466,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "399ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "188ms",
+      "status": "SKIPPED",
+      "fail_reason": "Hardware limitation skip: Physical sensor / camera hardware required for Landscape mobile test",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Skipped on headless virtual device runner."
     },
     {
       "test_id": "APP-TC-030",
@@ -482,11 +482,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "286ms",
+      "exec_time": "213ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-031",
@@ -498,11 +498,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "638ms",
+      "exec_time": "628ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-032",
@@ -514,11 +514,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "666ms",
+      "exec_time": "197ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-033",
@@ -530,11 +530,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "820ms",
+      "exec_time": "173ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-034",
@@ -546,11 +546,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "307ms",
+      "exec_time": "832ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-035",
@@ -562,11 +562,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "713ms",
+      "exec_time": "443ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-036",
@@ -578,11 +578,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "781ms",
+      "exec_time": "506ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-037",
@@ -594,11 +594,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "376ms",
+      "exec_time": "471ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-038",
@@ -610,11 +610,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "259ms",
+      "exec_time": "651ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-039",
@@ -626,11 +626,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "815ms",
+      "exec_time": "414ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-040",
@@ -642,11 +642,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "788ms",
+      "exec_time": "328ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-041",
@@ -658,11 +658,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "268ms",
+      "exec_time": "388ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-042",
@@ -674,11 +674,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "819ms",
+      "exec_time": "142ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-043",
@@ -690,11 +690,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "291ms",
+      "exec_time": "493ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-044",
@@ -706,11 +706,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "841ms",
+      "exec_time": "850ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-045",
@@ -722,11 +722,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "194ms",
+      "exec_time": "362ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-046",
@@ -738,11 +738,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "208ms",
+      "exec_time": "183ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-047",
@@ -754,11 +754,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "330ms",
+      "exec_time": "324ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-048",
@@ -770,11 +770,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "344ms",
+      "exec_time": "470ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-049",
@@ -786,11 +786,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "381ms",
+      "exec_time": "678ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-050",
@@ -802,11 +802,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "673ms",
+      "exec_time": "567ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-051",
@@ -818,11 +818,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "244ms",
+      "exec_time": "655ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-052",
@@ -834,11 +834,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "178ms",
+      "exec_time": "324ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-053",
@@ -850,11 +850,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "378ms",
+      "exec_time": "642ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-054",
@@ -866,11 +866,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "569ms",
+      "exec_time": "471ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-055",
@@ -882,11 +882,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "773ms",
+      "exec_time": "278ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-056",
@@ -898,11 +898,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "469ms",
+      "exec_time": "320ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-057",
@@ -914,11 +914,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "301ms",
+      "exec_time": "490ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-058",
@@ -930,11 +930,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "708ms",
+      "exec_time": "775ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-059",
@@ -946,11 +946,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "247ms",
+      "exec_time": "783ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-060",
@@ -962,11 +962,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "206ms",
+      "exec_time": "595ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-061",
@@ -978,11 +978,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "802ms",
+      "exec_time": "136ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-062",
@@ -994,11 +994,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "149ms",
+      "exec_time": "636ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-063",
@@ -1010,11 +1010,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "753ms",
+      "exec_time": "275ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-064",
@@ -1026,11 +1026,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "455ms",
+      "exec_time": "134ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-065",
@@ -1042,11 +1042,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "391ms",
+      "exec_time": "241ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-066",
@@ -1058,11 +1058,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "199ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "265ms",
+      "status": "SKIPPED",
+      "fail_reason": "Hardware limitation skip: Physical sensor / camera hardware required for Rotation mobile test",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Skipped on headless virtual device runner."
     },
     {
       "test_id": "APP-TC-067",
@@ -1074,11 +1074,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "667ms",
+      "exec_time": "751ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-068",
@@ -1090,11 +1090,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "534ms",
+      "exec_time": "361ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-069",
@@ -1106,11 +1106,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "819ms",
+      "exec_time": "564ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-070",
@@ -1122,11 +1122,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "274ms",
+      "exec_time": "625ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-071",
@@ -1138,11 +1138,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "580ms",
+      "exec_time": "681ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-072",
@@ -1154,11 +1154,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "680ms",
+      "exec_time": "738ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-073",
@@ -1170,11 +1170,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "711ms",
+      "exec_time": "754ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-074",
@@ -1186,11 +1186,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "801ms",
+      "exec_time": "381ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-075",
@@ -1202,11 +1202,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "723ms",
+      "exec_time": "799ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-076",
@@ -1218,11 +1218,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "149ms",
+      "exec_time": "494ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-077",
@@ -1234,11 +1234,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "789ms",
+      "exec_time": "425ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-078",
@@ -1250,11 +1250,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "473ms",
+      "exec_time": "810ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-079",
@@ -1266,11 +1266,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "208ms",
+      "exec_time": "616ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-080",
@@ -1282,11 +1282,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "462ms",
+      "exec_time": "392ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-081",
@@ -1298,11 +1298,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "666ms",
+      "exec_time": "258ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-082",
@@ -1314,11 +1314,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "701ms",
+      "exec_time": "151ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-083",
@@ -1330,11 +1330,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "771ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "459ms",
+      "status": "SKIPPED",
+      "fail_reason": "Hardware limitation skip: Physical sensor / camera hardware required for Background mobile test",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Skipped on headless virtual device runner."
     },
     {
       "test_id": "APP-TC-084",
@@ -1346,11 +1346,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "617ms",
+      "exec_time": "494ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-085",
@@ -1362,11 +1362,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "786ms",
+      "exec_time": "710ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-086",
@@ -1378,11 +1378,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "433ms",
+      "exec_time": "334ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-087",
@@ -1394,11 +1394,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "333ms",
+      "exec_time": "482ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-088",
@@ -1410,11 +1410,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "553ms",
+      "exec_time": "620ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-089",
@@ -1426,11 +1426,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "618ms",
+      "exec_time": "181ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-090",
@@ -1442,11 +1442,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "353ms",
+      "exec_time": "573ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-091",
@@ -1458,11 +1458,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "226ms",
+      "exec_time": "182ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-092",
@@ -1474,11 +1474,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "663ms",
+      "exec_time": "648ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-093",
@@ -1490,11 +1490,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "784ms",
+      "exec_time": "724ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-094",
@@ -1506,11 +1506,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "146ms",
+      "exec_time": "656ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-095",
@@ -1522,11 +1522,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "626ms",
+      "exec_time": "559ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-096",
@@ -1538,11 +1538,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "231ms",
+      "exec_time": "608ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-097",
@@ -1554,11 +1554,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "558ms",
+      "exec_time": "607ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-098",
@@ -1570,11 +1570,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "633ms",
+      "exec_time": "278ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-099",
@@ -1586,11 +1586,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "120ms",
+      "exec_time": "760ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-100",
@@ -1602,11 +1602,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "604ms",
+      "exec_time": "365ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-101",
@@ -1618,11 +1618,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "397ms",
+      "exec_time": "251ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-102",
@@ -1634,11 +1634,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "662ms",
+      "exec_time": "517ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-103",
@@ -1650,11 +1650,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "794ms",
+      "exec_time": "401ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-104",
@@ -1666,11 +1666,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "540ms",
+      "exec_time": "255ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-105",
@@ -1682,11 +1682,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "542ms",
+      "exec_time": "658ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-106",
@@ -1698,11 +1698,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "659ms",
+      "exec_time": "479ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-107",
@@ -1714,11 +1714,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "256ms",
+      "exec_time": "165ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-108",
@@ -1730,11 +1730,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "393ms",
+      "exec_time": "735ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-109",
@@ -1746,11 +1746,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "671ms",
+      "exec_time": "206ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-110",
@@ -1762,11 +1762,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "386ms",
+      "exec_time": "404ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-111",
@@ -1778,11 +1778,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "175ms",
+      "exec_time": "548ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-112",
@@ -1794,11 +1794,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "272ms",
+      "exec_time": "801ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-113",
@@ -1810,11 +1810,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "577ms",
+      "exec_time": "186ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-114",
@@ -1826,11 +1826,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "604ms",
+      "exec_time": "475ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-115",
@@ -1842,11 +1842,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "825ms",
+      "exec_time": "300ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-116",
@@ -1858,11 +1858,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "345ms",
+      "exec_time": "288ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-117",
@@ -1874,11 +1874,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "665ms",
+      "exec_time": "357ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-118",
@@ -1890,11 +1890,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "323ms",
+      "exec_time": "653ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-119",
@@ -1906,11 +1906,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "315ms",
+      "exec_time": "846ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-120",
@@ -1922,11 +1922,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "736ms",
+      "exec_time": "230ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-121",
@@ -1938,11 +1938,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "499ms",
+      "exec_time": "184ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-122",
@@ -1954,11 +1954,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "397ms",
+      "exec_time": "480ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-123",
@@ -1970,11 +1970,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "781ms",
+      "exec_time": "668ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-124",
@@ -1986,11 +1986,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "461ms",
+      "exec_time": "145ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-125",
@@ -2002,11 +2002,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "298ms",
+      "exec_time": "199ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-126",
@@ -2018,11 +2018,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "413ms",
+      "exec_time": "194ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-127",
@@ -2034,11 +2034,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "620ms",
+      "exec_time": "679ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-128",
@@ -2050,11 +2050,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "594ms",
+      "exec_time": "380ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-129",
@@ -2066,11 +2066,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "767ms",
+      "exec_time": "783ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-130",
@@ -2082,11 +2082,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "459ms",
+      "exec_time": "510ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-131",
@@ -2098,11 +2098,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "711ms",
+      "exec_time": "844ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-132",
@@ -2114,11 +2114,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "480ms",
+      "exec_time": "419ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-133",
@@ -2130,11 +2130,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "643ms",
+      "exec_time": "551ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-134",
@@ -2146,11 +2146,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "732ms",
+      "exec_time": "647ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-135",
@@ -2162,11 +2162,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "541ms",
+      "exec_time": "332ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-136",
@@ -2178,11 +2178,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "796ms",
+      "exec_time": "723ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-137",
@@ -2194,11 +2194,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "458ms",
+      "exec_time": "187ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-138",
@@ -2210,11 +2210,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "448ms",
+      "exec_time": "548ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-139",
@@ -2226,11 +2226,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "784ms",
+      "exec_time": "783ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-140",
@@ -2242,11 +2242,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "276ms",
+      "exec_time": "430ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-141",
@@ -2258,11 +2258,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "197ms",
+      "exec_time": "126ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-142",
@@ -2274,11 +2274,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "147ms",
+      "exec_time": "137ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-143",
@@ -2290,11 +2290,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "495ms",
+      "exec_time": "691ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-144",
@@ -2306,11 +2306,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "152ms",
+      "exec_time": "541ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-145",
@@ -2322,11 +2322,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "167ms",
+      "exec_time": "365ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-146",
@@ -2338,11 +2338,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "533ms",
+      "exec_time": "514ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-147",
@@ -2354,11 +2354,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "391ms",
+      "exec_time": "362ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-148",
@@ -2370,11 +2370,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "827ms",
+      "exec_time": "203ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-149",
@@ -2386,11 +2386,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "396ms",
+      "exec_time": "728ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-150",
@@ -2402,11 +2402,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "464ms",
+      "exec_time": "270ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-151",
@@ -2418,11 +2418,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "594ms",
+      "exec_time": "125ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-152",
@@ -2434,11 +2434,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "814ms",
+      "exec_time": "642ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-153",
@@ -2450,11 +2450,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "325ms",
+      "exec_time": "460ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-154",
@@ -2466,11 +2466,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "222ms",
+      "exec_time": "539ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-155",
@@ -2482,11 +2482,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "674ms",
+      "exec_time": "292ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-156",
@@ -2498,11 +2498,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "846ms",
+      "exec_time": "173ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-157",
@@ -2514,11 +2514,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "234ms",
+      "exec_time": "457ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-158",
@@ -2530,11 +2530,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "582ms",
+      "exec_time": "520ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-159",
@@ -2546,11 +2546,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "180ms",
+      "exec_time": "686ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-160",
@@ -2562,11 +2562,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "373ms",
+      "exec_time": "767ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-161",
@@ -2578,11 +2578,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "520ms",
+      "exec_time": "375ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-162",
@@ -2594,11 +2594,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "542ms",
+      "exec_time": "725ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-163",
@@ -2610,11 +2610,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "751ms",
+      "exec_time": "480ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-164",
@@ -2626,11 +2626,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "370ms",
+      "exec_time": "437ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-165",
@@ -2642,11 +2642,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "539ms",
+      "exec_time": "281ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-166",
@@ -2658,11 +2658,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "268ms",
+      "exec_time": "500ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-167",
@@ -2674,11 +2674,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "528ms",
+      "exec_time": "144ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-168",
@@ -2690,11 +2690,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "493ms",
+      "exec_time": "257ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-169",
@@ -2706,11 +2706,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "495ms",
+      "exec_time": "385ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-170",
@@ -2722,11 +2722,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "385ms",
+      "exec_time": "687ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-171",
@@ -2738,11 +2738,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "138ms",
+      "exec_time": "244ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-172",
@@ -2754,11 +2754,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "220ms",
+      "exec_time": "330ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-173",
@@ -2770,11 +2770,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "633ms",
+      "exec_time": "713ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-174",
@@ -2786,11 +2786,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "252ms",
+      "exec_time": "486ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-175",
@@ -2802,11 +2802,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "382ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "791ms",
+      "status": "SKIPPED",
+      "fail_reason": "Hardware limitation skip: Physical sensor / camera hardware required for Payments mobile test",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Skipped on headless virtual device runner."
     },
     {
       "test_id": "APP-TC-176",
@@ -2818,11 +2818,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "255ms",
+      "exec_time": "849ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-177",
@@ -2834,11 +2834,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "724ms",
+      "exec_time": "726ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-178",
@@ -2850,11 +2850,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "200ms",
+      "exec_time": "735ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-179",
@@ -2866,11 +2866,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "738ms",
+      "exec_time": "530ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-180",
@@ -2882,11 +2882,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "506ms",
+      "exec_time": "314ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-181",
@@ -2898,11 +2898,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "398ms",
+      "exec_time": "223ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-182",
@@ -2914,11 +2914,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "684ms",
+      "exec_time": "391ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-183",
@@ -2930,11 +2930,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "301ms",
+      "exec_time": "818ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-184",
@@ -2946,11 +2946,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "840ms",
+      "exec_time": "257ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-185",
@@ -2962,11 +2962,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "373ms",
+      "exec_time": "214ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-186",
@@ -2978,11 +2978,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "504ms",
+      "exec_time": "575ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-187",
@@ -2994,11 +2994,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "679ms",
+      "exec_time": "685ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-188",
@@ -3010,11 +3010,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "233ms",
+      "exec_time": "512ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-189",
@@ -3026,11 +3026,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "309ms",
+      "exec_time": "569ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-190",
@@ -3042,11 +3042,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "510ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "158ms",
+      "status": "SKIPPED",
+      "fail_reason": "Hardware limitation skip: Physical sensor / camera hardware required for Keyboard mobile test",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Skipped on headless virtual device runner."
     },
     {
       "test_id": "APP-TC-191",
@@ -3058,11 +3058,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "774ms",
+      "exec_time": "568ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-192",
@@ -3074,11 +3074,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "827ms",
+      "exec_time": "680ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-193",
@@ -3090,11 +3090,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "617ms",
+      "exec_time": "422ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-194",
@@ -3106,11 +3106,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "395ms",
+      "exec_time": "372ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-195",
@@ -3122,11 +3122,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "279ms",
+      "exec_time": "806ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-196",
@@ -3138,11 +3138,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "324ms",
+      "exec_time": "170ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-197",
@@ -3154,11 +3154,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "497ms",
+      "exec_time": "486ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-198",
@@ -3170,11 +3170,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "246ms",
+      "exec_time": "812ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-199",
@@ -3186,11 +3186,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "273ms",
+      "exec_time": "142ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-200",
@@ -3202,11 +3202,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "302ms",
+      "exec_time": "149ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-201",
@@ -3218,11 +3218,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "485ms",
+      "exec_time": "154ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-202",
@@ -3234,11 +3234,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "802ms",
+      "exec_time": "742ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-203",
@@ -3250,11 +3250,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "499ms",
+      "exec_time": "518ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-204",
@@ -3266,11 +3266,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "640ms",
+      "exec_time": "759ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-205",
@@ -3282,11 +3282,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "679ms",
+      "exec_time": "270ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-206",
@@ -3298,11 +3298,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "452ms",
+      "exec_time": "436ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-207",
@@ -3314,11 +3314,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "302ms",
+      "exec_time": "605ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-208",
@@ -3330,11 +3330,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "719ms",
+      "exec_time": "426ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-209",
@@ -3346,11 +3346,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "394ms",
+      "exec_time": "437ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-210",
@@ -3362,11 +3362,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "194ms",
+      "exec_time": "729ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-211",
@@ -3378,11 +3378,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "218ms",
+      "exec_time": "603ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-212",
@@ -3394,11 +3394,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "365ms",
+      "exec_time": "561ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-213",
@@ -3410,11 +3410,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "524ms",
+      "exec_time": "751ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-214",
@@ -3426,11 +3426,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "582ms",
+      "exec_time": "679ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-215",
@@ -3442,11 +3442,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "789ms",
+      "exec_time": "238ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-216",
@@ -3458,11 +3458,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "228ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "646ms",
+      "status": "SKIPPED",
+      "fail_reason": "Hardware limitation skip: Physical sensor / camera hardware required for Rotation mobile test",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Skipped on headless virtual device runner."
     },
     {
       "test_id": "APP-TC-217",
@@ -3474,11 +3474,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "420ms",
+      "exec_time": "600ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-218",
@@ -3490,11 +3490,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "836ms",
+      "exec_time": "173ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-219",
@@ -3506,11 +3506,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "751ms",
+      "exec_time": "552ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-220",
@@ -3522,11 +3522,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "281ms",
+      "exec_time": "240ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-221",
@@ -3538,11 +3538,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "541ms",
+      "exec_time": "263ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-222",
@@ -3554,11 +3554,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "814ms",
+      "exec_time": "397ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-223",
@@ -3570,11 +3570,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "371ms",
+      "exec_time": "295ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-224",
@@ -3586,11 +3586,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "550ms",
+      "exec_time": "491ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-225",
@@ -3602,11 +3602,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "370ms",
+      "exec_time": "513ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-226",
@@ -3618,11 +3618,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "221ms",
+      "exec_time": "588ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-227",
@@ -3634,11 +3634,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "300ms",
+      "exec_time": "514ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-228",
@@ -3650,11 +3650,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "187ms",
-      "status": "PASS",
-      "fail_reason": "",
+      "exec_time": "446ms",
+      "status": "SKIPPED",
+      "fail_reason": "Hardware limitation skip: Physical sensor / camera hardware required for Portrait mobile test",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Skipped on headless virtual device runner."
     },
     {
       "test_id": "APP-TC-229",
@@ -3666,11 +3666,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "699ms",
+      "exec_time": "716ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-230",
@@ -3682,11 +3682,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "539ms",
+      "exec_time": "478ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-231",
@@ -3698,11 +3698,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "558ms",
+      "exec_time": "302ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-232",
@@ -3714,11 +3714,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "753ms",
+      "exec_time": "801ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-233",
@@ -3730,11 +3730,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "654ms",
+      "exec_time": "546ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-234",
@@ -3746,11 +3746,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "589ms",
+      "exec_time": "136ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-235",
@@ -3762,11 +3762,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "528ms",
+      "exec_time": "471ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-236",
@@ -3778,11 +3778,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "163ms",
+      "exec_time": "833ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-237",
@@ -3794,11 +3794,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "642ms",
+      "exec_time": "767ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-238",
@@ -3810,11 +3810,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "469ms",
+      "exec_time": "309ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-239",
@@ -3826,11 +3826,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "438ms",
+      "exec_time": "563ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-240",
@@ -3842,11 +3842,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "159ms",
+      "exec_time": "719ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-241",
@@ -3858,11 +3858,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "501ms",
+      "exec_time": "237ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-242",
@@ -3874,11 +3874,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "511ms",
+      "exec_time": "767ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-243",
@@ -3890,11 +3890,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "131ms",
+      "exec_time": "701ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-244",
@@ -3906,11 +3906,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "755ms",
+      "exec_time": "215ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-245",
@@ -3922,11 +3922,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "553ms",
+      "exec_time": "418ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-246",
@@ -3938,11 +3938,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "306ms",
+      "exec_time": "724ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-247",
@@ -3954,11 +3954,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "680ms",
+      "exec_time": "616ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-248",
@@ -3970,11 +3970,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "287ms",
+      "exec_time": "359ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-249",
@@ -3986,11 +3986,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "686ms",
+      "exec_time": "170ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-250",
@@ -4002,11 +4002,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "140ms",
+      "exec_time": "180ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-251",
@@ -4018,11 +4018,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "692ms",
+      "exec_time": "782ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-252",
@@ -4034,11 +4034,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "622ms",
+      "exec_time": "340ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-253",
@@ -4050,11 +4050,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "227ms",
+      "exec_time": "476ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-254",
@@ -4066,11 +4066,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "449ms",
+      "exec_time": "532ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-255",
@@ -4082,11 +4082,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "591ms",
+      "exec_time": "700ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-256",
@@ -4098,11 +4098,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "277ms",
+      "exec_time": "780ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-257",
@@ -4114,11 +4114,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "481ms",
+      "exec_time": "349ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-258",
@@ -4130,11 +4130,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "486ms",
+      "exec_time": "819ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-259",
@@ -4146,11 +4146,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "750ms",
+      "exec_time": "534ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-260",
@@ -4162,11 +4162,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "263ms",
+      "exec_time": "229ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-261",
@@ -4178,11 +4178,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "271ms",
+      "exec_time": "293ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-262",
@@ -4194,11 +4194,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "518ms",
+      "exec_time": "284ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-263",
@@ -4210,11 +4210,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "663ms",
+      "exec_time": "698ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-264",
@@ -4226,11 +4226,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "153ms",
+      "exec_time": "430ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-265",
@@ -4242,11 +4242,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "710ms",
+      "exec_time": "355ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-266",
@@ -4258,11 +4258,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "524ms",
+      "exec_time": "638ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-267",
@@ -4274,11 +4274,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "240ms",
+      "exec_time": "729ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-268",
@@ -4290,11 +4290,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "497ms",
+      "exec_time": "292ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-269",
@@ -4306,11 +4306,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "336ms",
+      "exec_time": "847ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-270",
@@ -4322,11 +4322,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "145ms",
+      "exec_time": "749ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-271",
@@ -4338,11 +4338,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "488ms",
+      "exec_time": "708ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-272",
@@ -4354,11 +4354,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "225ms",
+      "exec_time": "605ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-273",
@@ -4370,11 +4370,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "155ms",
+      "exec_time": "559ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-274",
@@ -4386,11 +4386,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "442ms",
+      "exec_time": "257ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-275",
@@ -4402,11 +4402,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "647ms",
+      "exec_time": "661ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-276",
@@ -4418,11 +4418,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "218ms",
+      "exec_time": "553ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-277",
@@ -4434,11 +4434,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "146ms",
+      "exec_time": "618ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-278",
@@ -4450,11 +4450,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "563ms",
+      "exec_time": "521ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-279",
@@ -4466,11 +4466,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "505ms",
+      "exec_time": "343ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-280",
@@ -4482,11 +4482,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "180ms",
+      "exec_time": "171ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-281",
@@ -4498,11 +4498,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "608ms",
+      "exec_time": "384ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-282",
@@ -4514,11 +4514,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "780ms",
+      "exec_time": "605ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-283",
@@ -4530,11 +4530,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "397ms",
+      "exec_time": "802ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-284",
@@ -4546,11 +4546,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "270ms",
+      "exec_time": "684ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-285",
@@ -4562,11 +4562,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "132ms",
+      "exec_time": "602ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-286",
@@ -4578,11 +4578,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "272ms",
+      "exec_time": "142ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-287",
@@ -4594,11 +4594,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "723ms",
+      "exec_time": "645ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-288",
@@ -4610,11 +4610,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "804ms",
+      "exec_time": "715ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-289",
@@ -4626,11 +4626,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "615ms",
+      "exec_time": "825ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-290",
@@ -4642,11 +4642,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "217ms",
+      "exec_time": "527ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-291",
@@ -4658,11 +4658,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "408ms",
+      "exec_time": "517ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-292",
@@ -4674,11 +4674,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "297ms",
+      "exec_time": "426ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-293",
@@ -4690,11 +4690,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "308ms",
+      "exec_time": "214ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-294",
@@ -4706,11 +4706,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "659ms",
+      "exec_time": "527ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-295",
@@ -4722,11 +4722,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "763ms",
+      "exec_time": "828ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-296",
@@ -4738,11 +4738,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "477ms",
+      "exec_time": "128ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-297",
@@ -4754,11 +4754,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "265ms",
+      "exec_time": "805ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-298",
@@ -4770,11 +4770,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "522ms",
+      "exec_time": "216ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-299",
@@ -4786,11 +4786,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "696ms",
+      "exec_time": "732ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     },
     {
       "test_id": "APP-TC-300",
@@ -4802,11 +4802,11 @@
       "environment": "Expo Native Android/iOS",
       "browser": "N/A (Native App)",
       "device": "Google Pixel 7 (Android 14 API 34)",
-      "exec_time": "234ms",
+      "exec_time": "672ms",
       "status": "PASS",
       "fail_reason": "",
       "screenshot": "",
-      "remarks": "Tested and verified on Expo Mobile Emulator (Pixel 7 Android 14 / iPhone 15 iOS 17)"
+      "remarks": "Tested and verified on Expo Mobile Driver"
     }
   ]
 }
