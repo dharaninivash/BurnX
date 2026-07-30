@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStore } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
 import { supabase } from '../../services/supabase';
+import { checkUserProfile } from '../../services/authProfileService';
 
 const { height, width } = Dimensions.get('window');
 
@@ -13,6 +14,13 @@ export default function Login({ navigation }) {
   const styles = getStyles(colors, typography, ui);
   const setVerifiedProfile = useStore((state) => state.setVerifiedProfile);
   const setPendingAuthUser = useStore((state) => state.setPendingAuthUser);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [focusedField, setFocusedField] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const processAuthResult = async (authUser) => {
     const result = await checkUserProfile(authUser);
