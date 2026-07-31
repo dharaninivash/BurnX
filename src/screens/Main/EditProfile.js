@@ -282,7 +282,7 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   lockedInputText: { color: colors.textSecondary, fontWeight: 'bold', fontSize: 14 },
 
   input: { backgroundColor: colors.surfaceSecondary, borderRadius: 10, borderWidth: 1, borderColor: colors.border, paddingHorizontal: 14, paddingVertical: 10, marginBottom: 15, color: colors.textPrimary, fontSize: 15, fontWeight: 'bold' },
-  row: { flexDirection: 'row' },
+  row: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   divider: { height: 1, backgroundColor: colors.border, marginVertical: 20 },
   
   chipContainer: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 15 },

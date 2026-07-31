@@ -31,11 +31,11 @@ export default function AppleInput({
       useNativeDriver: false,
     }).start();
 
-    // Auto scroll into view on mobile web / desktop web when focused
+    // Gentle scroll into view without shifting viewport layout
     if (Platform.OS === 'web' && e && e.target && e.target.scrollIntoView) {
       try {
         setTimeout(() => {
-          e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 150);
       } catch (_) {}
     }
@@ -57,7 +57,7 @@ export default function AppleInput({
 
   const scaleAnim = focusAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: [1, 1.015]
+    outputRange: [1, 1]
   });
 
   return (

@@ -534,6 +534,7 @@ export const useStore = create(
           loggedFoods: updatedFoods,
           caloriesConsumed: newCaloriesConsumed
         });
+        broadcastStateUpdate({ loggedFoods: updatedFoods, caloriesConsumed: newCaloriesConsumed });
 
         // Trigger Caloric Champion achievement
         get().unlockAchievement('a5');
@@ -547,6 +548,7 @@ export const useStore = create(
           loggedFoods: updatedFoods,
           caloriesConsumed: newCaloriesConsumed
         });
+        broadcastStateUpdate({ loggedFoods: updatedFoods, caloriesConsumed: newCaloriesConsumed });
       },
 
       // Wellness & Mood Logger Actions
@@ -597,6 +599,7 @@ export const useStore = create(
           wellnessLogs: updatedLogs,
           readinessScore: calculatedReadiness
         });
+        broadcastStateUpdate({ currentMood: mood, loggedSymptoms: symptoms, wellnessLogs: updatedLogs, readinessScore: calculatedReadiness, lastPeriodDate: targetPeriodDate });
 
         // If female user logged cycle details, trigger achievement
         if (get().user?.gender === 'Female') {
@@ -625,6 +628,7 @@ export const useStore = create(
           sleepHours: parseFloat(hours) || 7.5,
           readinessScore: calculatedReadiness
         });
+        broadcastStateUpdate({ sleepHours: parseFloat(hours) || 7.5, readinessScore: calculatedReadiness });
       },
 
       // Workout Completion Logger
@@ -664,6 +668,7 @@ export const useStore = create(
           activeStreak: newStreak,
           lastActiveDate: todayStr
         });
+        broadcastStateUpdate({ completedWorkouts: updatedWorkouts, activeStreak: newStreak });
 
         // Trigger achievements
         get().unlockAchievement('a3');
@@ -689,15 +694,15 @@ export const useStore = create(
           reps: parseInt(reps) || 0,
         };
 
-        set((state) => ({
-          workoutLogs: [newLog, ...state.workoutLogs]
-        }));
+        const updatedLogs = [newLog, ...get().workoutLogs];
+        set({ workoutLogs: updatedLogs });
+        broadcastStateUpdate({ workoutLogs: updatedLogs });
       },
 
       deleteWorkoutLog: (logId) => {
-        set((state) => ({
-          workoutLogs: state.workoutLogs.filter(log => log.id !== logId)
-        }));
+        const updatedLogs = get().workoutLogs.filter(log => log.id !== logId);
+        set({ workoutLogs: updatedLogs });
+        broadcastStateUpdate({ workoutLogs: updatedLogs });
       },
 
       // Trainer Booking Actions
@@ -797,6 +802,7 @@ export const useStore = create(
             lastResetDate: todayStr,
             activeStreak: newStreak
           });
+          broadcastStateUpdate({ waterIntake: 0, caloriesConsumed: 0, loggedFoods: [], activeStreak: newStreak, lastResetDate: todayStr });
         } else if (!lastReset) {
           set({ lastResetDate: todayStr });
         }
