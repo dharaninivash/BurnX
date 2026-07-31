@@ -78,7 +78,7 @@ export default function More({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 140 }} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
         
         {/* HEADER */}
         <View style={styles.header}>

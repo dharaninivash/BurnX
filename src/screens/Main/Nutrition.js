@@ -154,7 +154,7 @@ export default function Nutrition({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
-      <ScrollView style={styles.scrollView} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={[styles.content, { paddingBottom: 140 }]} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
         
         <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, gap: 10 }}>
           {navigation.canGoBack() && (

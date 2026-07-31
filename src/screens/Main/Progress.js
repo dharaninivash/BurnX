@@ -41,7 +41,7 @@ export default function Progress({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={[styles.content, { paddingBottom: 140 }]} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
         
         <View style={styles.headerContainer}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 10 }}>

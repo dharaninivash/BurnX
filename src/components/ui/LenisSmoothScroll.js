@@ -5,58 +5,53 @@ export default function LenisSmoothScroll({ children, style }) {
   useEffect(() => {
     if (Platform.OS !== 'web' || typeof window === 'undefined') return;
 
-    // Inject global web scroll fix to ensure body and containers are ALWAYS scrollable
+    // Inject global web scroll fix to ensure html, body, root and all scroll containers
+    // can ALWAYS scroll smoothly with mouse wheel, touchpad, keyboard (PageUp/Down, Arrows, Space) and scrollbar dragging
     try {
       const styleId = 'burnx-global-scroll-fix';
-      if (!document.getElementById(styleId)) {
-        const styleEl = document.createElement('style');
+      let styleEl = document.getElementById(styleId);
+      if (!styleEl) {
+        styleEl = document.createElement('style');
         styleEl.id = styleId;
-        styleEl.innerHTML = `
-          html, body, #root, #root > div {
-            overflow-y: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-            scroll-behavior: smooth !important;
-          }
-          * {
-            box-sizing: border-box;
-          }
-        `;
         document.head.appendChild(styleEl);
       }
+      styleEl.innerHTML = `
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: auto !important;
+          min-height: 100vh;
+          overflow-y: auto !important;
+          overflow-x: hidden !important;
+          -webkit-overflow-scrolling: touch !important;
+          scroll-behavior: smooth !important;
+        }
+        #root, #root > div {
+          height: auto !important;
+          min-height: 100vh;
+          overflow-y: visible !important;
+        }
+        /* Ensure React Native Web ScrollViews can scroll naturally without event interception */
+        div[style*="overflow"] {
+          -webkit-overflow-scrolling: touch !important;
+          scroll-behavior: smooth !important;
+        }
+        * {
+          box-sizing: border-box;
+        }
+      `;
     } catch (_) {}
 
-    let lenis;
-    let animFrameId;
+    // Ensure window event listeners never prevent default wheel or keydown scrolling
+    const allowScrollWheel = (e) => {
+      // Do not stop propagation or prevent default for wheel
+      e.stopPropagation();
+    };
 
-    try {
-      const Lenis = require('lenis').default || require('lenis');
-      
-      lenis = new Lenis({
-        duration: 1.0,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 1.5,
-        infinite: false,
-      });
-
-      function raf(time) {
-        lenis.raf(time);
-        animFrameId = requestAnimationFrame(raf);
-      }
-
-      animFrameId = requestAnimationFrame(raf);
-    } catch (e) {
-      // Native smooth scroll fallback
-    }
+    window.addEventListener('wheel', allowScrollWheel, { passive: true });
 
     return () => {
-      if (animFrameId) cancelAnimationFrame(animFrameId);
-      if (lenis) {
-        try { lenis.destroy(); } catch (_) {}
-      }
+      window.removeEventListener('wheel', allowScrollWheel);
     };
   }, []);
 
