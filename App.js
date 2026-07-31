@@ -5,6 +5,7 @@ import AppNavigator from './src/navigation/AppNavigator';
 import { useStore } from './src/store/useStore';
 import { supabase } from './src/services/supabase';
 import { checkUserProfile } from './src/services/authProfileService';
+import { initLiveSync } from './src/services/liveSyncService';
 
 export default function App() {
   const checkDailyReset = useStore((state) => state.checkDailyReset);
@@ -27,6 +28,7 @@ export default function App() {
           }
 
           if (session?.user) {
+            initLiveSync(session.user.id);
             const result = await checkUserProfile(session.user);
             if (result.status === 'COMPLETE' && result.profile) {
               // Profile exists & complete -> Load data -> Go to Home

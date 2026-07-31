@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { broadcastStateUpdate } from '../services/liveSyncService';
 
 // ----------------------------------------------------
 // DEFAULT INDIAN FOOD DATABASE
@@ -497,6 +498,7 @@ export const useStore = create(
       addWater: (amountMl) => {
         const newIntake = get().waterIntake + amountMl;
         set({ waterIntake: newIntake });
+        broadcastStateUpdate({ waterIntake: newIntake });
 
         if (newIntake >= 2500) {
           get().unlockAchievement('a2');
@@ -505,6 +507,7 @@ export const useStore = create(
 
       resetWater: () => {
         set({ waterIntake: 0 });
+        broadcastStateUpdate({ waterIntake: 0 });
       },
 
       // Nutrition Actions
