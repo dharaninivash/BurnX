@@ -5,6 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useStore, INDIAN_FOOD_DATABASE } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
 import { searchFoodMacros } from '../../services/nutritionScraper';
+import BurnX3DFitnessWidget from '../../components/3d/BurnX3DFitnessWidget';
+import AppleCard from '../../components/ui/AppleCard';
 
 export default function Nutrition({ navigation }) {
   const { colors, typography, ui } = useTheme();
@@ -154,12 +156,13 @@ export default function Nutrition({ navigation }) {
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         
-        <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, gap: 10 }}>
           {navigation.canGoBack() && (
             <TouchableOpacity onPress={() => navigation.goBack()} style={{marginRight: 10}}>
               <Ionicons name="arrow-back" size={24} color={colors.primary} />
             </TouchableOpacity>
           )}
+          <BurnX3DFitnessWidget type="shaker" width={48} height={48} />
           <View>
             <Text style={[styles.header, { paddingTop: 0 }]}>NUTRITION HUB</Text>
             <Text style={styles.headerSub}>Indian & Global Macro Diagnostics</Text>

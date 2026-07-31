@@ -9,6 +9,11 @@ import { useTheme } from '../../theme/theme';
 import { supabase } from '../../services/supabase';
 import { checkUserProfile } from '../../services/authProfileService';
 
+import BurnX3DFitnessWidget from '../../components/3d/BurnX3DFitnessWidget';
+import AppleCard from '../../components/ui/AppleCard';
+import AppleInput from '../../components/ui/AppleInput';
+import LenisSmoothScroll from '../../components/ui/LenisSmoothScroll';
+
 WebBrowser.maybeCompleteAuthSession();
 
 const { height, width } = Dimensions.get('window');
@@ -200,83 +205,56 @@ export default function Login({ navigation }) {
       <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
           
+          {/* Floating 3D Background Decorative Widgets */}
+          {Platform.OS === 'web' && (
+            <View style={{ position: 'absolute', top: 40, left: 20, pointerEvents: 'none', opacity: 0.8 }}>
+              <BurnX3DFitnessWidget type="dumbbell" width={140} height={140} />
+            </View>
+          )}
+          {Platform.OS === 'web' && (
+            <View style={{ position: 'absolute', bottom: 60, right: 30, pointerEvents: 'none', opacity: 0.8 }}>
+              <BurnX3DFitnessWidget type="trophy" width={140} height={140} />
+            </View>
+          )}
+          
           <View style={styles.backgroundAccent} />
           
           <View style={styles.wrapper}>
             <View style={styles.topSection}>
-              <Text style={styles.appName}>BURN<Text style={{ color: colors.primary }}>X</Text></Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 6 }}>
+                <BurnX3DFitnessWidget type="ai_orb" width={48} height={48} />
+                <Text style={styles.appName}>BURN<Text style={{ color: colors.primary }}>X</Text></Text>
+              </View>
               <Text style={styles.tagline}>The Ultimate Personalized Wellness Platform</Text>
             </View>
 
-            <View style={styles.cardSection}>
+            <AppleCard glass style={styles.cardSection}>
               <Text style={styles.welcomeText}>Welcome Back</Text>
               <Text style={styles.subtitle}>Sign in to access your personalized training plan.</Text>
 
-              <View style={styles.inputWrapper}>
-                {/* Email Field */}
-                <View style={styles.fieldGroup}>
-                  <Text style={styles.fieldLabel}>Email Address</Text>
-                  <View style={[styles.inputContainer, focusedField === 'email' && styles.inputFocused]}>
-                    <Ionicons 
-                      name="mail-outline" 
-                      size={20} 
-                      color={focusedField === 'email' ? colors.primary : colors.textSecondary} 
-                      style={styles.inputIcon} 
-                    />
-                    <TextInput
-                      style={styles.textInput}
-                      placeholder="you@example.com"
-                      placeholderTextColor={colors.textTertiary}
-                      value={email}
-                      onChangeText={setEmail}
-                      keyboardType="email-address"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      autoComplete="email"
-                      textContentType="emailAddress"
-                      onFocus={() => setFocusedField('email')}
-                      onBlur={() => setFocusedField(null)}
-                    />
-                  </View>
-                </View>
+              <View style={{ marginTop: 20 }}>
+                {/* Email Field with 3D Focus Glow */}
+                <AppleInput
+                  label="Email Address"
+                  iconName="mail-outline"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChangeText={setEmail}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                />
 
-                {/* Password Field */}
-                <View style={[styles.fieldGroup, { marginTop: ui.spacing.m }]}>
-                  <Text style={styles.fieldLabel}>Password</Text>
-                  <View style={[styles.inputContainer, focusedField === 'password' && styles.inputFocused]}>
-                    <Ionicons 
-                      name="lock-closed-outline" 
-                      size={20} 
-                      color={focusedField === 'password' ? colors.primary : colors.textSecondary} 
-                      style={styles.inputIcon} 
-                    />
-                    <TextInput
-                      style={styles.textInput}
-                      placeholder="Enter your password"
-                      placeholderTextColor={colors.textTertiary}
-                      value={password}
-                      onChangeText={setPassword}
-                      secureTextEntry={!showPassword}
-                      autoCapitalize="none"
-                      autoComplete="password"
-                      textContentType="password"
-                      onFocus={() => setFocusedField('password')}
-                      onBlur={() => setFocusedField(null)}
-                    />
-                    <TouchableOpacity 
-                      onPress={() => setShowPassword(!showPassword)} 
-                      style={styles.eyeBtn}
-                      activeOpacity={0.7}
-                      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                    >
-                      <Ionicons 
-                        name={showPassword ? "eye-off-outline" : "eye-outline"} 
-                        size={20} 
-                        color={colors.textSecondary} 
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
+                {/* Password Field with 3D Focus Glow */}
+                <AppleInput
+                  label="Password"
+                  iconName="lock-closed-outline"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={!showPassword}
+                  rightIcon={showPassword ? "eye-off-outline" : "eye-outline"}
+                  onRightIconPress={() => setShowPassword(!showPassword)}
+                />
               </View>
 
               <TouchableOpacity 
@@ -315,7 +293,7 @@ export default function Login({ navigation }) {
               <TouchableOpacity style={styles.signupLink} onPress={() => navigation.navigate('Signup')} activeOpacity={0.7}>
                 <Text style={styles.signupText}>Don't have an account? <Text style={styles.signupTextHighlight}>Sign Up</Text></Text>
               </TouchableOpacity>
-            </View>
+            </AppleCard>
 
             <View style={styles.footer}>
               <Ionicons name="shield-checkmark" size={16} color={colors.textSecondary} />

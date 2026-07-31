@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useStore } from '../../store/useStore';
 import { useTheme } from '../../theme/theme';
+import BurnX3DFitnessWidget from '../../components/3d/BurnX3DFitnessWidget';
+import AppleCard from '../../components/ui/AppleCard';
 
 import { MASTER_EXERCISES } from '../../data/workouts';
 
@@ -135,7 +137,7 @@ export default function Workout({ navigation }) {
 
   useEffect(() => {
     generateWorkout();
-  }, [selectedSplit, selectedDay, user]);
+  }, [selectedSplit, selectedDay, user?.gender, user?.experience, user?.equipment, readinessScore, currentMood]);
 
   const openExerciseModal = (exercise) => {
     setSelectedExercise(exercise);
@@ -205,16 +207,17 @@ export default function Workout({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={[styles.content, { paddingBottom: 140 }]} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
         
         {/* HEADER */}
         <View style={styles.headerRow}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
             {navigation.canGoBack() && (
               <TouchableOpacity onPress={() => navigation.goBack()} style={{marginRight: 10}}>
                 <Ionicons name="arrow-back" size={24} color={colors.primary} />
               </TouchableOpacity>
             )}
+            <BurnX3DFitnessWidget type="dumbbell" width={48} height={48} />
             <View>
               <Text style={styles.headerTitle}>BURNX</Text>
               <Text style={styles.headerSub}>Dynamic Workout Plan Engine</Text>

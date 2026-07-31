@@ -8,6 +8,9 @@ import { useStore, calculateAgeFromDOB, calculateTargets } from '../../store/use
 import { useTheme } from '../../theme/theme';
 import { supabase } from '../../services/supabase';
 import { createProfileAfterOnboarding } from '../../services/authProfileService';
+import BurnX3DFitnessWidget from '../../components/3d/BurnX3DFitnessWidget';
+import AppleCard from '../../components/ui/AppleCard';
+import AppleInput from '../../components/ui/AppleInput';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -278,7 +281,7 @@ export default function Signup({ navigation, route }) {
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={[styles.scrollContent, { paddingBottom: 160 }]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
           
           {/* Progress Bar Header */}
           <View style={styles.progressHeader}>
@@ -308,49 +311,35 @@ export default function Signup({ navigation, route }) {
               <Text style={styles.subtitleText}>Step 1 of 4: Setup your credentials or continue with Google.</Text>
             </View>
 
-            <View style={styles.card}>
-              <Text style={styles.cardLabel}>Full Name</Text>
-              <View style={styles.inputContainer}>
-                <Ionicons name="person-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Your Full Name"
-                  placeholderTextColor={colors.textSecondary}
-                  value={name}
-                  onChangeText={setName}
-                />
-              </View>
+            <AppleCard glass style={styles.card}>
+              <AppleInput
+                label="Full Name"
+                iconName="person-outline"
+                placeholder="Your Full Name"
+                value={name}
+                onChangeText={setName}
+              />
 
-              <Text style={[styles.cardLabel, { marginTop: 15 }]}>Email Address</Text>
-              <View style={styles.inputContainer}>
-                <Ionicons name="mail-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="you@example.com"
-                  placeholderTextColor={colors.textSecondary}
-                  value={email}
-                  onChangeText={setEmail}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                />
-              </View>
+              <AppleInput
+                label="Email Address"
+                iconName="mail-outline"
+                placeholder="you@example.com"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
 
-              <Text style={[styles.cardLabel, { marginTop: 15 }]}>Password</Text>
-              <View style={styles.inputContainer}>
-                <Ionicons name="lock-closed-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Create password (6+ chars)"
-                  placeholderTextColor={colors.textSecondary}
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry={!showPassword}
-                  autoCapitalize="none"
-                />
-                <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={{ padding: 6 }}>
-                  <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color={colors.textSecondary} />
-                </TouchableOpacity>
-              </View>
+              <AppleInput
+                label="Password"
+                iconName="lock-closed-outline"
+                placeholder="Create password (6+ chars)"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={!showPassword}
+                rightIcon={showPassword ? "eye-off-outline" : "eye-outline"}
+                onRightIconPress={() => setShowPassword(!showPassword)}
+              />
 
               {/* OR Divider */}
               <View style={styles.dividerRow}>
@@ -375,7 +364,7 @@ export default function Signup({ navigation, route }) {
                   </>
                 )}
               </TouchableOpacity>
-            </View>
+            </AppleCard>
 
             <TouchableOpacity style={styles.switchAuthBtn} onPress={() => navigation.navigate('Login')}>
               <Text style={styles.switchAuthText}>Already have an account? <Text style={{ color: colors.primary, fontWeight: 'bold' }}>Sign In</Text></Text>

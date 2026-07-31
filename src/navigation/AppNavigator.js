@@ -50,13 +50,18 @@ function MemberTabs() {
         headerStyle: { backgroundColor: colors.surface, borderBottomWidth: 0 },
         headerTintColor: colors.textPrimary,
         tabBarStyle: { 
-          backgroundColor: colors.surface, 
+          backgroundColor: Platform.OS === 'web' ? 'rgba(15, 23, 42, 0.85)' : colors.surface, 
           borderTopColor: colors.border,
           borderTopWidth: 1,
-          elevation: 0, 
+          elevation: 8, 
           height: Platform.OS === 'ios' ? 88 : 70,
           paddingBottom: Platform.OS === 'ios' ? 28 : 12,
           paddingTop: 12,
+          ...(Platform.OS === 'web' ? {
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            boxShadow: '0 -10px 25px -5px rgba(0, 0, 0, 0.5)'
+          } : {})
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textSecondary,

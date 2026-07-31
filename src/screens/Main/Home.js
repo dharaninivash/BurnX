@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Alert, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Alert, Dimensions, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useStore } from '../../store/useStore';
@@ -7,6 +7,11 @@ import RazorpayCheckoutModal from '../../components/RazorpayCheckoutModal';
 import SubscriptionModal from '../../components/SubscriptionModal';
 import { createRazorpayOrder } from '../../services/razorpayService';
 import { useTheme } from '../../theme/theme';
+import BurnX3DHeroScene from '../../components/3d/BurnX3DHeroScene';
+import BurnX3DFitnessWidget from '../../components/3d/BurnX3DFitnessWidget';
+import AppleCard from '../../components/ui/AppleCard';
+import AppleButton from '../../components/ui/AppleButton';
+import LenisSmoothScroll from '../../components/ui/LenisSmoothScroll';
 
 const { width } = Dimensions.get('window');
 
@@ -139,66 +144,65 @@ export default function Home({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        
-        {/* TOP STATUS BAR */}
-        <View style={styles.topHeader}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            {navigation.canGoBack() && (
-              <TouchableOpacity onPress={() => navigation.goBack()} style={{marginRight: 10}}>
-                <Ionicons name="arrow-back" size={24} color={colors.primary} />
-              </TouchableOpacity>
-            )}
+    <LenisSmoothScroll>
+      <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
+        <ScrollView contentContainerStyle={[styles.content, { paddingBottom: 160 }]} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
+          
+          {/* TOP STATUS BAR */}
+          <View style={styles.topHeader}>
             <View>
-              <Text style={styles.greetingText}>HELLO,</Text>
+              <Text style={styles.greetingText}>WELCOME TO BURNX,</Text>
               <Text style={styles.nameText}>{user?.name?.toUpperCase()}</Text>
             </View>
-          </View>
-          
-          <View style={styles.topRightControls}>
-            {/* Streak Counter */}
-            <View style={styles.streakIndicator}>
-              <Ionicons name="flame" size={20} color={colors.primary} />
-              <Text style={styles.streakText}>{activeStreak}d</Text>
-            </View>
-
-            {/* Notification Bell */}
-            <TouchableOpacity style={styles.iconBtn} onPress={openNotifModal}>
-              <Ionicons name="notifications-outline" size={24} color="#FFF" />
-              {unreadNotifs > 0 && <View style={styles.notifDot} />}
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* 1. READINESS SCORE */}
-        <View style={styles.readinessCard}>
-          <View style={styles.readinessRow}>
-            {/* Massive Circular Dial */}
-            <View style={styles.readinessDial}>
-              <Text style={styles.readinessScoreNum}>{readinessScore}</Text>
-              <Text style={styles.readinessScoreLabel}>READINESS</Text>
-            </View>
             
-            <View style={styles.readinessDetails}>
-              <Text style={styles.readinessTitle}>{readinessDescription}</Text>
-              <Text style={styles.readinessDesc}>{readinessSub}</Text>
-              <View style={styles.readinessFactorsRow}>
-                <View style={styles.factorTag}>
-                  <Ionicons name="moon-outline" size={13} color="#8B5CF6" />
-                  <Text style={styles.factorTagText}>{sleepHours}h sleep</Text>
-                </View>
-                <View style={styles.factorTag}>
-                  <Ionicons name="happy-outline" size={13} color={colors.primary} />
-                  <Text style={styles.factorTagText}>{currentMood}</Text>
+            <View style={styles.topRightControls}>
+              {/* Streak Counter */}
+              <View style={styles.streakIndicator}>
+                <Ionicons name="flame" size={20} color={colors.primary} />
+                <Text style={styles.streakText}>{activeStreak}d</Text>
+              </View>
+
+              {/* Notification Bell */}
+              <TouchableOpacity style={styles.iconBtn} onPress={openNotifModal}>
+                <Ionicons name="notifications-outline" size={24} color="#FFF" />
+                {unreadNotifs > 0 && <View style={styles.notifDot} />}
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {/* 0. CINEMATIC APPLE-QUALITY 3D HERO SCENE */}
+          <View style={{ marginBottom: ui.spacing.l, borderRadius: 24, overflow: 'hidden' }}>
+            <BurnX3DHeroScene height={Platform.OS === 'web' ? 360 : 220} />
+          </View>
+
+          {/* 1. READINESS SCORE */}
+          <AppleCard glass style={styles.readinessCard}>
+            <View style={styles.readinessRow}>
+              {/* Circular Dial */}
+              <View style={styles.readinessDial}>
+                <Text style={styles.readinessScoreNum}>{readinessScore}</Text>
+                <Text style={styles.readinessScoreLabel}>READINESS</Text>
+              </View>
+              
+              <View style={styles.readinessDetails}>
+                <Text style={styles.readinessTitle}>{readinessDescription}</Text>
+                <Text style={styles.readinessDesc}>{readinessSub}</Text>
+                <View style={styles.readinessFactorsRow}>
+                  <View style={styles.factorTag}>
+                    <Ionicons name="moon-outline" size={13} color="#8B5CF6" />
+                    <Text style={styles.factorTagText}>{sleepHours}h sleep</Text>
+                  </View>
+                  <View style={styles.factorTag}>
+                    <Ionicons name="happy-outline" size={13} color={colors.primary} />
+                    <Text style={styles.factorTagText}>{currentMood}</Text>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-        </View>
+          </AppleCard>
 
-        {/* 2. CALORIES MAIN CARD (MyFitnessPal Style but premium) */}
-        <View style={styles.caloriesCard}>
+        {/* 2. CALORIES MAIN CARD */}
+        <AppleCard glass style={styles.caloriesCard}>
           <View style={styles.cardHeader}>
             <Text style={styles.cardTitle}>Estimated Energy Expenditure</Text>
             <TouchableOpacity onPress={() => navigation.navigate('Nutrition')}>
@@ -242,10 +246,10 @@ export default function Home({ navigation }) {
               ]} 
             />
           </View>
-        </View>
+        </AppleCard>
 
         {/* 3. MACROS RATIOS */}
-        <View style={styles.macrosCard}>
+        <AppleCard glass style={styles.macrosCard}>
           <Text style={styles.macroTitleText}>Macronutrient Breakdown</Text>
           
           <View style={styles.macroProgressBarRow}>
@@ -282,7 +286,7 @@ export default function Home({ navigation }) {
               </View>
             </View>
           </View>
-        </View>
+        </AppleCard>
 
         {/* 4. QUICK ACTION BAR */}
         <View style={styles.quickBar}>
@@ -329,8 +333,8 @@ export default function Home({ navigation }) {
           </TouchableOpacity>
         )}
 
-        {/* 6. HYDRATION TRACKER (Sleek Sky Blue themed card) */}
-        <View style={styles.waterCard}>
+        {/* 6. HYDRATION TRACKER */}
+        <AppleCard glass style={styles.waterCard} glowColor="rgba(14, 165, 233, 0.25)">
           <View style={styles.waterHeaderRow}>
             <View>
               <Text style={styles.waterTitle}>Water Hydration</Text>
@@ -361,10 +365,10 @@ export default function Home({ navigation }) {
               <Text style={[styles.waterQuickBtnText, { color: '#0EA5E9' }]}>+1.0L Bottle</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </AppleCard>
 
         {/* 7. RECENT ACHIEVEMENTS */}
-        <View style={styles.achievementsCard}>
+        <AppleCard glass style={styles.achievementsCard}>
           <Text style={styles.sectionTitle}>Your Achievements</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.achScroll}>
             {achievements.map((ach) => (
@@ -375,7 +379,7 @@ export default function Home({ navigation }) {
               </View>
             ))}
           </ScrollView>
-        </View>
+        </AppleCard>
 
       </ScrollView>
 
@@ -460,6 +464,7 @@ export default function Home({ navigation }) {
         onClose={() => setSubModalVisible(false)}
       />
     </SafeAreaView>
+    </LenisSmoothScroll>
   );
 }
 
