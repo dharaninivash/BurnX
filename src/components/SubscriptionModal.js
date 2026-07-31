@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView, Linking } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../theme/theme';
 import RazorpayCheckoutModal from './RazorpayCheckoutModal';
@@ -13,7 +13,15 @@ export default function SubscriptionModal({ visible, onClose }) {
   const [selectedPlan, setSelectedPlan] = useState('yearly');
   const [checkoutVisible, setCheckoutVisible] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState(null);
+  const [confirmRefundModal, setConfirmRefundModal] = useState(false);
+
+  const isPremium = useStore((state) => state.isPremium);
+  const subscriptionPlan = useStore((state) => state.subscriptionPlan);
+  const subscriptionExpiryDate = useStore((state) => state.subscriptionExpiryDate);
+  const aiPromptsUsed = useStore((state) => state.aiPromptsUsed) || 0;
+  
   const unlockPremium = useStore((state) => state.unlockPremium);
+  const requestSubscriptionRefund = useStore((state) => state.requestSubscriptionRefund);
 
   const plans = [
     {
@@ -59,7 +67,23 @@ export default function SubscriptionModal({ visible, onClose }) {
     onClose();
   };
 
+  const handleApplyRefund = () => {
+    setConfirmRefundModal(true);
+  };
+
+  const executeRefund = () => {
+    setConfirmRefundModal(false);
+    const result = requestSubscriptionRefund();
+    if (result.success) {
+      Alert.alert('💰 Refund Approved', result.message);
+    } else {
+      Alert.alert('⚠️ Refund Denied', result.message);
+    }
+  };
+
   if (!visible) return null;
+
+  const isEligibleForRefund = aiPromptsUsed < 5;
 
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
@@ -70,7 +94,9 @@ export default function SubscriptionModal({ visible, onClose }) {
           <View style={styles.header}>
             <View style={styles.titleBox}>
               <Text style={styles.mainTitle}>BurnX Premium</Text>
-              <Text style={styles.subTitle}>Select your plan to unlock elite AI coaching & features</Text>
+              <Text style={styles.subTitle}>
+                {isPremium ? 'Manage your active subscription & refund policy' : 'Select your plan to unlock elite AI coaching & features'}
+              </Text>
             </View>
             <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
               <Ionicons name="close" size={24} color={colors.textSecondary} />
@@ -78,55 +104,118 @@ export default function SubscriptionModal({ visible, onClose }) {
           </View>
 
           <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-            {plans.map((plan) => {
-              const isSelected = selectedPlan === plan.id;
-              return (
-                <TouchableOpacity
-                  key={plan.id}
-                  style={[styles.planCard, isSelected && styles.planCardActive]}
-                  onPress={() => setSelectedPlan(plan.id)}
-                  activeOpacity={0.8}
-                >
-                  {plan.badge && (
-                    <View style={[styles.badge, plan.id === 'yearly' ? styles.badgeYearly : styles.badgeMonthly]}>
-                      <Text style={styles.badgeText}>{plan.badge}</Text>
-                    </View>
-                  )}
+            {/* IF USER ALREADY HAS AN ACTIVE PREMIUM SUBSCRIPTION */}
+            {isPremium ? (
+              <View style={styles.activeSubCard}>
+                <View style={styles.activeHeader}>
+                  <Ionicons name="checkmark-circle" size={26} color="#4CAF50" />
+                  <View style={{ flex: 1, marginLeft: 10 }}>
+                    <Text style={styles.activeTitle}>Active Premium Subscription</Text>
+                    <Text style={styles.activeSubPlan}>
+                      Plan: <Text style={{ color: colors.primary, fontWeight: 'bold' }}>{subscriptionPlan ? subscriptionPlan.toUpperCase() : 'VIP'}</Text>
+                    </Text>
+                  </View>
+                  <View style={styles.activeBadge}>
+                    <Text style={styles.activeBadgeText}>ACTIVE</Text>
+                  </View>
+                </View>
 
-                  <View style={styles.planHeader}>
-                    <View style={styles.radioBox}>
-                      <View style={[styles.radioOuter, isSelected && styles.radioOuterActive]}>
-                        {isSelected && <View style={styles.radioInner} />}
-                      </View>
-                      <View>
-                        <Text style={styles.planName}>{plan.name}</Text>
-                        <Text style={styles.planBilling}>{plan.billing}</Text>
-                      </View>
+                <View style={styles.divider} />
+
+                {/* REFUND ELIGIBILITY POLICY CARD */}
+                <View style={styles.refundPolicyBox}>
+                  <Text style={styles.refundPolicyTitle}>BurnX Subscription Refund Guarantee Policy</Text>
+                  <Text style={styles.refundPolicyText}>
+                    Users can apply for a 100% full subscription refund <Text style={{ fontWeight: 'bold', color: colors.primary }}>ONLY IF</Text> they have used the BurnX AI Coach for <Text style={{ fontWeight: 'bold', color: '#4CAF50' }}>fewer than 5 chats/prompts (&lt; 5)</Text>. Once 5 or more prompts are sent, the refund window closes. Upon refund, BurnX Coach AI access will lock immediately.
+                  </Text>
+
+                  <View style={styles.promptsCounterCard}>
+                    <View style={styles.promptsRow}>
+                      <Text style={styles.promptsLabel}>AI Prompts Used:</Text>
+                      <Text style={[styles.promptsValue, isEligibleForRefund ? { color: '#4CAF50' } : { color: '#FF4D4D' }]}>
+                        {aiPromptsUsed} / 4 Max
+                      </Text>
                     </View>
 
-                    <Text style={styles.planPrice}>{plan.priceDisplay}</Text>
+                    <View style={styles.statusBadgeRow}>
+                      {isEligibleForRefund ? (
+                        <View style={styles.eligibleBadge}>
+                          <Ionicons name="checkmark-circle-outline" size={14} color="#4CAF50" />
+                          <Text style={styles.eligibleText}>ELIGIBLE FOR INSTANT REFUND</Text>
+                        </View>
+                      ) : (
+                        <View style={styles.ineligibleBadge}>
+                          <Ionicons name="close-circle-outline" size={14} color="#FF4D4D" />
+                          <Text style={styles.ineligibleText}>REFUND WINDOW CLOSED (&ge; 5 Prompts Used)</Text>
+                        </View>
+                      )}
+                    </View>
                   </View>
 
-                  <View style={styles.featureList}>
-                    {plan.features.map((feat, idx) => (
-                      <View key={idx} style={styles.featureItem}>
-                        <Ionicons name="checkmark-circle" size={16} color={colors.primary} />
-                        <Text style={styles.featureText}>{feat}</Text>
+                  <TouchableOpacity
+                    style={[styles.refundBtn, !isEligibleForRefund && styles.refundBtnDisabled]}
+                    onPress={handleApplyRefund}
+                    activeOpacity={0.8}
+                  >
+                    <Ionicons name="refresh-circle-outline" size={20} color="#FFF" style={{ marginRight: 6 }} />
+                    <Text style={styles.refundBtnText}>Apply for Full Refund</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              /* SUBSCRIPTION PLANS SELECTION FOR NON-PREMIUM USERS */
+              plans.map((plan) => {
+                const isSelected = selectedPlan === plan.id;
+                return (
+                  <TouchableOpacity
+                    key={plan.id}
+                    style={[styles.planCard, isSelected && styles.planCardActive]}
+                    onPress={() => setSelectedPlan(plan.id)}
+                    activeOpacity={0.8}
+                  >
+                    {plan.badge && (
+                      <View style={[styles.badge, plan.id === 'yearly' ? styles.badgeYearly : styles.badgeMonthly]}>
+                        <Text style={styles.badgeText}>{plan.badge}</Text>
                       </View>
-                    ))}
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+                    )}
+
+                    <View style={styles.planHeader}>
+                      <View style={styles.radioBox}>
+                        <View style={[styles.radioOuter, isSelected && styles.radioOuterActive]}>
+                          {isSelected && <View style={styles.radioInner} />}
+                        </View>
+                        <View>
+                          <Text style={styles.planName}>{plan.name}</Text>
+                          <Text style={styles.planBilling}>{plan.billing}</Text>
+                        </View>
+                      </View>
+
+                      <Text style={styles.planPrice}>{plan.priceDisplay}</Text>
+                    </View>
+
+                    <View style={styles.featureList}>
+                      {plan.features.map((feat, idx) => (
+                        <View key={idx} style={styles.featureItem}>
+                          <Ionicons name="checkmark-circle" size={16} color={colors.primary} />
+                          <Text style={styles.featureText}>{feat}</Text>
+                        </View>
+                      ))}
+                    </View>
+                  </TouchableOpacity>
+                );
+              })
+            )}
           </ScrollView>
 
           {/* Bottom Actions */}
-          <View style={styles.bottomBar}>
-            <TouchableOpacity style={styles.payBtn} onPress={handleProceedToPayment}>
-              <Text style={styles.payBtnText}>Proceed to Payment ({activePlanObj.priceDisplay})</Text>
-              <Ionicons name="arrow-forward" size={20} color="#FFF" style={{ marginLeft: 8 }} />
-            </TouchableOpacity>
-          </View>
+          {!isPremium && (
+            <View style={styles.bottomBar}>
+              <TouchableOpacity style={styles.payBtn} onPress={handleProceedToPayment}>
+                <Text style={styles.payBtnText}>Proceed to Payment ({activePlanObj.priceDisplay})</Text>
+                <Ionicons name="arrow-forward" size={20} color="#FFF" style={{ marginLeft: 8 }} />
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
 
         {/* Razorpay Modal */}
@@ -137,6 +226,35 @@ export default function SubscriptionModal({ visible, onClose }) {
           onClose={() => setCheckoutVisible(false)}
           onSuccess={handlePaymentSuccess}
         />
+
+        {/* CONFIRM REFUND MODAL */}
+        <Modal visible={confirmRefundModal} transparent animationType="fade" onRequestClose={() => setConfirmRefundModal(false)}>
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalCard}>
+              <View style={styles.warningIconCircle}>
+                <Ionicons name="cash-outline" size={38} color={colors.primary} />
+              </View>
+              <Text style={styles.modalTitle}>APPLY FOR SUBSCRIPTION REFUND?</Text>
+              <Text style={styles.modalSub}>
+                You have used <Text style={{ fontWeight: 'bold', color: '#4CAF50' }}>{aiPromptsUsed} / 4 prompts</Text>. Your refund is eligible and will be processed immediately.
+              </Text>
+              <Text style={styles.modalNotice}>
+                ⚠️ Note: Once refunded, your BurnX Coach AI and Premium features will lock immediately.
+              </Text>
+
+              <View style={styles.modalBtnRow}>
+                <TouchableOpacity style={styles.modalCancelBtn} onPress={() => setConfirmRefundModal(false)}>
+                  <Text style={styles.modalCancelText}>Cancel</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.modalConfirmBtn} onPress={executeRefund}>
+                  <Text style={styles.modalConfirmText}>Confirm Refund</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
       </View>
     </Modal>
   );
@@ -150,6 +268,33 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   mainTitle: { color: colors.textPrimary, fontSize: 24, fontWeight: '900', letterSpacing: 0.5 },
   subTitle: { color: colors.textSecondary, fontSize: 13, marginTop: 2 },
   closeBtn: { padding: 6, backgroundColor: colors.background, borderRadius: 20 },
+
+  activeSubCard: { backgroundColor: colors.background, borderRadius: 20, padding: 20, borderWidth: 1.5, borderColor: '#4CAF50' },
+  activeHeader: { flexDirection: 'row', alignItems: 'center' },
+  activeTitle: { color: colors.textPrimary, fontSize: 16, fontWeight: 'bold' },
+  activeSubPlan: { color: colors.textSecondary, fontSize: 13, marginTop: 2 },
+  activeBadge: { backgroundColor: 'rgba(76, 175, 80, 0.15)', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10, borderWidth: 1, borderColor: '#4CAF50' },
+  activeBadgeText: { color: '#4CAF50', fontSize: 11, fontWeight: '900' },
+  divider: { height: 1, backgroundColor: 'rgba(255,255,255,0.08)', marginVertical: 16 },
+
+  refundPolicyBox: { backgroundColor: 'rgba(255,255,255,0.03)', padding: 14, borderRadius: 14, borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)' },
+  refundPolicyTitle: { color: colors.textPrimary, fontSize: 14, fontWeight: 'bold', marginBottom: 6 },
+  refundPolicyText: { color: colors.textSecondary, fontSize: 12, lineHeight: 18, marginBottom: 14 },
+  
+  promptsCounterCard: { backgroundColor: colors.surface, padding: 12, borderRadius: 12, marginBottom: 14, borderWidth: 1, borderColor: colors.border },
+  promptsRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 },
+  promptsLabel: { color: colors.textPrimary, fontSize: 13, fontWeight: '600' },
+  promptsValue: { fontSize: 15, fontWeight: '900' },
+  
+  statusBadgeRow: { marginTop: 4 },
+  eligibleBadge: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(76, 175, 80, 0.12)', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 },
+  eligibleText: { color: '#4CAF50', fontSize: 10, fontWeight: 'bold', marginLeft: 4 },
+  ineligibleBadge: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255, 77, 77, 0.12)', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 },
+  ineligibleText: { color: '#FF4D4D', fontSize: 10, fontWeight: 'bold', marginLeft: 4 },
+
+  refundBtn: { height: 48, borderRadius: 14, backgroundColor: colors.primary, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 4 },
+  refundBtnDisabled: { opacity: 0.4, backgroundColor: '#553333' },
+  refundBtnText: { color: '#FFF', fontSize: 14, fontWeight: 'bold' },
 
   planCard: { backgroundColor: colors.background, borderRadius: 18, padding: 18, marginBottom: 14, borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.08)', position: 'relative' },
   planCardActive: { borderColor: colors.primary, backgroundColor: 'rgba(233,30,99,0.06)' },
@@ -175,6 +320,16 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   bottomBar: { paddingTop: 12, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.08)' },
   payBtn: { height: 52, borderRadius: 26, backgroundColor: colors.primary, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', ...ui.shadow },
   payBtnText: { color: '#FFF', fontSize: 16, fontWeight: 'bold' },
-  linkBtn: { marginTop: 10, alignItems: 'center' },
-  linkBtnText: { color: colors.primary, fontSize: 13, fontWeight: '600' }
+
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'center', alignItems: 'center', padding: 20 },
+  modalCard: { width: '100%', maxWidth: 420, backgroundColor: '#181820', borderRadius: 24, padding: 24, borderWidth: 1.5, borderColor: colors.primary, alignItems: 'center' },
+  warningIconCircle: { width: 60, height: 60, borderRadius: 30, backgroundColor: 'rgba(233,30,99,0.15)', justifyContent: 'center', alignItems: 'center', marginBottom: 14 },
+  modalTitle: { color: '#FFF', fontSize: 17, fontWeight: '900', textAlign: 'center', marginBottom: 8 },
+  modalSub: { color: 'rgba(255,255,255,0.8)', fontSize: 13, textAlign: 'center', marginBottom: 12, lineHeight: 18 },
+  modalNotice: { color: '#FF9800', fontSize: 12, textAlign: 'center', marginBottom: 20, lineHeight: 16, fontStyle: 'italic' },
+  modalBtnRow: { flexDirection: 'row', gap: 12, width: '100%' },
+  modalCancelBtn: { flex: 1, height: 46, borderRadius: 23, backgroundColor: '#2B2B36', justifyContent: 'center', alignItems: 'center' },
+  modalCancelText: { color: '#FFF', fontWeight: 'bold', fontSize: 14 },
+  modalConfirmBtn: { flex: 1, height: 46, borderRadius: 23, backgroundColor: colors.primary, justifyContent: 'center', alignItems: 'center' },
+  modalConfirmText: { color: '#FFF', fontWeight: 'bold', fontSize: 14 }
 });

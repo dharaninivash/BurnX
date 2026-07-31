@@ -51,9 +51,11 @@ export default function Chatbot({ navigation }) {
     if (!text.trim()) return;
 
     if (!isPremium && !demoMode) {
-      Alert.alert('BurnX Premium Required', 'BurnX Coach AI is an exclusive premium feature. Enable Trial Mode or Upgrade to unlock.');
+      Alert.alert('BurnX Premium Required', 'BurnX Coach AI is locked. Upgrade to BurnX Premium to unlock unlimited AI coaching.');
       return;
     }
+
+    useStore.getState().incrementAiChatCount();
 
     const newChat = [...chat, { id: Date.now(), sender: 'user', text }];
     setChat(newChat);

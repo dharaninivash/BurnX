@@ -298,10 +298,12 @@ export const useStore = create(
       isPremium: false,
       subscriptionPlan: null,
       subscriptionExpiryDate: null,
+      refundStatus: null,
       
-      // AI Coach Limits
+      // AI Coach Limits & Refund Counter
       aiChatCount: 0,
       aiChatMonth: new Date().getMonth(),
+      aiPromptsUsed: 0,
 
       // ----------------------------------------------------
       // ACTIONS / WRITERS
@@ -849,13 +851,63 @@ export const useStore = create(
         }
       },
 
+      requestSubscriptionRefund: () => {
+        const { isPremium, aiPromptsUsed, subscriptionPlan } = get();
+
+        if (!isPremium) {
+          return {
+            success: false,
+            message: 'No active Premium Subscription found.'
+          };
+        }
+
+        const prompts = aiPromptsUsed || 0;
+
+        if (prompts >= 5) {
+          return {
+            success: false,
+            message: `Refund Denied: You have used ${prompts} prompts on BurnX AI Coach. Refund policy permits refunds ONLY if fewer than 5 prompts (< 5) were used.`
+          };
+        }
+
+        // Eligible (< 5 prompts used) -> Execute refund and lock BurnX AI Coach
+        set({
+          isPremium: false,
+          subscriptionPlan: null,
+          subscriptionExpiryDate: null,
+          refundStatus: 'REFUNDED'
+        });
+
+        broadcastStateUpdate({
+          isPremium: false,
+          subscriptionPlan: null,
+          refundStatus: 'REFUNDED'
+        });
+
+        get().addNotification(
+          '💰 Refund Approved & Processed',
+          `Your ${subscriptionPlan ? subscriptionPlan.toUpperCase() : 'Premium'} subscription has been refunded. Access to BurnX Coach AI is now locked.`
+        );
+
+        return {
+          success: true,
+          message: `Refund Approved & Processed! Your money has been refunded and access to BurnX Coach AI is now locked.`
+        };
+      },
+
       incrementAiChatCount: () => {
         const currentMonth = new Date().getMonth();
         let currentCount = get().aiChatCount;
         if (get().aiChatMonth !== currentMonth) {
           currentCount = 0;
         }
-        set({ aiChatCount: currentCount + 1, aiChatMonth: currentMonth });
+        const newPrompts = (get().aiPromptsUsed || 0) + 1;
+        set({ 
+          aiChatCount: currentCount + 1, 
+          aiChatMonth: currentMonth,
+          aiPromptsUsed: newPrompts
+        });
+        broadcastStateUpdate({ aiPromptsUsed: newPrompts });
       }
     }),
     {

@@ -61,6 +61,7 @@ export default function More({ navigation }) {
   };
 
   const menuItems = [
+    { title: 'Manage Subscription & Refund Policy', icon: 'card-outline', action: () => setSubModalVisible(true) },
     { title: 'My Profile & Baseline', icon: 'person-outline', action: () => navigation.navigate('EditProfile') },
     { title: 'Wellness Calendar & Cycles', icon: 'calendar-outline', action: () => navigation.navigate('CalendarScreen') },
     { title: 'Menstrual Tracker', icon: 'flower-outline', action: () => navigation.navigate('MenstrualTracking') },
