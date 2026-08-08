@@ -164,7 +164,7 @@ export default function Home({ navigation }) {
 
               {/* Notification Bell */}
               <TouchableOpacity style={styles.iconBtn} onPress={openNotifModal}>
-                <Ionicons name="notifications-outline" size={24} color="#FFF" />
+                <Ionicons name="notifications-outline" size={24} color={colors.textPrimary} />
                 {unreadNotifs > 0 && <View style={styles.notifDot} />}
               </TouchableOpacity>
             </View>
@@ -390,7 +390,7 @@ export default function Home({ navigation }) {
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>BurnX Alerts</Text>
               <TouchableOpacity onPress={() => setNotifModalVisible(false)}>
-                <Ionicons name="close" size={28} color="#FFF" />
+                <Ionicons name="close" size={28} color={colors.textPrimary} />
               </TouchableOpacity>
             </View>
 

@@ -158,7 +158,7 @@ export default function WorkoutTimer({ navigation }) {
       {/* Header */}
       <View style={styles.headerRow}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Ionicons name="arrow-back" size={24} color="#FFF" />
+          <Ionicons name="arrow-back" size={24} color={colors.primary} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>BurnX Timers</Text>
         <View style={{ width: 24 }} />
@@ -191,7 +191,7 @@ export default function WorkoutTimer({ navigation }) {
             
             <View style={styles.controlsRow}>
               <TouchableOpacity style={styles.controlBtnSecondary} onPress={swActive ? handleSwLap : handleSwReset}>
-                <Text style={styles.controlBtnText}>{swActive ? 'Lap' : 'Reset'}</Text>
+                <Text style={styles.controlBtnSecondaryText}>{swActive ? 'Lap' : 'Reset'}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity 
@@ -242,7 +242,7 @@ export default function WorkoutTimer({ navigation }) {
 
             <View style={styles.controlsRow}>
               <TouchableOpacity style={styles.controlBtnSecondary} onPress={() => { setRestActive(false); setRestRemaining(restTime); }}>
-                <Text style={styles.controlBtnText}>Reset</Text>
+                <Text style={styles.controlBtnSecondaryText}>Reset</Text>
               </TouchableOpacity>
 
               <TouchableOpacity 
@@ -281,7 +281,7 @@ export default function WorkoutTimer({ navigation }) {
 
             <View style={styles.controlsRow}>
               <TouchableOpacity style={styles.controlBtnSecondary} onPress={() => { setCdActive(false); setCdRemaining(cdTime); }}>
-                <Text style={styles.controlBtnText}>Reset</Text>
+                <Text style={styles.controlBtnSecondaryText}>Reset</Text>
               </TouchableOpacity>
 
               <TouchableOpacity 
@@ -313,7 +313,7 @@ export default function WorkoutTimer({ navigation }) {
 
             <View style={styles.controlsRow}>
               <TouchableOpacity style={styles.controlBtnSecondary} onPress={resetTempo}>
-                <Text style={styles.controlBtnText}>Reset</Text>
+                <Text style={styles.controlBtnSecondaryText}>Reset</Text>
               </TouchableOpacity>
 
               <TouchableOpacity 
@@ -354,6 +354,7 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   controlBtnPrimary: { width: 70, height: 70, borderRadius: 35, justifyContent: 'center', alignItems: 'center', ...ui.shadow },
   controlBtnSecondary: { width: 70, height: 70, borderRadius: 35, backgroundColor: colors.surface, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colors.border, ...ui.shadow },
   controlBtnText: { color: '#FFF', fontWeight: 'bold', fontSize: 14 },
+  controlBtnSecondaryText: { color: colors.textPrimary, fontWeight: 'bold', fontSize: 14 },
   
   lapHeader: { alignSelf: 'flex-start', fontSize: 13, fontWeight: 'bold', color: colors.primary, marginBottom: 12 },
   lapsContainer: { flex: 1, width: '100%' },

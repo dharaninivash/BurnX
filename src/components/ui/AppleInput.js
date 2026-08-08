@@ -70,11 +70,11 @@ export default function AppleInput({
           {
             borderColor,
             transform: [{ scale: scaleAnim }],
-            backgroundColor: isFocused ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.04)',
+            backgroundColor: isFocused ? colors.inputBgFocused : colors.inputBg,
             ...(Platform.OS === 'web' ? {
               boxShadow: isFocused 
                 ? '0 0 20px rgba(255, 87, 34, 0.4), inset 0 0 15px rgba(255, 87, 34, 0.15)' 
-                : '0 4px 15px rgba(0, 0, 0, 0.2)',
+                : '0 4px 15px rgba(0, 0, 0, 0.08)',
               transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
               backdropFilter: 'blur(16px)',
               WebkitBackdropFilter: 'blur(16px)'

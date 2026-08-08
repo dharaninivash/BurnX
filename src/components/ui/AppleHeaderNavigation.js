@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useStore } from '../../store/useStore';
+import { useTheme } from '../../theme/theme';
 import BurnX3DFitnessWidget from '../3d/BurnX3DFitnessWidget';
 
 const { width } = Dimensions.get('window');
@@ -13,6 +14,7 @@ export default function AppleHeaderNavigation({
   showBack = false,
   rightElement,
 }) {
+  const { colors, isDark } = useTheme();
   const user = useStore((state) => state.user) || { name: 'Athlete' };
   const activeStreak = useStore((state) => state.activeStreak) || 1;
   const isPremium = useStore((state) => state.isPremium);
@@ -23,12 +25,14 @@ export default function AppleHeaderNavigation({
     ? {
         backdropFilter: 'blur(20px) saturate(180%)',
         WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.08)',
+        boxShadow: isDark
+          ? '0 4px 30px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.08)'
+          : '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 0 rgba(0, 0, 0, 0.05)',
       }
     : {};
 
   return (
-    <View style={[styles.headerContainer, webGlassStyle]}>
+    <View style={[styles.headerContainer, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }, webGlassStyle]}>
       <View style={styles.leftSection}>
         {showBack && navigation?.canGoBack() ? (
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
@@ -37,14 +41,14 @@ export default function AppleHeaderNavigation({
         ) : (
           <View style={styles.logoRow}>
             <BurnX3DFitnessWidget type="ai_orb" width={32} height={32} />
-            <Text style={styles.brandTitle}>BURN<Text style={styles.brandAccent}>X</Text></Text>
+            <Text style={[styles.brandTitle, { color: colors.textPrimary }]}>BURN<Text style={styles.brandAccent}>X</Text></Text>
           </View>
         )}
 
         {title && (
           <View style={styles.titleCol}>
-            <Text style={styles.mainTitle}>{title}</Text>
-            {subtitle && <Text style={styles.subTitle}>{subtitle}</Text>}
+            <Text style={[styles.mainTitle, { color: colors.textPrimary }]}>{title}</Text>
+            {subtitle && <Text style={[styles.subTitle, { color: colors.textSecondary }]}>{subtitle}</Text>}
           </View>
         )}
       </View>
@@ -73,13 +77,11 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: 70,
     width: '100%',
-    backgroundColor: 'rgba(18, 18, 22, 0.85)',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.08)',
     zIndex: 100,
   },
   leftSection: {
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     height: 36,
     borderRadius: 18,
     backgroundColor: 'rgba(255, 87, 34, 0.12)',
-    justify: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   logoRow: {
@@ -103,7 +105,6 @@ const styles = StyleSheet.create({
   brandTitle: {
     fontSize: 22,
     fontWeight: '900',
-    color: '#FFFFFF',
     letterSpacing: 1.5,
   },
   brandAccent: {
@@ -115,11 +116,9 @@ const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#FFFFFF',
   },
   subTitle: {
     fontSize: 12,
-    color: 'rgba(255, 255, 255, 0.6)',
   },
   rightSection: {
     flexDirection: 'row',
@@ -147,7 +146,6 @@ const styles = StyleSheet.create({
     color: '#FF5722',
   },
   proBadge: {
-    backgroundColor: 'linear-gradient(90deg, #FF5722, #FF9800)',
     backgroundColor: '#FF5722',
     paddingHorizontal: 8,
     paddingVertical: 3,

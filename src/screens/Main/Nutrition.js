@@ -368,7 +368,7 @@ export default function Nutrition({ navigation }) {
                 <View style={styles.modalHeader}>
                   <Text style={styles.modalTitle}>Configure Portion Log</Text>
                   <TouchableOpacity onPress={() => setLogModalVisible(false)}>
-                    <Ionicons name="close" size={28} color="#FFF" />
+                    <Ionicons name="close" size={28} color={colors.textPrimary} />
                   </TouchableOpacity>
                 </View>
 
@@ -426,7 +426,7 @@ export default function Nutrition({ navigation }) {
               <View style={styles.modalHeader}>
                 <Text style={styles.modalTitle}>Manual Entry</Text>
                 <TouchableOpacity onPress={() => setCustomModalVisible(false)}>
-                  <Ionicons name="close" size={28} color="#FFF" />
+                  <Ionicons name="close" size={28} color={colors.textPrimary} />
                 </TouchableOpacity>
               </View>
 

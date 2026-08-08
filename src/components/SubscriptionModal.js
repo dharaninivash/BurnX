@@ -275,9 +275,9 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   activeSubPlan: { color: colors.textSecondary, fontSize: 13, marginTop: 2 },
   activeBadge: { backgroundColor: 'rgba(76, 175, 80, 0.15)', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10, borderWidth: 1, borderColor: '#4CAF50' },
   activeBadgeText: { color: '#4CAF50', fontSize: 11, fontWeight: '900' },
-  divider: { height: 1, backgroundColor: 'rgba(255,255,255,0.08)', marginVertical: 16 },
+  divider: { height: 1, backgroundColor: colors.border, marginVertical: 16 },
 
-  refundPolicyBox: { backgroundColor: 'rgba(255,255,255,0.03)', padding: 14, borderRadius: 14, borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)' },
+  refundPolicyBox: { backgroundColor: colors.surfaceSecondary, padding: 14, borderRadius: 14, borderWidth: 1, borderColor: colors.border },
   refundPolicyTitle: { color: colors.textPrimary, fontSize: 14, fontWeight: 'bold', marginBottom: 6 },
   refundPolicyText: { color: colors.textSecondary, fontSize: 12, lineHeight: 18, marginBottom: 14 },
   
@@ -293,10 +293,10 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   ineligibleText: { color: '#FF4D4D', fontSize: 10, fontWeight: 'bold', marginLeft: 4 },
 
   refundBtn: { height: 48, borderRadius: 14, backgroundColor: colors.primary, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 4 },
-  refundBtnDisabled: { opacity: 0.4, backgroundColor: '#553333' },
+  refundBtnDisabled: { opacity: 0.4, backgroundColor: colors.surfaceSecondary },
   refundBtnText: { color: '#FFF', fontSize: 14, fontWeight: 'bold' },
 
-  planCard: { backgroundColor: colors.background, borderRadius: 18, padding: 18, marginBottom: 14, borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.08)', position: 'relative' },
+  planCard: { backgroundColor: colors.background, borderRadius: 18, padding: 18, marginBottom: 14, borderWidth: 1.5, borderColor: colors.border, position: 'relative' },
   planCardActive: { borderColor: colors.primary, backgroundColor: 'rgba(233,30,99,0.06)' },
 
   badge: { position: 'absolute', top: -10, right: 16, paddingHorizontal: 10, paddingVertical: 4, borderRadius: 12 },
@@ -313,23 +313,23 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   planBilling: { color: colors.textSecondary, fontSize: 12 },
   planPrice: { color: colors.textPrimary, fontSize: 22, fontWeight: '900' },
 
-  featureList: { borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.06)', paddingTop: 10 },
+  featureList: { borderTopWidth: 1, borderTopColor: colors.border, paddingTop: 10 },
   featureItem: { flexDirection: 'row', alignItems: 'center', marginTop: 6 },
   featureText: { color: colors.textSecondary, fontSize: 12, marginLeft: 8, flex: 1 },
 
-  bottomBar: { paddingTop: 12, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.08)' },
+  bottomBar: { paddingTop: 12, borderTopWidth: 1, borderTopColor: colors.border },
   payBtn: { height: 52, borderRadius: 26, backgroundColor: colors.primary, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', ...ui.shadow },
   payBtnText: { color: '#FFF', fontSize: 16, fontWeight: 'bold' },
 
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'center', alignItems: 'center', padding: 20 },
-  modalCard: { width: '100%', maxWidth: 420, backgroundColor: '#181820', borderRadius: 24, padding: 24, borderWidth: 1.5, borderColor: colors.primary, alignItems: 'center' },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center', alignItems: 'center', padding: 20 },
+  modalCard: { width: '100%', maxWidth: 420, backgroundColor: colors.surface, borderRadius: 24, padding: 24, borderWidth: 1.5, borderColor: colors.primary, alignItems: 'center' },
   warningIconCircle: { width: 60, height: 60, borderRadius: 30, backgroundColor: 'rgba(233,30,99,0.15)', justifyContent: 'center', alignItems: 'center', marginBottom: 14 },
-  modalTitle: { color: '#FFF', fontSize: 17, fontWeight: '900', textAlign: 'center', marginBottom: 8 },
-  modalSub: { color: 'rgba(255,255,255,0.8)', fontSize: 13, textAlign: 'center', marginBottom: 12, lineHeight: 18 },
+  modalTitle: { color: colors.textPrimary, fontSize: 17, fontWeight: '900', textAlign: 'center', marginBottom: 8 },
+  modalSub: { color: colors.textSecondary, fontSize: 13, textAlign: 'center', marginBottom: 12, lineHeight: 18 },
   modalNotice: { color: '#FF9800', fontSize: 12, textAlign: 'center', marginBottom: 20, lineHeight: 16, fontStyle: 'italic' },
   modalBtnRow: { flexDirection: 'row', gap: 12, width: '100%' },
-  modalCancelBtn: { flex: 1, height: 46, borderRadius: 23, backgroundColor: '#2B2B36', justifyContent: 'center', alignItems: 'center' },
-  modalCancelText: { color: '#FFF', fontWeight: 'bold', fontSize: 14 },
+  modalCancelBtn: { flex: 1, height: 46, borderRadius: 23, backgroundColor: colors.surfaceSecondary, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colors.border },
+  modalCancelText: { color: colors.textPrimary, fontWeight: 'bold', fontSize: 14 },
   modalConfirmBtn: { flex: 1, height: 46, borderRadius: 23, backgroundColor: colors.primary, justifyContent: 'center', alignItems: 'center' },
   modalConfirmText: { color: '#FFF', fontWeight: 'bold', fontSize: 14 }
 });

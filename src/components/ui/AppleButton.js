@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../../theme/theme';
 
 export default function AppleButton({
   title,
@@ -12,6 +13,7 @@ export default function AppleButton({
   style,
   textStyle,
 }) {
+  const { colors, isDark } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
   const isWeb = Platform.OS === 'web';
 
@@ -26,10 +28,10 @@ export default function AppleButton({
         };
       case 'secondary':
         return {
-          bg: '#2C2C2E',
-          text: '#FFFFFF',
-          border: 'rgba(255, 255, 255, 0.1)',
-          glow: 'rgba(255, 255, 255, 0.15)',
+          bg: isDark ? '#2C2C2E' : '#E5E5EA',
+          text: isDark ? '#FFFFFF' : '#1C1C1E',
+          border: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+          glow: isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.08)',
         };
       case 'outline':
         return {
@@ -40,10 +42,10 @@ export default function AppleButton({
         };
       case 'glass':
         return {
-          bg: 'rgba(255, 255, 255, 0.08)',
-          text: '#FFFFFF',
-          border: 'rgba(255, 255, 255, 0.15)',
-          glow: 'rgba(255, 255, 255, 0.2)',
+          bg: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+          text: isDark ? '#FFFFFF' : '#1C1C1E',
+          border: isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)',
+          glow: isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.1)',
         };
       default:
         return {
@@ -63,7 +65,7 @@ export default function AppleButton({
         transform: isHovered && !disabled ? 'scale(1.03) translateY(-2px)' : 'scale(1) translateY(0)',
         boxShadow: isHovered && !disabled
           ? `0 12px 24px -6px ${vConfig.glow}`
-          : '0 4px 12px rgba(0,0,0,0.2)',
+          : isDark ? '0 4px 12px rgba(0,0,0,0.2)' : '0 4px 12px rgba(0,0,0,0.06)',
         backdropFilter: variant === 'glass' ? 'blur(12px)' : 'none',
         cursor: disabled ? 'not-allowed' : 'pointer',
       }

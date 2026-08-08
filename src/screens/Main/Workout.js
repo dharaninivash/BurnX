@@ -405,7 +405,7 @@ export default function Workout({ navigation }) {
                     <Text style={styles.modalSub}>{selectedExercise.sets} sets x {selectedExercise.reps}</Text>
                   </View>
                   <TouchableOpacity onPress={() => setModalVisible(false)}>
-                    <Ionicons name="close" size={28} color="#FFF" />
+                    <Ionicons name="close" size={28} color={colors.textPrimary} />
                   </TouchableOpacity>
                 </View>
 

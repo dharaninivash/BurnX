@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform, TouchableOpacity } from 'react-native';
+import { useTheme } from '../../theme/theme';
 
 export default function AppleCard({
   children,
@@ -10,9 +11,18 @@ export default function AppleCard({
   interactive = true,
   ...props
 }) {
+  const { colors, isDark } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
 
   const isWeb = Platform.OS === 'web';
+
+  const defaultBoxShadow = isDark
+    ? '0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08)'
+    : '0 10px 25px -8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05)';
+
+  const hoverBoxShadow = isDark
+    ? `0 20px 40px -12px ${glowColor}, 0 0 0 1px rgba(255, 255, 255, 0.15)`
+    : `0 16px 36px -10px ${glowColor}, 0 0 0 1px rgba(0, 0, 0, 0.08)`;
 
   const webStyle = isWeb
     ? {
@@ -20,9 +30,7 @@ export default function AppleCard({
         transform: isHovered && interactive ? 'translateY(-4px) scale(1.015)' : 'translateY(0px) scale(1)',
         backdropFilter: glass ? 'blur(20px) saturate(180%)' : 'none',
         WebkitBackdropFilter: glass ? 'blur(20px) saturate(180%)' : 'none',
-        boxShadow: isHovered && interactive
-          ? `0 20px 40px -12px ${glowColor}, 0 0 0 1px rgba(255, 255, 255, 0.15)`
-          : '0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08)',
+        boxShadow: isHovered && interactive ? hoverBoxShadow : defaultBoxShadow,
         cursor: onPress && interactive ? 'pointer' : 'default',
       }
     : {};
@@ -31,7 +39,12 @@ export default function AppleCard({
     <View
       style={[
         styles.card,
-        glass && styles.glassCard,
+        {
+          backgroundColor: glass
+            ? colors.cardBg
+            : colors.surface,
+          borderColor: colors.cardBorder,
+        },
         style,
         webStyle,
       ]}
@@ -62,12 +75,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 24,
     padding: 20,
-    backgroundColor: '#1C1C1E',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
     overflow: 'hidden',
-  },
-  glassCard: {
-    backgroundColor: 'rgba(28, 28, 30, 0.75)',
   },
 });

@@ -78,8 +78,24 @@ const ui = {
 
 export const useTheme = () => {
   const themeMode = useStore((state) => state.themeMode) || 'dark';
-  const colors = themeMode === 'light' ? lightColors : darkColors;
+  const isDark = themeMode === 'dark';
+  const rawColors = isDark ? darkColors : lightColors;
+
+  const colors = {
+    ...rawColors,
+    cardBg: isDark ? 'rgba(28, 28, 30, 0.75)' : 'rgba(255, 255, 255, 0.95)',
+    cardBorder: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+    headerBg: isDark ? 'rgba(18, 18, 22, 0.85)' : 'rgba(255, 255, 255, 0.92)',
+    inputBg: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)',
+    inputBgFocused: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.07)',
+    modalBg: isDark ? '#1C1C1E' : '#FFFFFF',
+    modalOverlay: isDark ? 'rgba(0, 0, 0, 0.85)' : 'rgba(0, 0, 0, 0.5)',
+    icon: isDark ? '#FFFFFF' : '#1C1C1E',
+    iconMuted: isDark ? '#8E8E93' : '#6C6C70',
+    shadowColor: isDark ? '#000000' : 'rgba(0, 0, 0, 0.08)',
+  };
+
   const typography = getTypography(colors);
-  
-  return { colors, typography, ui, isDark: themeMode === 'dark' };
+
+  return { colors, typography, ui, isDark };
 };

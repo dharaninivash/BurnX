@@ -1,5 +1,6 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { View, StyleSheet, Platform, Dimensions } from 'react-native';
+import { useTheme } from '../../theme/theme';
 
 let Canvas, useFrame;
 let r3fLoaded = false;
@@ -34,7 +35,7 @@ function MouseParallaxGroup({ children }) {
   return <group ref={groupRef}>{children}</group>;
 }
 
-function WeightPlateModel({ position = [0, 0, 0], scale = 1, color = "#FF5722" }) {
+function WeightPlateModel({ position = [0, 0, 0], scale = 1, color = "#FF5722", isDark = true }) {
   const meshRef = useRef();
 
   if (useFrame) {
@@ -51,7 +52,7 @@ function WeightPlateModel({ position = [0, 0, 0], scale = 1, color = "#FF5722" }
     <group ref={meshRef} position={position} scale={scale}>
       <mesh>
         <cylinderGeometry args={[0.45, 0.45, 0.08, 32]} />
-        <meshStandardMaterial color="#141418" metalness={0.9} roughness={0.2} />
+        <meshStandardMaterial color={isDark ? "#141418" : "#3A3A48"} metalness={0.9} roughness={0.2} />
       </mesh>
       {/* Inner Rim Accent */}
       <mesh position={[0, 0.045, 0]}>
@@ -87,7 +88,7 @@ function EnergyShockwaveRing({ position = [0, 0, 0] }) {
   );
 }
 
-function DumbbellModel({ position = [0, 0, 0], scale = 1 }) {
+function DumbbellModel({ position = [0, 0, 0], scale = 1, isDark = true }) {
   const meshRef = useRef();
 
   if (useFrame) {
@@ -104,11 +105,11 @@ function DumbbellModel({ position = [0, 0, 0], scale = 1 }) {
     <group ref={meshRef} position={position} scale={scale}>
       <mesh rotation={[0, 0, Math.PI / 2]}>
         <cylinderGeometry args={[0.08, 0.08, 1.2, 16]} />
-        <meshStandardMaterial color="#A0A0B5" metalness={0.95} roughness={0.15} />
+        <meshStandardMaterial color={isDark ? "#A0A0B5" : "#606075"} metalness={0.95} roughness={0.15} />
       </mesh>
       <mesh position={[-0.5, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
         <cylinderGeometry args={[0.35, 0.35, 0.15, 6]} />
-        <meshStandardMaterial color="#16161A" metalness={0.85} roughness={0.25} />
+        <meshStandardMaterial color={isDark ? "#16161A" : "#303040"} metalness={0.85} roughness={0.25} />
       </mesh>
       <mesh position={[-0.38, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
         <cylinderGeometry args={[0.28, 0.28, 0.1, 6]} />
@@ -120,13 +121,13 @@ function DumbbellModel({ position = [0, 0, 0], scale = 1 }) {
       </mesh>
       <mesh position={[0.5, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
         <cylinderGeometry args={[0.35, 0.35, 0.15, 6]} />
-        <meshStandardMaterial color="#16161A" metalness={0.85} roughness={0.25} />
+        <meshStandardMaterial color={isDark ? "#16161A" : "#303040"} metalness={0.85} roughness={0.25} />
       </mesh>
     </group>
   );
 }
 
-function KettlebellModel({ position = [0, 0, 0], scale = 1 }) {
+function KettlebellModel({ position = [0, 0, 0], scale = 1, isDark = true }) {
   const groupRef = useRef();
 
   if (useFrame) {
@@ -142,7 +143,7 @@ function KettlebellModel({ position = [0, 0, 0], scale = 1 }) {
     <group ref={groupRef} position={position} scale={scale}>
       <mesh position={[0, -0.2, 0]}>
         <sphereGeometry args={[0.4, 32, 32]} />
-        <meshStandardMaterial color="#111116" metalness={0.9} roughness={0.15} />
+        <meshStandardMaterial color={isDark ? "#111116" : "#2E2E3A"} metalness={0.9} roughness={0.15} />
       </mesh>
       <mesh position={[0, -0.55, 0]}>
         <cylinderGeometry args={[0.22, 0.22, 0.05, 16]} />
@@ -150,13 +151,13 @@ function KettlebellModel({ position = [0, 0, 0], scale = 1 }) {
       </mesh>
       <mesh position={[0, 0.25, 0]}>
         <torusGeometry args={[0.25, 0.06, 16, 32, Math.PI]} />
-        <meshStandardMaterial color="#555566" metalness={0.95} roughness={0.1} />
+        <meshStandardMaterial color={isDark ? "#555566" : "#444455"} metalness={0.95} roughness={0.1} />
       </mesh>
     </group>
   );
 }
 
-function BurnXLogoEmblem({ position = [0, 0, 0], scale = 1 }) {
+function BurnXLogoEmblem({ position = [0, 0, 0], scale = 1, isDark = true }) {
   const coreRef = useRef();
   const ring1Ref = useRef();
   const ring2Ref = useRef();
@@ -200,7 +201,7 @@ function BurnXLogoEmblem({ position = [0, 0, 0], scale = 1 }) {
 
       <mesh ref={ring1Ref}>
         <torusGeometry args={[1.15, 0.045, 16, 64]} />
-        <meshStandardMaterial color="#FFFFFF" metalness={0.95} roughness={0.05} />
+        <meshStandardMaterial color={isDark ? "#FFFFFF" : "#1E1E24"} metalness={0.95} roughness={0.05} />
       </mesh>
 
       <mesh ref={ring2Ref}>
@@ -216,7 +217,7 @@ function BurnXLogoEmblem({ position = [0, 0, 0], scale = 1 }) {
   );
 }
 
-function SmartWatchModel({ position = [0, 0, 0], scale = 1 }) {
+function SmartWatchModel({ position = [0, 0, 0], scale = 1, isDark = true }) {
   const watchRef = useRef();
 
   if (useFrame) {
@@ -233,7 +234,7 @@ function SmartWatchModel({ position = [0, 0, 0], scale = 1 }) {
     <group ref={watchRef} position={position} scale={scale}>
       <mesh>
         <boxGeometry args={[0.5, 0.6, 0.12]} />
-        <meshStandardMaterial color="#1C1C1E" metalness={0.9} roughness={0.2} />
+        <meshStandardMaterial color={isDark ? "#1C1C1E" : "#2E2E38"} metalness={0.9} roughness={0.2} />
       </mesh>
       <mesh position={[0, 0, 0.07]}>
         <boxGeometry args={[0.42, 0.52, 0.02]} />
@@ -247,7 +248,7 @@ function SmartWatchModel({ position = [0, 0, 0], scale = 1 }) {
   );
 }
 
-function TrophyModel({ position = [0, 0, 0], scale = 1 }) {
+function TrophyModel({ position = [0, 0, 0], scale = 1, isDark = true }) {
   const trophyRef = useRef();
 
   if (useFrame) {
@@ -263,7 +264,7 @@ function TrophyModel({ position = [0, 0, 0], scale = 1 }) {
     <group ref={trophyRef} position={position} scale={scale}>
       <mesh position={[0, -0.4, 0]}>
         <boxGeometry args={[0.35, 0.15, 0.35]} />
-        <meshStandardMaterial color="#1E1E24" metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color={isDark ? "#1E1E24" : "#383848"} metalness={0.8} roughness={0.2} />
       </mesh>
       <mesh position={[0, -0.15, 0]}>
         <cylinderGeometry args={[0.08, 0.12, 0.35, 16]} />
@@ -330,30 +331,30 @@ function ParticleField({ count = 200 }) {
   );
 }
 
-function MainSceneContent() {
+function MainSceneContent({ isDark }) {
   return (
     <MouseParallaxGroup>
-      <ambientLight intensity={0.8} />
-      <directionalLight position={[6, 10, 6]} intensity={1.8} color="#FFFFFF" castShadow />
+      <ambientLight intensity={isDark ? 0.9 : 1.7} />
+      <directionalLight position={[6, 10, 6]} intensity={isDark ? 1.8 : 2.2} color="#FFFFFF" castShadow />
       <pointLight position={[-5, -3, -2]} intensity={2.5} color="#FF5722" />
       <pointLight position={[5, 4, 3]} intensity={2.0} color="#0EA5E9" />
       <pointLight position={[0, -4, 2]} intensity={1.5} color="#FFD700" />
 
       {/* Main Center BurnX Emblem */}
-      <BurnXLogoEmblem position={[0, 0.2, 0]} scale={1.35} />
+      <BurnXLogoEmblem position={[0, 0.2, 0]} scale={1.35} isDark={isDark} />
 
       {/* Energy Shockwave Ring */}
       <EnergyShockwaveRing position={[0, -0.4, 0]} />
 
       {/* Floating 3D Fitness Artifacts */}
-      <DumbbellModel position={[-2.6, 0.9, -0.4]} scale={0.85} />
-      <KettlebellModel position={[2.6, -0.6, -0.2]} scale={0.85} />
-      <SmartWatchModel position={[-2.2, -1.1, 0.6]} scale={0.9} />
-      <TrophyModel position={[2.2, 1.1, -0.8]} scale={0.85} />
+      <DumbbellModel position={[-2.6, 0.9, -0.4]} scale={0.85} isDark={isDark} />
+      <KettlebellModel position={[2.6, -0.6, -0.2]} scale={0.85} isDark={isDark} />
+      <SmartWatchModel position={[-2.2, -1.1, 0.6]} scale={0.9} isDark={isDark} />
+      <TrophyModel position={[2.2, 1.1, -0.8]} scale={0.85} isDark={isDark} />
 
       {/* Hovering Weight Plates */}
-      <WeightPlateModel position={[-1.2, 1.8, -1.2]} scale={0.7} color="#FF5722" />
-      <WeightPlateModel position={[1.4, -1.6, -1.0]} scale={0.7} color="#0EA5E9" />
+      <WeightPlateModel position={[-1.2, 1.8, -1.2]} scale={0.7} color="#FF5722" isDark={isDark} />
+      <WeightPlateModel position={[1.4, -1.6, -1.0]} scale={0.7} color="#0EA5E9" isDark={isDark} />
 
       {/* Dense Particle Swarm */}
       <ParticleField count={220} />
@@ -362,22 +363,24 @@ function MainSceneContent() {
 }
 
 export default function BurnX3DHeroScene({ height = 400 }) {
+  const { colors, isDark } = useTheme();
+
   if (Platform.OS !== 'web' || !r3fLoaded) {
     return (
-      <View style={[styles.fallbackContainer, { height }]}>
+      <View style={[styles.fallbackContainer, { height, backgroundColor: colors.cardBg, borderColor: colors.cardBorder }]}>
         <View style={styles.glowCircle} />
       </View>
     );
   }
 
   return (
-    <View style={[styles.container, { height }]}>
+    <View style={[styles.container, { height, backgroundColor: isDark ? 'rgba(10, 10, 15, 0.85)' : 'rgba(255, 255, 255, 0.9)', borderColor: colors.cardBorder }]}>
       <Canvas
         camera={{ position: [0, 0, 5.8], fov: 48 }}
         style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
         gl={{ antialias: true, alpha: true }}
       >
-        <MainSceneContent />
+        <MainSceneContent isDark={isDark} />
       </Canvas>
     </View>
   );
@@ -389,14 +392,15 @@ const styles = StyleSheet.create({
     position: 'relative',
     overflow: 'hidden',
     borderRadius: 24,
+    borderWidth: 1,
   },
   fallbackContainer: {
     width: '100%',
-    backgroundColor: '#0A0A0F',
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
+    borderWidth: 1,
   },
   glowCircle: {
     width: 160,

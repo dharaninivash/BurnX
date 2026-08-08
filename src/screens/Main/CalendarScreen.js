@@ -88,7 +88,7 @@ export default function CalendarScreen({ navigation }) {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Ionicons name="arrow-back" size={24} color="#FFF" />
+          <Ionicons name="arrow-back" size={24} color={colors.primary} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>WELLNESS HUB & CYCLE SYNC</Text>
         <TouchableOpacity onPress={() => navigation.navigate('MenstrualTracking')} style={styles.calendarBtn}>
@@ -118,14 +118,14 @@ export default function CalendarScreen({ navigation }) {
               
               <View style={styles.sleepControlRow}>
                 <TouchableOpacity onPress={() => adjustSleep(-0.5)} style={styles.sleepBtn}>
-                  <Ionicons name="remove" size={20} color="#FFF" />
+                  <Ionicons name="remove" size={20} color={colors.textPrimary} />
                 </TouchableOpacity>
                 <View style={styles.sleepValCol}>
                   <Text style={styles.sleepHoursText}>{sleepHours} hrs</Text>
                   <Text style={styles.sleepLabelText}>SLEEP QUALITY</Text>
                 </View>
                 <TouchableOpacity onPress={() => adjustSleep(0.5)} style={styles.sleepBtn}>
-                  <Ionicons name="add" size={20} color="#FFF" />
+                  <Ionicons name="add" size={20} color={colors.textPrimary} />
                 </TouchableOpacity>
               </View>
             </View>
