@@ -77,22 +77,19 @@ const ui = {
 };
 
 export const useTheme = () => {
-  const themeMode = useStore((state) => state.themeMode) || 'dark';
-  const isDark = themeMode === 'dark';
-  const rawColors = isDark ? darkColors : lightColors;
-
+  const isDark = true;
   const colors = {
-    ...rawColors,
-    cardBg: isDark ? 'rgba(28, 28, 30, 0.75)' : 'rgba(255, 255, 255, 0.95)',
-    cardBorder: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
-    headerBg: isDark ? 'rgba(18, 18, 22, 0.85)' : 'rgba(255, 255, 255, 0.92)',
-    inputBg: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)',
-    inputBgFocused: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.07)',
-    modalBg: isDark ? '#1C1C1E' : '#FFFFFF',
-    modalOverlay: isDark ? 'rgba(0, 0, 0, 0.85)' : 'rgba(0, 0, 0, 0.5)',
-    icon: isDark ? '#FFFFFF' : '#1C1C1E',
-    iconMuted: isDark ? '#8E8E93' : '#6C6C70',
-    shadowColor: isDark ? '#000000' : 'rgba(0, 0, 0, 0.08)',
+    ...darkColors,
+    cardBg: 'rgba(28, 28, 30, 0.75)',
+    cardBorder: 'rgba(255, 255, 255, 0.1)',
+    headerBg: 'rgba(18, 18, 22, 0.85)',
+    inputBg: 'rgba(255, 255, 255, 0.06)',
+    inputBgFocused: 'rgba(255, 255, 255, 0.1)',
+    modalBg: '#1C1C1E',
+    modalOverlay: 'rgba(0, 0, 0, 0.85)',
+    icon: '#FFFFFF',
+    iconMuted: '#8E8E93',
+    shadowColor: '#000000',
   };
 
   const typography = getTypography(colors);

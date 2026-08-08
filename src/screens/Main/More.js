@@ -14,8 +14,6 @@ export default function More({ navigation }) {
   const user = useStore((state) => state.user) || { name: 'Athlete', email: 'athlete@burnx.com' };
   const logout = useStore((state) => state.logout);
   const activeStreak = useStore((state) => state.activeStreak) || 1;
-  const themeMode = useStore((state) => state.themeMode) || 'dark';
-  const setThemeMode = useStore((state) => state.setThemeMode);
   const isPremium = useStore((state) => state.isPremium);
 
   const [subModalVisible, setSubModalVisible] = useState(false);
@@ -72,10 +70,6 @@ export default function More({ navigation }) {
     { title: 'CNS Readiness Metrics info', icon: 'analytics-outline', action: () => navigation.navigate('ReadinessScreen') },
     { title: 'About BurnX Engine', icon: 'information-circle-outline', action: () => navigation.navigate('AboutScreen') },
   ];
-
-  const toggleTheme = () => {
-    setThemeMode(themeMode === 'dark' ? 'light' : 'dark');
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -137,15 +131,6 @@ export default function More({ navigation }) {
               <Ionicons name="chevron-forward" size={18} color={colors.textSecondary} style={{ marginLeft: 'auto' }} />
             </TouchableOpacity>
           ))}
-
-          {/* Theme Toggle Item */}
-          <TouchableOpacity style={styles.menuItem} onPress={toggleTheme} activeOpacity={0.7}>
-            <View style={styles.menuIconBox}>
-              <Ionicons name={themeMode === 'dark' ? 'moon-outline' : 'sunny-outline'} size={20} color={colors.primary} />
-            </View>
-            <Text style={styles.menuTitle}>{themeMode === 'dark' ? 'Dark Mode' : 'Light Mode'}</Text>
-            <Ionicons name="toggle" size={24} color={colors.primary} style={{ marginLeft: 'auto' }} />
-          </TouchableOpacity>
         </View>
 
         {/* LOGOUT & DELETE ACCOUNT ACTION BUTTONS */}
