@@ -306,7 +306,8 @@ export default function Login({ navigation }) {
   );
 }
 
-const getStyles = (colors, typography, ui) => StyleSheet.create({
+function getStyles(colors, typography, ui) {
+  return StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.background },
   container: { flex: 1 },
   scrollContent: { flexGrow: 1, justifyContent: 'center', paddingHorizontal: ui.spacing.l, paddingVertical: ui.spacing.l },
@@ -419,3 +420,4 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   footer: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: ui.spacing.xl, gap: 6 },
   footerText: { ...typography.caption, color: colors.textSecondary, fontSize: 12 }
 });
+}

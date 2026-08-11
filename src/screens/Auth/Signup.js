@@ -604,7 +604,8 @@ export default function Signup({ navigation, route }) {
   );
 }
 
-const getStyles = (colors, typography, ui) => StyleSheet.create({
+function getStyles(colors, typography, ui) {
+  return StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.background },
   container: { flex: 1 },
   scrollContent: { flexGrow: 1, paddingHorizontal: ui.spacing.l, paddingVertical: ui.spacing.l },
@@ -715,3 +716,4 @@ const getStyles = (colors, typography, ui) => StyleSheet.create({
   primaryBtn: { backgroundColor: colors.primary, width: '100%', height: ui.buttonHeight, borderRadius: ui.borderRadius, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', ...ui.shadow },
   primaryBtnText: { ...typography.headline, color: '#FFFFFF' }
 });
+}
