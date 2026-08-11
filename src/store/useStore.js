@@ -404,6 +404,14 @@ export const useStore = create(
           cycleLength: parseInt(mergedProfile.cycleLength) || 28,
           readinessScore: calculatedReadiness,
         });
+
+        // Broadcast profile changes live so phone/laptop receives update instantly
+        broadcastStateUpdate({
+          user: mergedProfile,
+          calorieTarget: targets.calories,
+          macroTarget: { protein: targets.protein, carbs: targets.carbs, fats: targets.fats },
+          readinessScore: calculatedReadiness,
+        });
       },
 
       // Bypass Auth directly (Quick Dev mode)

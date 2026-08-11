@@ -53,6 +53,10 @@ export function initLiveSync(userId) {
         if (Array.isArray(payload.wellnessLogs)) updates.wellnessLogs = payload.wellnessLogs;
         if (Array.isArray(payload.achievements)) updates.achievements = payload.achievements;
         if (payload.lastPeriodDate !== undefined) updates.lastPeriodDate = payload.lastPeriodDate;
+        // Profile sync — weight, height, goal, energy targets
+        if (payload.user && typeof payload.user === 'object') updates.user = payload.user;
+        if (typeof payload.calorieTarget === 'number') updates.calorieTarget = payload.calorieTarget;
+        if (payload.macroTarget && typeof payload.macroTarget === 'object') updates.macroTarget = payload.macroTarget;
 
         if (Object.keys(updates).length > 0) {
           useStore.setState(updates);
@@ -104,8 +108,19 @@ async function persistToSupabaseBackend(userId, payload) {
   try {
     const currentState = useStore.getState();
 
+    const user = currentState.user || {};
     const dbPayload = {
       id: userId,
+      // Profile metrics — sync height/weight/goal/energy live
+      weight: user.weight ? Number(user.weight) : undefined,
+      height: user.height ? Number(user.height) : undefined,
+      goal: user.goal || undefined,
+      activity_level: user.activityLevel || undefined,
+      calorie_target: currentState.calorieTarget || undefined,
+      protein_target: currentState.macroTarget?.protein || undefined,
+      carbs_target: currentState.macroTarget?.carbs || undefined,
+      fats_target: currentState.macroTarget?.fats || undefined,
+      // Daily logs
       water_intake: currentState.waterIntake,
       calories_consumed: currentState.caloriesConsumed,
       logged_foods: currentState.loggedFoods,
@@ -119,6 +134,8 @@ async function persistToSupabaseBackend(userId, payload) {
       logged_symptoms: currentState.loggedSymptoms,
       updated_at: new Date().toISOString()
     };
+    // Remove undefined keys so we don't overwrite existing DB values with null
+    Object.keys(dbPayload).forEach(k => dbPayload[k] === undefined && delete dbPayload[k]);
 
     if (supabase.from) {
       await supabase.from('profiles').upsert(dbPayload, { onConflict: 'id' }).catch(() => {});
@@ -187,6 +204,24 @@ async function fetchPersistedBackendState(userId) {
 
     const dbWellness = profileData?.wellness_logs;
     if (Array.isArray(dbWellness)) updates.wellnessLogs = dbWellness;
+
+    // Restore profile fields (weight, height, goal, energy targets) from DB
+    const currentUser = useStore.getState().user || {};
+    const mergedUser = { ...currentUser };
+    let profileUpdated = false;
+    if (profileData?.weight && Number(profileData.weight) > 0) { mergedUser.weight = Number(profileData.weight); profileUpdated = true; }
+    if (profileData?.height && Number(profileData.height) > 0) { mergedUser.height = Number(profileData.height); profileUpdated = true; }
+    if (profileData?.goal) { mergedUser.goal = profileData.goal; profileUpdated = true; }
+    if (profileData?.activity_level) { mergedUser.activityLevel = profileData.activity_level; profileUpdated = true; }
+    if (profileUpdated) updates.user = mergedUser;
+    if (profileData?.calorie_target) updates.calorieTarget = Number(profileData.calorie_target);
+    if (profileData?.protein_target || profileData?.carbs_target || profileData?.fats_target) {
+      updates.macroTarget = {
+        protein: Number(profileData.protein_target) || currentUser.proteinTarget || 120,
+        carbs: Number(profileData.carbs_target) || currentUser.carbsTarget || 200,
+        fats: Number(profileData.fats_target) || currentUser.fatsTarget || 60,
+      };
+    }
 
     if (Object.keys(updates).length > 0) {
       useStore.setState(updates);
