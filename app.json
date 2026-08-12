@@ -38,6 +38,25 @@
       "bundler": "metro",
       "output": "single"
     },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "minSdkVersion": 24,
+            "buildToolsVersion": "35.0.0",
+            "kotlinVersion": "1.9.24",
+            "jvmArgs": "-Xmx4096m -XX:MaxMetaspaceSize=1024m",
+            "enableR8FullMode": false,
+            "packagingOptions": {
+              "pickFirsts": ["**/libc++_shared.so", "**/libjsc.so"]
+            }
+          }
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "5945dd2c-2aad-4c2f-b851-e56f226c74bb"
