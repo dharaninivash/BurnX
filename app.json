@@ -7,7 +7,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "newArchEnabled": false,
+    "newArchEnabled": true,
     "jsEngine": "hermes",
     "splash": {
       "image": "./assets/splash-icon.png",
@@ -50,7 +50,7 @@
             "kotlinVersion": "2.0.20",
             "jvmArgs": "-Xmx4096m -XX:MaxMetaspaceSize=1024m",
             "enableR8FullMode": false,
-            "newArchEnabled": false,
+            "newArchEnabled": true,
             "packagingOptions": {
               "pickFirsts": [
                 "**/libc++_shared.so",
