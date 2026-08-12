@@ -7,7 +7,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "jsEngine": "hermes",
     "splash": {
       "image": "./assets/splash-icon.png",
@@ -50,8 +50,9 @@
             "kotlinVersion": "1.9.24",
             "jvmArgs": "-Xmx4096m -XX:MaxMetaspaceSize=1024m",
             "enableR8FullMode": false,
+            "newArchEnabled": false,
             "packagingOptions": {
-              "pickFirsts": ["**/libc++_shared.so", "**/libjsc.so"]
+              "pickFirsts": ["**/libc++_shared.so", "**/libjsc.so", "**/libarcore_sdk_c.so"]
             }
           }
         }
