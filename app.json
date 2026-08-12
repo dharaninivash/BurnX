@@ -52,11 +52,16 @@
             "enableR8FullMode": false,
             "newArchEnabled": false,
             "packagingOptions": {
-              "pickFirsts": ["**/libc++_shared.so", "**/libjsc.so", "**/libarcore_sdk_c.so"]
+              "pickFirsts": [
+                "**/libc++_shared.so",
+                "**/libjsc.so",
+                "**/libarcore_sdk_c.so"
+              ]
             }
           }
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
     "extra": {
       "eas": {
