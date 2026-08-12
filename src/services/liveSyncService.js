@@ -57,6 +57,65 @@ export function initLiveSync(userId) {
         if (payload.user && typeof payload.user === 'object') updates.user = payload.user;
         if (typeof payload.calorieTarget === 'number') updates.calorieTarget = payload.calorieTarget;
         if (payload.macroTarget && typeof payload.macroTarget === 'object') updates.macroTarget = payload.macroTarget;
+        if (payload.dailyWorkout !== undefined) updates.dailyWorkout = payload.dailyWorkout;
+
+        if (Object.keys(updates).length > 0) {
+          useStore.setState(updates);
+        }
+      })
+      .on('postgres_changes', {
+        event: 'UPDATE',
+        schema: 'public',
+        table: 'profiles',
+        filter: `id=eq.${userId}`
+      }, ({ new: row }) => {
+        if (!row) return;
+
+        const currentState = useStore.getState();
+        const currentUser = currentState.user || {};
+        const mergedUser = { ...currentUser };
+        let profileChanged = false;
+
+        if (row.weight && Number(row.weight) > 0 && row.weight !== currentUser.weight) {
+          mergedUser.weight = Number(row.weight);
+          profileChanged = true;
+        }
+        if (row.height && Number(row.height) > 0 && row.height !== currentUser.height) {
+          mergedUser.height = Number(row.height);
+          profileChanged = true;
+        }
+        if (row.goal && row.goal !== currentUser.goal) {
+          mergedUser.goal = row.goal;
+          profileChanged = true;
+        }
+        if (row.activity_level && row.activity_level !== currentUser.activityLevel) {
+          mergedUser.activityLevel = row.activity_level;
+          profileChanged = true;
+        }
+
+        const updates = {};
+        if (profileChanged) updates.user = mergedUser;
+
+        if (typeof row.calorie_target === 'number') updates.calorieTarget = row.calorie_target;
+        if (row.protein_target || row.carbs_target || row.fats_target) {
+          updates.macroTarget = {
+            protein: Number(row.protein_target) || currentState.macroTarget?.protein || 120,
+            carbs: Number(row.carbs_target) || currentState.macroTarget?.carbs || 200,
+            fats: Number(row.fats_target) || currentState.macroTarget?.fats || 60,
+          };
+        }
+        if (typeof row.water_intake === 'number') updates.waterIntake = row.water_intake;
+        if (typeof row.calories_consumed === 'number') updates.caloriesConsumed = row.calories_consumed;
+        if (Array.isArray(row.logged_foods)) updates.loggedFoods = row.logged_foods;
+        if (Array.isArray(row.workout_logs)) updates.workoutLogs = row.workout_logs;
+        if (Array.isArray(row.completed_workouts)) updates.completedWorkouts = row.completed_workouts;
+        if (typeof row.sleep_hours === 'number') updates.sleepHours = row.sleep_hours;
+        if (typeof row.readiness_score === 'number') updates.readinessScore = row.readiness_score;
+        if (typeof row.active_streak === 'number') updates.activeStreak = row.active_streak;
+        if (Array.isArray(row.wellness_logs)) updates.wellnessLogs = row.wellness_logs;
+        if (row.current_mood) updates.currentMood = row.current_mood;
+        if (Array.isArray(row.logged_symptoms)) updates.loggedSymptoms = row.logged_symptoms;
+        if (row.daily_workout && typeof row.daily_workout === 'object') updates.dailyWorkout = row.daily_workout;
 
         if (Object.keys(updates).length > 0) {
           useStore.setState(updates);

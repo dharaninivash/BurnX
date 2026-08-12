@@ -284,6 +284,7 @@ export const useStore = create(
       // Completed Workouts & Detailed Logs
       completedWorkouts: [],
       workoutLogs: [], // Array of { id, date, exerciseName, muscle, weight, reps }
+      dailyWorkout: null, // { date: 'YYYY-MM-DD', split: 'Full Body', day: 'Monday', exercises: [...] }
 
       // Gamification
       achievements: DEFAULT_ACHIEVEMENTS,
@@ -354,6 +355,15 @@ export const useStore = create(
           lastPeriodDate: lastPeriod,
           cycleLength: parseInt(profileData.cycleLength) || 28,
           readinessScore: calculatedReadiness,
+        });
+
+        broadcastStateUpdate({
+          user: updatedUser,
+          calorieTarget: targets.calories,
+          macroTarget: { protein: targets.protein, carbs: targets.carbs, fats: targets.fats },
+          readinessScore: calculatedReadiness,
+          lastPeriodDate: lastPeriod,
+          cycleLength: parseInt(profileData.cycleLength) || 28
         });
 
         // Trigger Achievement Unlocking
@@ -713,6 +723,32 @@ export const useStore = create(
         const updatedLogs = get().workoutLogs.filter(log => log.id !== logId);
         set({ workoutLogs: updatedLogs });
         broadcastStateUpdate({ workoutLogs: updatedLogs });
+      },
+
+      setDailyWorkout: (workoutObj) => {
+        set({ dailyWorkout: workoutObj });
+        broadcastStateUpdate({ dailyWorkout: workoutObj });
+      },
+
+      toggleDailyExerciseCompletion: (exerciseIndex) => {
+        const currentDaily = get().dailyWorkout;
+        if (!currentDaily || !Array.isArray(currentDaily.exercises)) return;
+
+        const updatedExercises = [...currentDaily.exercises];
+        if (updatedExercises[exerciseIndex]) {
+          updatedExercises[exerciseIndex] = {
+            ...updatedExercises[exerciseIndex],
+            isCompleted: !updatedExercises[exerciseIndex].isCompleted
+          };
+
+          const updatedDaily = {
+            ...currentDaily,
+            exercises: updatedExercises
+          };
+
+          set({ dailyWorkout: updatedDaily });
+          broadcastStateUpdate({ dailyWorkout: updatedDaily });
+        }
       },
 
       // Trainer Booking Actions

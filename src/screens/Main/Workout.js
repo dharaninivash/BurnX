@@ -9,6 +9,20 @@ import AppleCard from '../../components/ui/AppleCard';
 
 import { MASTER_EXERCISES } from '../../data/workouts';
 
+function getSeededRandom(seedStr) {
+  let hash = 0;
+  for (let i = 0; i < seedStr.length; i++) {
+    hash = (hash << 5) - hash + seedStr.charCodeAt(i);
+    hash |= 0;
+  }
+  return function() {
+    let t = (hash += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 export default function Workout({ navigation }) {
   const { colors, typography, ui } = useTheme();
   const styles = typeof getStyles !== 'undefined' ? getStyles(colors, typography, ui) : {};
@@ -21,9 +35,20 @@ export default function Workout({ navigation }) {
   const workoutLogs = useStore((state) => state.workoutLogs) || [];
   const deleteWorkoutLog = useStore((state) => state.deleteWorkoutLog);
 
-  const [selectedSplit, setSelectedSplit] = useState('Full Body');
-  const [selectedDay, setSelectedDay] = useState('Monday');
-  const [generatedExercises, setGeneratedExercises] = useState([]);
+  const dailyWorkout = useStore((state) => state.dailyWorkout);
+  const setDailyWorkout = useStore((state) => state.setDailyWorkout);
+  const toggleDailyExerciseCompletionStore = useStore((state) => state.toggleDailyExerciseCompletion);
+
+  const splits = ['Full Body', 'Push Pull Legs', 'Upper / Lower', 'Arnold Split'];
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  const todayStr = new Date().toISOString().split('T')[0];
+  const todayDayName = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+  const defaultDay = daysOfWeek.includes(todayDayName) ? todayDayName : 'Monday';
+
+  const [selectedSplit, setSelectedSplit] = useState(dailyWorkout?.split || 'Full Body');
+  const [selectedDay, setSelectedDay] = useState(dailyWorkout?.day || defaultDay);
+  const [generatedExercises, setGeneratedExercises] = useState(dailyWorkout?.exercises || []);
   const [isGenerating, setIsGenerating] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState(null);
@@ -35,9 +60,6 @@ export default function Workout({ navigation }) {
 
   // SVG Animated Visualizer state
   const [animationVal] = useState(new Animated.Value(0));
-
-  const splits = ['Full Body', 'Push Pull Legs', 'Upper / Lower', 'Arnold Split'];
-  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   // Menstrual cycle checks for deload
   let isMenstruating = false;
@@ -52,6 +74,19 @@ export default function Workout({ navigation }) {
 
   // Trigger exercise generator
   const generateWorkout = async () => {
+    // Check if static workout for today already exists in store
+    if (
+      dailyWorkout &&
+      dailyWorkout.date === todayStr &&
+      dailyWorkout.split === selectedSplit &&
+      dailyWorkout.day === selectedDay &&
+      Array.isArray(dailyWorkout.exercises) &&
+      dailyWorkout.exercises.length > 0
+    ) {
+      setGeneratedExercises(dailyWorkout.exercises);
+      return;
+    }
+
     setIsGenerating(true);
     
     if (isMenstruating) {
@@ -63,6 +98,9 @@ export default function Workout({ navigation }) {
         { name: 'Glute Bridge Hold', reps: '10 reps (3s hold)', sets: '3', muscle: 'Core', equipment: 'Bodyweight Only', instructions: 'Lie on back, feet flat. Raise hips to sky squeezing glutes, hold 3 seconds.', mistakes: 'Over-arching lower back.', isCompleted: false }
       ];
       setGeneratedExercises(finalSet);
+      if (setDailyWorkout) {
+        setDailyWorkout({ date: todayStr, split: selectedSplit, day: selectedDay, exercises: finalSet });
+      }
       setIsGenerating(false);
       return;
     }
@@ -89,11 +127,17 @@ export default function Workout({ navigation }) {
 
       if (targetCategories.length === 0) {
         setGeneratedExercises([]);
+        if (setDailyWorkout) {
+          setDailyWorkout({ date: todayStr, split: selectedSplit, day: selectedDay, exercises: [] });
+        }
         setIsGenerating(false);
         return;
       }
 
-      // Filter and select from our massive local MASTER_EXERCISES
+      // Seeded deterministic workout selector for static daily consistency
+      const seedStr = `${todayStr}_${selectedSplit}_${selectedDay}_${user?.id || 'athlete'}`;
+      const rng = getSeededRandom(seedStr);
+
       let finalSet = [];
       
       // Determine if we need to scale back intensity (CNS/Mood deload)
@@ -104,15 +148,14 @@ export default function Workout({ navigation }) {
       for (const category of targetCategories) {
         let available = MASTER_EXERCISES.filter(ex => ex.category === category);
         
-        // If deloading, favor beginner/easier exercises
         if (needsDeload) {
            const easier = available.filter(ex => ex.beginner);
            if (easier.length > 0) available = easier;
         }
 
         if (available.length > 0) {
-          // Shuffle
-          const shuffled = available.sort(() => 0.5 - Math.random());
+          // Deterministic shuffle based on daily seed
+          const shuffled = [...available].sort(() => 0.5 - rng());
           // Pick 1-2 exercises per category
           const selected = shuffled.slice(0, category === 'Abs & Core' || category === 'Calves' ? 1 : 2).map(ex => ({
             ...ex,
@@ -126,6 +169,9 @@ export default function Workout({ navigation }) {
       }
 
       setGeneratedExercises(finalSet);
+      if (setDailyWorkout) {
+        setDailyWorkout({ date: todayStr, split: selectedSplit, day: selectedDay, exercises: finalSet });
+      }
     } catch (error) {
       console.error('Generation Error:', error);
       const fallbackSet = MASTER_EXERCISES.slice(0, 4).map(ex => ({...ex, sets: '3', reps: '10', isCompleted: false}));
@@ -138,6 +184,19 @@ export default function Workout({ navigation }) {
   useEffect(() => {
     generateWorkout();
   }, [selectedSplit, selectedDay, user?.gender, user?.experience, user?.equipment, readinessScore, currentMood]);
+
+  // Keep generated exercises updated when store dailyWorkout updates from live sync
+  useEffect(() => {
+    if (
+      dailyWorkout &&
+      dailyWorkout.date === todayStr &&
+      dailyWorkout.split === selectedSplit &&
+      dailyWorkout.day === selectedDay &&
+      Array.isArray(dailyWorkout.exercises)
+    ) {
+      setGeneratedExercises(dailyWorkout.exercises);
+    }
+  }, [dailyWorkout]);
 
   const openExerciseModal = (exercise) => {
     setSelectedExercise(exercise);
@@ -159,6 +218,9 @@ export default function Workout({ navigation }) {
     const updated = [...generatedExercises];
     updated[idx].isCompleted = !updated[idx].isCompleted;
     setGeneratedExercises(updated);
+    if (toggleDailyExerciseCompletionStore) {
+      toggleDailyExerciseCompletionStore(idx);
+    }
   };
 
   const handleLoggedWorkout = () => {
