@@ -1,11 +1,19 @@
-// Razorpay Client Service for direct order creation & signature verification
-const RAZORPAY_KEY_ID = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID;
-const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
+const getEnv = (key, fallback = '') => {
+  try {
+    if (typeof process !== 'undefined' && process.env && process.env[key]) {
+      return process.env[key];
+    }
+  } catch (_) {}
+  return fallback;
+};
+
+const RAZORPAY_KEY_ID = getEnv('EXPO_PUBLIC_RAZORPAY_KEY_ID');
+const RAZORPAY_KEY_SECRET = getEnv('RAZORPAY_KEY_SECRET');
 
 export async function createRazorpayOrder(amountInPaise = 199900) {
   // 1. Try local Express backend first
   try {
-    const backendUrl = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
+    const backendUrl = getEnv('EXPO_PUBLIC_API_URL', 'http://localhost:3000');
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 2000);
 
@@ -60,7 +68,7 @@ export async function createRazorpayOrder(amountInPaise = 199900) {
 
 export async function verifyRazorpayPayment(paymentData) {
   try {
-    const backendUrl = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
+    const backendUrl = getEnv('EXPO_PUBLIC_API_URL', 'http://localhost:3000');
     const res = await fetch(`${backendUrl}/api/verify-payment`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

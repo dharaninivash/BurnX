@@ -39,8 +39,17 @@ const customStorage = {
   }
 };
 
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || 'https://fylhsejtswiybhguseae.supabase.co';
-const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_Jsi_ruvrIbQMlGcUywXX8w_mutHgmoA';
+const getEnv = (key, fallback) => {
+  try {
+    if (typeof process !== 'undefined' && process.env && process.env[key]) {
+      return process.env[key];
+    }
+  } catch (_) {}
+  return fallback;
+};
+
+const supabaseUrl = getEnv('EXPO_PUBLIC_SUPABASE_URL', 'https://fylhsejtswiybhguseae.supabase.co');
+const supabaseAnonKey = getEnv('EXPO_PUBLIC_SUPABASE_ANON_KEY', 'sb_publishable_Jsi_ruvrIbQMlGcUywXX8w_mutHgmoA');
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {

@@ -63,7 +63,7 @@ export default function Home({ navigation }) {
   const handlePaymentSuccess = async (paymentData) => {
     setCheckoutVisible(false);
     try {
-      const backendUrl = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
+      const backendUrl = (typeof process !== 'undefined' && process.env && process.env.EXPO_PUBLIC_API_URL) || 'http://localhost:3000';
       await fetch(`${backendUrl}/api/verify-payment`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

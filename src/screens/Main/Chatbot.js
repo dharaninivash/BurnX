@@ -63,7 +63,7 @@ export default function Chatbot({ navigation }) {
     setLoadingAi(true);
 
     try {
-      const apiKey = process.env.EXPO_PUBLIC_GROQ_API_KEY || '';
+      const apiKey = (typeof process !== 'undefined' && process.env && process.env.EXPO_PUBLIC_GROQ_API_KEY) || '';
       
       if (apiKey) {
         const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
