@@ -30,7 +30,7 @@ export async function createRazorpayOrder(amountInPaise = 199900) {
     let authHeader = '';
     if (typeof btoa !== 'undefined') {
       authHeader = 'Basic ' + btoa(`${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`);
-    } else {
+    } else if (typeof Buffer !== 'undefined') {
       authHeader = 'Basic ' + Buffer.from(`${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`).toString('base64');
     }
 

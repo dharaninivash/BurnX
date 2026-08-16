@@ -14,6 +14,26 @@ try {
   r3fLoaded = false;
 }
 
+class ThreeCanvasErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(error) {
+    console.warn('BurnX 3D Scene Notice:', error?.message);
+  }
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
+
 // --- Dynamic Mouse Parallax & Interactive 3D Objects ---
 
 function MouseParallaxGroup({ children }) {
@@ -365,23 +385,27 @@ function MainSceneContent({ isDark }) {
 export default function BurnX3DHeroScene({ height = 400 }) {
   const { colors, isDark } = useTheme();
 
+  const fallbackUI = (
+    <View style={[styles.fallbackContainer, { height, backgroundColor: colors.surface, borderColor: colors.border }]}>
+      <View style={styles.glowCircle} />
+    </View>
+  );
+
   if (Platform.OS !== 'web' || !r3fLoaded) {
-    return (
-      <View style={[styles.fallbackContainer, { height, backgroundColor: colors.cardBg, borderColor: colors.cardBorder }]}>
-        <View style={styles.glowCircle} />
-      </View>
-    );
+    return fallbackUI;
   }
 
   return (
-    <View style={[styles.container, { height, backgroundColor: isDark ? 'rgba(10, 10, 15, 0.85)' : 'rgba(255, 255, 255, 0.9)', borderColor: colors.cardBorder }]}>
-      <Canvas
-        camera={{ position: [0, 0, 5.8], fov: 48 }}
-        style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
-        gl={{ antialias: true, alpha: true }}
-      >
-        <MainSceneContent isDark={isDark} />
-      </Canvas>
+    <View style={[styles.container, { height, backgroundColor: isDark ? 'rgba(10, 10, 15, 0.85)' : 'rgba(255, 255, 255, 0.9)', borderColor: colors.border }]}>
+      <ThreeCanvasErrorBoundary fallback={fallbackUI}>
+        <Canvas
+          camera={{ position: [0, 0, 5.8], fov: 48 }}
+          style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
+          gl={{ antialias: true, alpha: true }}
+        >
+          <MainSceneContent isDark={isDark} />
+        </Canvas>
+      </ThreeCanvasErrorBoundary>
     </View>
   );
 }

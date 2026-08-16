@@ -3,6 +3,44 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { broadcastStateUpdate } from '../services/liveSyncService';
 
+// Universal Cross-Platform Safe Storage Adapter
+const safeStorage = {
+  getItem: async (name) => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        return window.localStorage.getItem(name);
+      }
+      if (AsyncStorage && typeof AsyncStorage.getItem === 'function') {
+        return await AsyncStorage.getItem(name);
+      }
+    } catch (e) {}
+    return null;
+  },
+  setItem: async (name, value) => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem(name, value);
+        return;
+      }
+      if (AsyncStorage && typeof AsyncStorage.setItem === 'function') {
+        await AsyncStorage.setItem(name, value);
+      }
+    } catch (e) {}
+  },
+  removeItem: async (name) => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.removeItem(name);
+        return;
+      }
+      if (AsyncStorage && typeof AsyncStorage.removeItem === 'function') {
+        await AsyncStorage.removeItem(name);
+      }
+    } catch (e) {}
+  },
+};
+
+
 // ----------------------------------------------------
 // DEFAULT INDIAN FOOD DATABASE
 // ----------------------------------------------------
@@ -956,7 +994,7 @@ export const useStore = create(
     }),
     {
       name: 'burnx-offline-storage',
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: createJSONStorage(() => safeStorage),
     }
   )
 );

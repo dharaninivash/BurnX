@@ -1,6 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, Modal, StyleSheet, TouchableOpacity, Text, Platform, ActivityIndicator, Alert } from 'react-native';
-import { WebView } from 'react-native-webview';
+
+let WebView = null;
+if (Platform.OS !== 'web') {
+  try {
+    WebView = require('react-native-webview').WebView;
+  } catch (e) {
+    console.warn('react-native-webview module not loaded');
+  }
+}
+
 
 export default function RazorpayCheckoutModal({ visible, orderId, amount, onClose, onDismiss, onSuccess }) {
   const webViewRef = useRef(null);
@@ -164,20 +173,26 @@ export default function RazorpayCheckoutModal({ visible, orderId, amount, onClos
 
         {/* WEBVIEW CHECKOUT */}
         <View style={{ flex: 1, position: 'relative' }}>
-          <WebView
-            ref={webViewRef}
-            source={{ html: htmlContent, baseUrl: 'https://checkout.razorpay.com' }}
-            onMessage={handleMessage}
-            style={{ flex: 1 }}
-            originWhitelist={['*']}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-            mixedContentMode="always"
-            onLoadStart={() => setLoadingWebView(true)}
-            onLoadEnd={() => setLoadingWebView(false)}
-            onShouldStartLoadWithRequest={() => true}
-          />
-          {loadingWebView && (
+          {WebView ? (
+            <WebView
+              ref={webViewRef}
+              source={{ html: htmlContent, baseUrl: 'https://checkout.razorpay.com' }}
+              onMessage={handleMessage}
+              style={{ flex: 1 }}
+              originWhitelist={['*']}
+              javaScriptEnabled={true}
+              domStorageEnabled={true}
+              mixedContentMode="always"
+              onLoadStart={() => setLoadingWebView(true)}
+              onLoadEnd={() => setLoadingWebView(false)}
+              onShouldStartLoadWithRequest={() => true}
+            />
+          ) : (
+            <View style={styles.loadingOverlay}>
+              <Text style={{ color: '#FFF' }}>Payment gateway loading on web...</Text>
+            </View>
+          )}
+          {loadingWebView && WebView && (
             <View style={styles.loadingOverlay}>
               <ActivityIndicator size="large" color="#E91E63" />
               <Text style={styles.loadingText}>Loading Razorpay Gateway for {priceFormatted}...</Text>

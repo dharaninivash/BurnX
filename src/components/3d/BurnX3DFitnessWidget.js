@@ -13,6 +13,26 @@ try {
   r3fLoaded = false;
 }
 
+class WidgetCanvasErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(error) {
+    console.warn('3D Widget Canvas Notice:', error?.message);
+  }
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
+
 function SingleDumbbell() {
   const ref = useRef();
   if (useFrame) {
@@ -152,15 +172,19 @@ function WidgetScene({ type }) {
 }
 
 export default function BurnX3DFitnessWidget({ type = 'dumbbell', width = 100, height = 100 }) {
+  const fallbackUI = <View style={[styles.fallback, { width, height }]} />;
+
   if (Platform.OS !== 'web' || !r3fLoaded) {
-    return <View style={[styles.fallback, { width, height }]} />;
+    return fallbackUI;
   }
 
   return (
     <View style={{ width, height, overflow: 'hidden' }}>
-      <Canvas camera={{ position: [0, 0, 2.5], fov: 45 }} style={{ width: '100%', height: '100%' }}>
-        <WidgetScene type={type} />
-      </Canvas>
+      <WidgetCanvasErrorBoundary fallback={fallbackUI}>
+        <Canvas camera={{ position: [0, 0, 2.5], fov: 45 }} style={{ width: '100%', height: '100%' }}>
+          <WidgetScene type={type} />
+        </Canvas>
+      </WidgetCanvasErrorBoundary>
     </View>
   );
 }
