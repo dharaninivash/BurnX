@@ -68,7 +68,6 @@ export default function More({ navigation }) {
     { title: 'Reminders & Notification Bells', icon: 'notifications-outline', action: () => navigation.navigate('NotificationsScreen') },
     { title: 'Supplementation Stack Guide', icon: 'medical-outline', action: () => navigation.navigate('SupplementsScreen') },
     { title: 'CNS Readiness Metrics info', icon: 'analytics-outline', action: () => navigation.navigate('ReadinessScreen') },
-    { title: 'About BurnX Engine', icon: 'information-circle-outline', action: () => navigation.navigate('AboutScreen') },
   ];
 
   return (
